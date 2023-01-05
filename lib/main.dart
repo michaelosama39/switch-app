@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:switch_app/view/login/data/datasource/login_remote_datasource.dart';
-import 'package:switch_app/view/login/data/repository/login_repository.dart';
-import 'package:switch_app/view/login/domain/repository/base_login_repository.dart';
-import 'package:switch_app/view/login/domain/usecases/login.dart';
 import 'package:switch_app/view/splash/presentation/screens/splash_screen.dart';
 import 'core/router/router.dart';
 import 'core/services/services_locator.dart';

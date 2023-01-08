@@ -30,9 +30,6 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
         onTap: (index) {
           setState(() {
             widget.selectedIndex = index;
-            if (widget.selectedIndex == 3) {
-              print(widget.selectedIndex);
-            }
           });
         },
         items: const [

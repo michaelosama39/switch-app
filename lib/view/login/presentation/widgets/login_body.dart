@@ -29,129 +29,134 @@ class LoginBody extends StatelessWidget {
         left: AppSizes.getProportionateScreenWidth(10),
         right: AppSizes.getProportionateScreenWidth(10),
       ),
-      child: Column(
-        children: [
-          Container(
-            width: AppSizes.screenWidth,
-            alignment: Alignment.centerLeft,
-            child: IconButton(
-              icon: Icon(Icons.language),
-              onPressed: () {},
-            ),
-          ),
-          Image.asset(
-            AppAssets.logo,
-            width: AppSizes.getProportionateScreenHeight(180),
-            height: AppSizes.getProportionateScreenHeight(180),
-          ),
-          Text(
-            'Welcome  to switch',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16.sp,
-              color: Colors.black,
-            ),
-          ),
-          Text(
-            'Sign in to continue',
-            style: TextStyle(
-              fontSize: 12.sp,
-              color: Colors.grey,
-            ),
-          ),
-          InputFormField(
-            hint: 'Your Email',
-            validator: Validator.email,
-            fillColor: Colors.white,
-            icon: Icons.email_outlined,
-            controller: cubit.emailController,
-          ),
-          InputFormField(
-            hint: 'Password',
-            validator: Validator.password,
-            fillColor: Colors.white,
-            icon: Icons.lock_outlined,
-            secure: true,
-            controller: cubit.passwordController,
-          ),
-          SpaceH(inputHeigth: 25),
-          BlocBuilder<LoginCubit, LoginState>(
-            buildWhen: (previous, current) =>
-                previous.loginState != current.loginState,
-            builder: (context, state) {
-              return state.loginState == RequestState.loading
-                  ? const LoadingIndicator()
-                  : CustomButton(
-                      text: 'Sign In',
-                      onPress: cubit.login,
-                    );
-            },
-          ),
-          SpaceH(inputHeigth: 10),
-          Text(
-            'OR',
-            style: TextStyle(
-              fontSize: 14.sp,
-              color: Colors.grey,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SpaceH(inputHeigth: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+      child: SingleChildScrollView(
+        child: Form(
+          key: cubit.formKey,
+          child: Column(
             children: [
-              SocialItem(
-                image: AppAssets.google,
-                onTap: () {},
-              ),
-              SpaceW(inputWidth: 30),
-              SocialItem(
-                image: AppAssets.facebook,
-                onTap: () {},
-              ),
-            ],
-          ),
-          SpaceH(inputHeigth: 10),
-          TextButton(
-            child: Text(
-              'Forgot Password?',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 12.sp,
-                color: AppColors.primaryColor,
-              ),
-            ),
-            onPressed: () {
-              MagicRouter.navigateTo(const ForgetPasswordScreen());
-            },
-          ),
-          InkWell(
-            onTap: () {
-              MagicRouter.navigateAndReplacement(const RegisterScreen());
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Don’t have a account?',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12.sp,
-                    color: Colors.grey,
-                  ),
+              Container(
+                width: AppSizes.screenWidth,
+                alignment: Alignment.centerLeft,
+                child: IconButton(
+                  icon: Icon(Icons.language),
+                  onPressed: () {},
                 ),
-                Text(
-                  ' Register',
+              ),
+              Image.asset(
+                AppAssets.logo,
+                width: AppSizes.getProportionateScreenHeight(180),
+                height: AppSizes.getProportionateScreenHeight(180),
+              ),
+              Text(
+                'Welcome  to switch',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16.sp,
+                  color: Colors.black,
+                ),
+              ),
+              Text(
+                'Sign in to continue',
+                style: TextStyle(
+                  fontSize: 12.sp,
+                  color: Colors.grey,
+                ),
+              ),
+              InputFormField(
+                hint: 'Your Email',
+                validator: Validator.email,
+                fillColor: Colors.white,
+                icon: Icons.email_outlined,
+                controller: cubit.emailController,
+              ),
+              InputFormField(
+                hint: 'Password',
+                validator: Validator.password,
+                fillColor: Colors.white,
+                icon: Icons.lock_outlined,
+                secure: true,
+                controller: cubit.passwordController,
+              ),
+              SpaceH(inputHeigth: 25),
+              BlocBuilder<LoginCubit, LoginState>(
+                buildWhen: (previous, current) =>
+                    previous.loginState != current.loginState,
+                builder: (context, state) {
+                  return state.loginState == RequestState.loading
+                      ? const LoadingIndicator()
+                      : CustomButton(
+                          text: 'Sign In',
+                          onPress: cubit.login,
+                        );
+                },
+              ),
+              SpaceH(inputHeigth: 10),
+              Text(
+                'OR',
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SpaceH(inputHeigth: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SocialItem(
+                    image: AppAssets.google,
+                    onTap: () {},
+                  ),
+                  SpaceW(inputWidth: 30),
+                  SocialItem(
+                    image: AppAssets.facebook,
+                    onTap: () {},
+                  ),
+                ],
+              ),
+              SpaceH(inputHeigth: 10),
+              TextButton(
+                child: Text(
+                  'Forgot Password?',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 12.sp,
                     color: AppColors.primaryColor,
                   ),
                 ),
-              ],
-            ),
+                onPressed: () {
+                  MagicRouter.navigateTo(const ForgetPasswordScreen());
+                },
+              ),
+              InkWell(
+                onTap: () {
+                  MagicRouter.navigateAndReplacement(const RegisterScreen());
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Don’t have a account?',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12.sp,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    Text(
+                      ' Register',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12.sp,
+                        color: AppColors.primaryColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

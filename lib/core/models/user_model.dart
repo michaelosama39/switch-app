@@ -27,9 +27,9 @@ class UserData {
   String? whatsAPP;
   String? emailVerifiedAt;
   String? photo;
-  ProvianceID? provianceID;
-  ProvianceID? cityID;
-  ProvianceID? areaID;
+  var provianceID;
+  var cityID;
+  var areaID;
   String? mapLong;
   String? mapLat;
   int? activationCode;
@@ -64,15 +64,9 @@ class UserData {
     whatsAPP = json['WhatsAPP'];
     emailVerifiedAt = json['email_verified_at'];
     photo = json['photo'];
-    provianceID = json['ProvianceID'] != null
-        ? new ProvianceID.fromJson(json['ProvianceID'])
-        : null;
-    cityID = json['CityID'] != null
-        ? new ProvianceID.fromJson(json['CityID'])
-        : null;
-    areaID = json['AreaID'] != null
-        ? new ProvianceID.fromJson(json['AreaID'])
-        : null;
+    provianceID = json['ProvianceID'];
+    cityID = json['CityID'];
+    areaID = json['AreaID'];
     mapLong = json['mapLong'];
     mapLat = json['mapLat'];
     activationCode = json['ActivationCode'];

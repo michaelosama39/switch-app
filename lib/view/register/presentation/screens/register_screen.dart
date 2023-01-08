@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:switch_app/core/services/services_locator.dart';
+import '../controller/register_cubit.dart';
 import '../widgets/register_body.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -6,8 +9,11 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: RegisterBody(),
+    return BlocProvider(
+      create: (context) => sl<RegisterCubit>(),
+      child: Scaffold(
+        body: RegisterBody(),
+      ),
     );
   }
 }

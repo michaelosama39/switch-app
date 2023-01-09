@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:switch_app/view/addLinks/presentation/widgets/show_dialog_add_link.dart';
-
 import '../../../../core/utils/app_sizes.dart';
+import '../../../../localization/language_constants.dart';
 import '../../../../widgets/space_width.dart';
 
 class SocialMediaSection extends StatelessWidget {
@@ -20,7 +20,7 @@ class SocialMediaSection extends StatelessWidget {
           width: AppSizes.screenWidth,
           alignment: Alignment.centerLeft,
           child: Text(
-            'Social media',
+            translation(context).socialMedia,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16.sp,
@@ -28,7 +28,7 @@ class SocialMediaSection extends StatelessWidget {
             ),
           ),
         ),
-        Container(
+        SizedBox(
           height: AppSizes.getProportionateScreenHeight(200),
           child: ListView.builder(
             itemCount:
@@ -37,8 +37,6 @@ class SocialMediaSection extends StatelessWidget {
             itemBuilder: (context, index) {
               lengthOfSubList =
                   (((lengthOfList / 3) - (lengthOfList ~/ 3)) * 10) / 3;
-              // lengthOfList % 3 != 0
-              print(lengthOfList >=3);
               return Row(
                 children: [
                   Column(
@@ -57,7 +55,7 @@ class SocialMediaSection extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  Icon(FontAwesomeIcons.facebook),
+                                  const Icon(FontAwesomeIcons.facebook),
                                   SpaceW(inputWidth: 5),
                                   Text(
                                     'facebook',
@@ -76,13 +74,13 @@ class SocialMediaSection extends StatelessWidget {
                                 },
                                 child: Row(
                                   children: [
-                                    Icon(
+                                    const Icon(
                                       Icons.add_circle,
                                       color: Colors.grey,
                                     ),
                                     SpaceW(inputWidth: 5),
                                     Text(
-                                      'Add',
+                                      translation(context).add,
                                       style: TextStyle(
                                         color: Colors.grey,
                                       ),
@@ -115,7 +113,7 @@ class SocialMediaSection extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  Icon(FontAwesomeIcons.facebook),
+                                  const Icon(FontAwesomeIcons.facebook),
                                   SpaceW(inputWidth: 5),
                                   Text(
                                     'facebook',
@@ -134,13 +132,13 @@ class SocialMediaSection extends StatelessWidget {
                                 },
                                 child: Row(
                                   children: [
-                                    Icon(
+                                    const Icon(
                                       Icons.add_circle,
                                       color: Colors.grey,
                                     ),
                                     SpaceW(inputWidth: 5),
                                     Text(
-                                      'Add',
+                                      translation(context).add,
                                       style: TextStyle(
                                         color: Colors.grey,
                                       ),
@@ -154,7 +152,7 @@ class SocialMediaSection extends StatelessWidget {
                       ),
                     ),
                   )
-                      : SizedBox(),
+                      : const SizedBox(),
                 ],
               );
             },

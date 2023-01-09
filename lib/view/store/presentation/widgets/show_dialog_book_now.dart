@@ -5,6 +5,7 @@ import 'package:switch_app/core/router/router.dart';
 import 'package:switch_app/core/utils/app_assets.dart';
 import 'package:switch_app/core/utils/app_sizes.dart';
 import 'package:switch_app/core/validator/validator.dart';
+import 'package:switch_app/localization/language_constants.dart';
 import 'package:switch_app/widgets/custom_button.dart';
 import 'package:switch_app/widgets/input_form_field.dart';
 import 'package:switch_app/widgets/space_height.dart';
@@ -37,23 +38,23 @@ Future showDialogBookNow(context) {
                   // ),
                   SpaceH(inputHeigth: 10),
                   InputFormField(
-                    hint: ' Name',
+                    hint: translation(context).name,
                     icon: Icons.person,
                     validator: Validator.name,
                   ),
                   InputFormField(
-                    hint: '  Phone ',
+                    hint: translation(context).phone,
                     icon: Icons.phone,
                     validator: Validator.phoneNumber,
                   ),
                   InputFormField(
-                    hint: ' Adress',
+                    hint: translation(context).adress,
                     icon: Icons.person,
                     validator: Validator.address,
                   ),
                   SpaceH(inputHeigth: 30),
                   CustomButton(
-                    text: 'send',
+                    text: translation(context).send,
                     onPress: () {
                       MagicRouter.pop();
                     },

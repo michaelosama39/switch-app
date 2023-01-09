@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:switch_app/core/utils/app_colors.dart';
+import 'package:switch_app/localization/language_constants.dart';
 import 'package:switch_app/widgets/space_height.dart';
 
 import '../../../../core/router/router.dart';
@@ -38,37 +39,37 @@ class AddConnectionBody extends StatelessWidget {
             ),
           ),
           InputFormField(
-            hint: 'Full Name',
+            hint: translation(context).fullName,
             validator: Validator.name,
             fillColor: Colors.white,
             icon: Icons.person,
           ),
           InputFormField(
-            hint: 'Your Email',
+            hint: translation(context).yourEmail,
             validator: Validator.email,
             fillColor: Colors.white,
             icon: Icons.email_outlined,
           ),
           InputFormField(
-            hint: 'Your Phone',
+            hint: translation(context).yourPhone,
             validator: Validator.phoneNumber,
             fillColor: Colors.white,
             icon: Icons.phone,
           ),
           InputFormField(
-            hint: 'Jop Description',
+            hint: translation(context).jopDescription,
             validator: Validator.report,
             fillColor: Colors.white,
             icon: Icons.phone,
           ),
           SpaceH(inputHeigth: 20),
           CustomButton(
-            text: 'Add',
+            text: translation(context).add,
             onPress: () {},
           ),
           SpaceH(inputHeigth: 10),
           CustomButton(
-            text: 'cancel',
+            text: translation(context).cancel,
             buttonColor: Colors.white,
             fontColor: AppColors.primaryColor,
             borderColor: AppColors.primaryColor,

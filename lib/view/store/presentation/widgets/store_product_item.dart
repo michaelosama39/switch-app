@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:switch_app/core/router/router.dart';
+import 'package:switch_app/localization/language_constants.dart';
 import 'package:switch_app/view/activation/presentation/screens/scan_screen.dart';
 import 'package:switch_app/view/store/presentation/widgets/show_dialog_book_now.dart';
 import 'package:switch_app/widgets/space_height.dart';
@@ -26,7 +27,7 @@ class StoreProductItem extends StatelessWidget {
             Column(
               children: [
                 Text(
-                  'Switch Sticker',
+                  translation(context).switchSticker,
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
@@ -35,7 +36,7 @@ class StoreProductItem extends StatelessWidget {
                 ),
                 SpaceH(inputHeigth: 10),
                 CustomButton(
-                  text: 'Book now',
+                  text: translation(context).bookNow,
                   fontColor: Colors.red,
                   buttonColor: Colors.white,
                   borderColor: Colors.red,

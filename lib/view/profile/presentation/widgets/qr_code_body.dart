@@ -6,6 +6,7 @@ import 'package:switch_app/widgets/custom_button.dart';
 import 'package:switch_app/widgets/space_height.dart';
 
 import '../../../../core/utils/app_sizes.dart';
+import '../../../../localization/language_constants.dart';
 
 class QrCodeBody extends StatelessWidget {
   const QrCodeBody({Key? key}) : super(key: key);
@@ -47,7 +48,7 @@ class QrCodeBody extends StatelessWidget {
           ),
           SpaceH(inputHeigth: 20),
           CustomButton(
-            text: 'Download QR Code',
+            text: translation(context).downloadQRCode,
             onPress: () {},
           )
         ],

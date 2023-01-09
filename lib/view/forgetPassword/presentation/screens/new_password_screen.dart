@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../widgets/forget_password_body.dart';
 import '../widgets/new_password_body.dart';
 
 class NewPasswordScreen extends StatelessWidget {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:switch_app/core/router/router.dart';
 import 'package:switch_app/core/utils/app_sizes.dart';
+import 'package:switch_app/localization/language_constants.dart';
 import 'package:switch_app/widgets/custom_button.dart';
 import 'package:switch_app/widgets/input_form_field.dart';
 import 'package:switch_app/widgets/space_height.dart';
@@ -34,14 +35,14 @@ Future showDialogAddLink(context, IconData icon) {
                   ),
                   SpaceH(inputHeigth: 20),
                   InputFormField(
-                    hint: 'page title',
+                    hint: translation(context).pageTitle,
                   ),
                   InputFormField(
-                    hint: 'URL',
+                    hint: translation(context).url,
                   ),
                   SpaceH(inputHeigth: 30),
                   CustomButton(
-                    text: 'save',
+                    text: translation(context).save,
                     onPress: () {
                       MagicRouter.pop();
                     },

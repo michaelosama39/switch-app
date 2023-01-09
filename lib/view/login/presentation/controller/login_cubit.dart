@@ -25,21 +25,21 @@ class LoginCubit extends Cubit<LoginState> {
   final passwordController = TextEditingController();
 
   Future login() async {
-    if(formKey.currentState!.validate() == true){
+    if (formKey.currentState!.validate() == true) {
       emit(LoginState(
         loginState: RequestState.loading,
       ));
       final res = await loginUseCase.execute(
           emailController.text, passwordController.text);
       res.fold(
-            (err) {
+        (err) {
           showSnackBar(err.message);
           emit(LoginState(
             message: err.message,
             loginState: RequestState.error,
           ));
         },
-            (res) async {
+        (res) async {
           emit(LoginState(
             userModel: res,
             loginState: RequestState.loaded,

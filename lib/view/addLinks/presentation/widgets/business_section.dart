@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:switch_app/localization/language_constants.dart';
 import 'package:switch_app/view/addLinks/presentation/widgets/show_dialog_add_link.dart';
 
 import '../../../../core/utils/app_sizes.dart';
@@ -20,7 +21,7 @@ class BusinessSection extends StatelessWidget {
           width: AppSizes.screenWidth,
           alignment: Alignment.centerLeft,
           child: Text(
-            'Business',
+            translation(context).business,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16.sp,
@@ -37,8 +38,6 @@ class BusinessSection extends StatelessWidget {
             itemBuilder: (context, index) {
               lengthOfSubList =
                   (((lengthOfList / 3) - (lengthOfList ~/ 3)) * 10) / 3;
-              // lengthOfList % 3 != 0
-              print(lengthOfList >=3);
               return Row(
                 children: [
                   Column(
@@ -82,7 +81,7 @@ class BusinessSection extends StatelessWidget {
                                     ),
                                     SpaceW(inputWidth: 5),
                                     Text(
-                                      'Add',
+                                      translation(context).add,
                                       style: TextStyle(
                                         color: Colors.grey,
                                       ),
@@ -140,7 +139,7 @@ class BusinessSection extends StatelessWidget {
                                           ),
                                           SpaceW(inputWidth: 5),
                                           Text(
-                                            'Add',
+                                            translation(context).add,
                                             style: TextStyle(
                                               color: Colors.grey,
                                             ),

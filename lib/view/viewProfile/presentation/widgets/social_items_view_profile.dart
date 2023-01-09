@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:switch_app/core/router/router.dart';
+import 'package:switch_app/localization/language_constants.dart';
 import 'package:switch_app/view/bottomNav/presentation/screens/bottom_nav_screen.dart';
 import '../../../../core/utils/app_sizes.dart';
 import '../../../../widgets/custom_button.dart';
@@ -37,7 +38,7 @@ class SocialItemsViewProfile extends StatelessWidget {
             horizontal: AppSizes.getProportionateScreenWidth(40),
           ),
           child: CustomButton(
-            text: 'get your switch product',
+            text: translation(context).getYourSwitchProduct,
             onPress: () {
               MagicRouter.navigateAndPopAll(BottomNavScreen(selectedIndex: 1,));
             },

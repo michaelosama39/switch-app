@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:switch_app/core/utils/app_colors.dart';
+import 'package:switch_app/localization/language_constants.dart';
 import 'package:switch_app/widgets/space_height.dart';
 
 import '../../../../core/utils/app_sizes.dart';
@@ -21,21 +22,21 @@ class ChangePasswordBody extends StatelessWidget {
       child: Column(
         children: [
           InputFormField(
-            hint: 'Old password',
+            hint: translation(context).oldPassword,
             validator: Validator.password,
             fillColor: Colors.white,
             icon: Icons.lock_outlined,
             secure: true,
           ),
           InputFormField(
-            hint: 'New password',
+            hint: translation(context).newPassword,
             validator: Validator.password,
             fillColor: Colors.white,
             icon: Icons.lock_outlined,
             secure: true,
           ),
           InputFormField(
-            hint: 'Confirm Password',
+            hint: translation(context).confirmPassword,
             // validator: Validator.confirmPassword(value, password),
             fillColor: Colors.white,
             icon: Icons.lock_outlined,
@@ -43,7 +44,7 @@ class ChangePasswordBody extends StatelessWidget {
           ),
           SpaceH(inputHeigth: 30),
           CustomButton(
-            text: 'Change Password',
+            text: translation(context).changePassword,
             buttonColor: AppColors.primaryColor,
             onPress: () {},
           ),

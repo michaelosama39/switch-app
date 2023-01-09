@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:switch_app/core/router/router.dart';
+import 'package:switch_app/localization/language_constants.dart';
 import 'package:switch_app/view/login/presentation/screens/login_screen.dart';
 
 import '../../../../core/utils/app_assets.dart';
@@ -37,7 +38,7 @@ class NewPasswordBody extends StatelessWidget {
             height: AppSizes.getProportionateScreenHeight(180),
           ),
           Text(
-            'Reset Password',
+            translation(context).resetPassword,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16.sp,
@@ -45,14 +46,14 @@ class NewPasswordBody extends StatelessWidget {
             ),
           ),
           InputFormField(
-            hint: 'Password',
+            hint: translation(context).password,
             validator: Validator.password,
             fillColor: Colors.white,
             icon: Icons.lock_outlined,
             secure: true,
           ),
           InputFormField(
-            hint: 'Confirm Password',
+            hint: translation(context).confirmPassword,
             // validator: Validator.confirmPassword(value, password),
             fillColor: Colors.white,
             icon: Icons.lock_outlined,
@@ -60,7 +61,7 @@ class NewPasswordBody extends StatelessWidget {
           ),
           SpaceH(inputHeigth: 25),
           CustomButton(
-            text: 'Confirm',
+            text: translation(context).confirm,
             onPress: () {
               MagicRouter.navigateAndPopAll(LoginScreen());
             },

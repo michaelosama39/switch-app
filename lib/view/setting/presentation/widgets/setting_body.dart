@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:switch_app/core/router/router.dart';
 import 'package:switch_app/core/utils/app_sizes.dart';
+import 'package:switch_app/localization/language_constants.dart';
 import 'package:switch_app/view/myConnections/presentation/screens/my_connections_screen.dart';
 import 'package:switch_app/view/setting/presentation/widgets/setting_item.dart';
 import 'package:switch_app/view/setting/presentation/widgets/show_dialog_delete_account.dart';
@@ -11,7 +12,10 @@ import 'package:switch_app/widgets/space_height.dart';
 import 'package:switch_app/widgets/space_width.dart';
 
 import '../../../../core/utils/app_assets.dart';
+import '../../../../localization/language.dart';
+import '../../../../main.dart';
 import '../../../changePassword/presentation/screens/change_password_screen.dart';
+import '../../../help/presentation/screens/help_screen.dart';
 
 class SettingBody extends StatelessWidget {
   const SettingBody({Key? key}) : super(key: key);
@@ -29,7 +33,7 @@ class SettingBody extends StatelessWidget {
           Container(
             width: AppSizes.screenWidth,
             child: Text(
-              'Setting',
+              translation(context).setting,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
@@ -77,7 +81,7 @@ class SettingBody extends StatelessWidget {
                       SpaceH(inputHeigth: 5),
                       TextButton(
                         child: Text(
-                          'change password',
+                          translation(context).changePassword,
                           style: TextStyle(
                             color: Colors.blue,
                             fontSize: 12.sp,
@@ -95,28 +99,79 @@ class SettingBody extends StatelessWidget {
           ),
           SpaceH(inputHeigth: 30),
           SettingItem(
-            text: 'My Connections',
+            text: translation(context).myConnections,
             onTap: () {
               MagicRouter.navigateTo(MyConnectionsScreen());
             },
           ),
           SettingItem(
-            text: 'Help',
-            onTap: () {},
+            text: translation(context).help,
+            onTap: () {
+              MagicRouter.navigateTo(HelpScreen());
+            },
+          ),
+          SizedBox(
+            width: AppSizes.screenWidth,
+            height: AppSizes.getProportionateScreenHeight(80),
+            child: PopupMenuButton(
+              icon: Card(
+                elevation: 0,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: AppSizes.getProportionateScreenWidth(15),
+                    vertical: AppSizes.getProportionateScreenHeight(10),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        translation(context).changeLanguage,
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Icon(Icons.arrow_drop_down),
+                    ],
+                  ),
+                ),
+              ),
+              onSelected: (Language language) async {
+                if (language != null) {
+                  Locale _locale = await setLocale(language.languageCode);
+                  MyApp.setLocale(context, _locale);
+                }
+              },
+              itemBuilder: (context) {
+                return Language.languageList()
+                    .map<PopupMenuItem<Language>>(
+                      (e) => PopupMenuItem<Language>(
+                    value: e,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        Text(
+                          e.flag,
+                          style: const TextStyle(fontSize: 30),
+                        ),
+                        Text(e.name)
+                      ],
+                    ),
+                  ),
+                )
+                    .toList();
+              },
+            ),
           ),
           SettingItem(
-            text: 'Change language',
-            onTap: () {},
-          ),
-          SettingItem(
-            text: 'Log out',
+            text: translation(context).logOut,
             onTap: () {
               showDialogLogout(context);
             },
           ),
           SpaceH(inputHeigth: 20),
           CustomButton(
-            text: 'Delete Account',
+            text: translation(context).deleteAccount,
             fontColor: Colors.red,
             buttonColor: Colors.black26,
             onPress: () {

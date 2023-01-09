@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:switch_app/core/router/router.dart';
 import 'package:switch_app/core/utils/app_assets.dart';
+import 'package:switch_app/localization/language_constants.dart';
 import 'package:switch_app/view/activation/presentation/widgets/activation_product_item.dart';
+import 'package:switch_app/view/bottomNav/presentation/screens/bottom_nav_screen.dart';
 import 'package:switch_app/widgets/custom_button.dart';
 
 import '../../../../core/utils/app_sizes.dart';
@@ -25,7 +28,7 @@ class ScanBody extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                'your switch card will activated for',
+                translation(context).yourSwitchCardWillActivatedFor,
                 style: TextStyle(
                   fontSize: 16.sp,
                   color: Colors.grey,
@@ -39,7 +42,7 @@ class ScanBody extends StatelessWidget {
                 ),
               ),
               CustomButton(
-                text: 'Begin Activate',
+                text: translation(context).beginActivate,
                 onPress: () {
                   bottomSheetScan(context);
                 },
@@ -48,7 +51,9 @@ class ScanBody extends StatelessWidget {
                 text: 'Or Buy a New One',
                 fontColor: Colors.black,
                 buttonColor: Colors.white,
-                onPress: () {},
+                onPress: () {
+                  MagicRouter.navigateAndPopAll(BottomNavScreen(selectedIndex: 1,));
+                },
               ),
             ],
           ),

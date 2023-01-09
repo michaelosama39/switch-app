@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:switch_app/core/utils/app_assets.dart';
+import 'package:switch_app/localization/language_constants.dart';
 import 'package:switch_app/widgets/space_height.dart';
 
 import '../../../../core/utils/app_sizes.dart';
@@ -26,7 +27,7 @@ void bottomSheetScan(BuildContext context) {
         child: Column(
           children: [
             Text(
-              'Ready To Scan',
+              translation(context).readyToScan,
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
@@ -40,7 +41,7 @@ void bottomSheetScan(BuildContext context) {
             ),
             SpaceH(inputHeigth: 10),
             Text(
-              'hold near your produt',
+              translation(context).holdNearYourProdut,
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 14.sp,
@@ -48,7 +49,7 @@ void bottomSheetScan(BuildContext context) {
             ),
             SpaceH(inputHeigth: 10),
             CustomButton(
-              text: 'cancel',
+              text: translation(context).cancel,
               onPress: () {},
             ),
           ],

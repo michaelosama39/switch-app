@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:switch_app/localization/language_constants.dart';
 
 import '../../../../core/utils/app_assets.dart';
 import '../../../../core/utils/app_sizes.dart';
@@ -66,7 +67,7 @@ class HeaderViewProfile extends StatelessWidget {
           ),
         ),
         CustomButton(
-          text: 'connect with me',
+          text: translation(context).connectWithMe,
           onPress: () {},
         ),
       ],

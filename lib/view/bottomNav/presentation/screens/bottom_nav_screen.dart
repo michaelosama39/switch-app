@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:switch_app/core/router/router.dart';
 import 'package:switch_app/core/utils/app_colors.dart';
+import 'package:switch_app/localization/language_constants.dart';
 import 'package:switch_app/view/activation/presentation/screens/activation_screen.dart';
 import 'package:switch_app/view/profile/presentation/screens/profile_screen.dart';
 import 'package:switch_app/view/setting/presentation/screens/setting_screen.dart';
-import 'package:switch_app/view/setting/presentation/widgets/setting_body.dart';
 import 'package:switch_app/view/store/presentation/screens/store_screen.dart';
 
 class BottomNavScreen extends StatefulWidget {
@@ -32,22 +31,22 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
             widget.selectedIndex = index;
           });
         },
-        items: const [
+        items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Profile',
+            label: translation(context).profile,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.store),
-            label: 'Store',
+            label: translation(context).store,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.airplay_sharp),
-            label: 'Activation',
+            label: translation(context).activation,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            label: 'Setting',
+            label: translation(context).setting,
           ),
         ],
       ),

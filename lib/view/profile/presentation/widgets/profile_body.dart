@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:switch_app/core/router/router.dart';
+import 'package:switch_app/localization/language_constants.dart';
 import 'package:switch_app/view/profile/presentation/screens/qr_code_screen.dart';
 import 'package:switch_app/view/viewProfile/presentation/screens/view_profile_screen.dart';
 import 'package:switch_app/widgets/space_height.dart';
@@ -105,7 +106,7 @@ class ProfileBody extends StatelessWidget {
                       ),
                       TextButton(
                         child: Text(
-                          'QR Code',
+                          translation(context).qrCode,
                           style: TextStyle(
                             decoration: TextDecoration.underline,
                           ),
@@ -138,7 +139,7 @@ class ProfileBody extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      'direct',
+                      translation(context).direct,
                       style: TextStyle(
                         fontSize: 12.sp,
                         color: Colors.black,
@@ -169,7 +170,7 @@ class ProfileBody extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        'add link',
+                        translation(context).addLink,
                         style: TextStyle(
                           fontSize: 12.sp,
                           color: Colors.black,

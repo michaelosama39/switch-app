@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:switch_app/localization/language_constants.dart';
 import 'package:switch_app/view/forgetPassword/presentation/screens/verfication_code_screen.dart';
 
 import '../../../../core/router/router.dart';
@@ -37,7 +38,7 @@ class ForgetPasswordBody extends StatelessWidget {
             height: AppSizes.getProportionateScreenHeight(180),
           ),
           Text(
-            'Forget Password',
+            translation(context).forgetPassword,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16.sp,
@@ -45,21 +46,21 @@ class ForgetPasswordBody extends StatelessWidget {
             ),
           ),
           Text(
-            'Add your email  to send code ',
+            translation(context).addYourEmailToSendCode,
             style: TextStyle(
               fontSize: 12.sp,
               color: Colors.grey,
             ),
           ),
           InputFormField(
-            hint: 'Your Email',
+            hint: translation(context).yourEmail,
             validator: Validator.email,
             fillColor: Colors.white,
             icon: Icons.email_outlined,
           ),
           SpaceH(inputHeigth: 25),
           CustomButton(
-            text: 'SEND',
+            text: translation(context).send,
             onPress: () {
               MagicRouter.navigateTo(VerficationCodeScreen());
             },

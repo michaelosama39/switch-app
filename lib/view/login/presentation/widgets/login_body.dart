@@ -15,7 +15,11 @@ import 'package:switch_app/widgets/loading_indicator.dart';
 import 'package:switch_app/widgets/space_height.dart';
 import 'package:switch_app/widgets/space_width.dart';
 import '../../../../core/router/router.dart';
+import '../../../../localization/language.dart';
+import '../../../../localization/language_constants.dart';
+import '../../../../main.dart';
 import '../../../../widgets/input_form_field.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginBody extends StatelessWidget {
   const LoginBody({Key? key}) : super(key: key);
@@ -34,12 +38,37 @@ class LoginBody extends StatelessWidget {
           key: cubit.formKey,
           child: Column(
             children: [
-              Container(
-                width: AppSizes.screenWidth,
+              Align(
                 alignment: Alignment.centerLeft,
-                child: IconButton(
-                  icon: Icon(Icons.language),
-                  onPressed: () {},
+                child: PopupMenuButton(
+                  icon: const Icon(
+                    Icons.language,
+                  ),
+                  onSelected: (Language language) async {
+                    if (language != null) {
+                      Locale _locale = await setLocale(language.languageCode);
+                      MyApp.setLocale(context, _locale);
+                    }
+                  },
+                  itemBuilder: (context) {
+                    return Language.languageList()
+                        .map<PopupMenuItem<Language>>(
+                          (e) => PopupMenuItem<Language>(
+                            value: e,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                Text(
+                                  e.flag,
+                                  style: const TextStyle(fontSize: 30),
+                                ),
+                                Text(e.name)
+                              ],
+                            ),
+                          ),
+                        )
+                        .toList();
+                  },
                 ),
               ),
               Image.asset(
@@ -48,7 +77,7 @@ class LoginBody extends StatelessWidget {
                 height: AppSizes.getProportionateScreenHeight(180),
               ),
               Text(
-                'Welcome  to switch',
+                translation(context).welcomeToSwitch,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16.sp,
@@ -56,21 +85,21 @@ class LoginBody extends StatelessWidget {
                 ),
               ),
               Text(
-                'Sign in to continue',
+                translation(context).signInToContinue,
                 style: TextStyle(
                   fontSize: 12.sp,
                   color: Colors.grey,
                 ),
               ),
               InputFormField(
-                hint: 'Your Email',
+                hint: translation(context).yourEmail,
                 validator: Validator.email,
                 fillColor: Colors.white,
                 icon: Icons.email_outlined,
                 controller: cubit.emailController,
               ),
               InputFormField(
-                hint: 'Password',
+                hint: translation(context).password,
                 validator: Validator.password,
                 fillColor: Colors.white,
                 icon: Icons.lock_outlined,
@@ -85,14 +114,14 @@ class LoginBody extends StatelessWidget {
                   return state.loginState == RequestState.loading
                       ? const LoadingIndicator()
                       : CustomButton(
-                          text: 'Sign In',
+                          text: translation(context).signIn,
                           onPress: cubit.login,
                         );
                 },
               ),
               SpaceH(inputHeigth: 10),
               Text(
-                'OR',
+                translation(context).or,
                 style: TextStyle(
                   fontSize: 14.sp,
                   color: Colors.grey,
@@ -117,7 +146,7 @@ class LoginBody extends StatelessWidget {
               SpaceH(inputHeigth: 10),
               TextButton(
                 child: Text(
-                  'Forgot Password?',
+                  translation(context).forgotPassword,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 12.sp,
@@ -136,7 +165,7 @@ class LoginBody extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Don’t have a account?',
+                      translation(context).donotHaveAccount,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 12.sp,
@@ -144,7 +173,7 @@ class LoginBody extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      ' Register',
+                      translation(context).register,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 12.sp,

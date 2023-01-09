@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:switch_app/core/router/router.dart';
+import 'package:switch_app/localization/language_constants.dart';
 import 'package:switch_app/view/activation/presentation/screens/scan_screen.dart';
 
 import '../../../../core/utils/app_assets.dart';
@@ -25,7 +26,7 @@ class ActivationProductItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                'Switch Sticker',
+                translation(context).switchSticker,
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.bold,

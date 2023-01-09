@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:switch_app/core/utils/app_assets.dart';
+import 'package:switch_app/localization/language_constants.dart';
 import 'package:switch_app/view/activation/presentation/widgets/activation_product_item.dart';
 
 import '../../../../core/utils/app_sizes.dart';
@@ -22,7 +23,7 @@ class ActivationBody extends StatelessWidget {
             width: AppSizes.screenWidth,
             alignment: Alignment.centerLeft,
             child: Text(
-              'choose a switch  product to activate',
+              translation(context).chooseSwitchProductToActivate,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16.sp,

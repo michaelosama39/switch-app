@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:switch_app/localization/language_constants.dart';
 import 'package:switch_app/view/forgetPassword/presentation/screens/new_password_screen.dart';
 import '../../../../core/router/router.dart';
 import '../../../../core/utils/app_assets.dart';
@@ -36,7 +37,7 @@ class VerficationCodeBody extends StatelessWidget {
             height: AppSizes.getProportionateScreenHeight(180),
           ),
           Text(
-            'Verify Your Account',
+            translation(context).verifyYourAccount,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16.sp,
@@ -44,21 +45,21 @@ class VerficationCodeBody extends StatelessWidget {
             ),
           ),
           Text(
-            'check your Email',
+            translation(context).checkYourEmail,
             style: TextStyle(
               fontSize: 12.sp,
               color: Colors.grey,
             ),
           ),
           InputFormField(
-            hint: 'Enter code here',
+            hint: translation(context).enterCodeHere,
             validator: Validator.pinCode,
             fillColor: Colors.white,
             icon: Icons.code,
           ),
           SpaceH(inputHeigth: 25),
           CustomButton(
-            text: 'Verify',
+            text: translation(context).verify,
             onPress: () {
               MagicRouter.navigateTo(NewPasswordScreen());
             },

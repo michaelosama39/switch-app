@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:switch_app/core/utils/app_sizes.dart';
+import 'package:switch_app/localization/language_constants.dart';
 
 void bottomSheetExchange(BuildContext context) {
   showModalBottomSheet(
@@ -19,7 +20,7 @@ void bottomSheetExchange(BuildContext context) {
           children: [
             TextButton(
               child: Text(
-                'Add to contacts',
+                translation(context).addToContacts,
                 style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
@@ -31,7 +32,7 @@ void bottomSheetExchange(BuildContext context) {
             Divider(),
             TextButton(
               child: Text(
-                'Remove from contacts',
+                translation(context).removeFromContacts,
                 style: TextStyle(
                   color: Colors.red,
                   fontWeight: FontWeight.bold,
@@ -43,7 +44,7 @@ void bottomSheetExchange(BuildContext context) {
             Divider(),
             TextButton(
               child: Text(
-                'Cancel',
+                translation(context).cancel,
                 style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,

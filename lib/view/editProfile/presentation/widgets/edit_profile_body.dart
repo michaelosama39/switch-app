@@ -6,6 +6,7 @@ import 'package:switch_app/core/utils/app_assets.dart';
 import 'package:switch_app/core/utils/app_colors.dart';
 import 'package:switch_app/core/utils/app_sizes.dart';
 import 'package:switch_app/core/validator/validator.dart';
+import 'package:switch_app/localization/language_constants.dart';
 import 'package:switch_app/view/login/presentation/screens/login_screen.dart';
 import 'package:switch_app/widgets/custom_button.dart';
 import 'package:switch_app/widgets/space_height.dart';
@@ -118,12 +119,12 @@ class EditProfileBody extends StatelessWidget {
             ),
             SpaceH(inputHeigth: 25),
             CustomButton(
-              text: 'save profile',
+              text: translation(context).save,
               onPress: () {},
             ),
             SpaceH(inputHeigth: 10),
             CustomButton(
-              text: 'cancel',
+              text: translation(context).cancel,
               fontColor: AppColors.primaryColor,
               buttonColor: Colors.white,
               borderColor: AppColors.primaryColor,

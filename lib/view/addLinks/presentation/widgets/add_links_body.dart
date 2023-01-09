@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:switch_app/core/utils/app_sizes.dart';
+import 'package:switch_app/localization/language_constants.dart';
 import 'package:switch_app/view/addLinks/presentation/widgets/business_section.dart';
 import 'package:switch_app/view/addLinks/presentation/widgets/social_media_section.dart';
 import 'package:switch_app/widgets/space_height.dart';
@@ -20,7 +21,7 @@ class AddLinksBody extends StatelessWidget {
         child: Column(
           children: [
             InputFormField(
-              hint: 'search about application',
+              hint: translation(context).searchAboutApplication,
               suffixIcon: Icon(Icons.search),
               borderRadius: 5,
             ),

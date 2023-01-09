@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:switch_app/core/router/router.dart';
 import 'package:switch_app/core/utils/app_assets.dart';
 import 'package:switch_app/core/utils/app_colors.dart';
+import 'package:switch_app/localization/language_constants.dart';
 import 'package:switch_app/view/favourite/presentation/screens/favourite_screen.dart';
 import 'package:switch_app/view/myConnections/presentation/widgets/exchange_list.dart';
 import 'package:switch_app/widgets/custom_button.dart';
@@ -57,7 +58,7 @@ class MyConnectionsBody extends StatelessWidget {
             ),
           ),
           InputFormField(
-            hint: 'search ',
+            hint: translation(context).search,
             borderRadius: 10,
             suffixIcon: Icon(Icons.search),
             fillColor: Colors.white,
@@ -69,7 +70,7 @@ class MyConnectionsBody extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 CustomButton(
-                  text: 'Connections',
+                  text: translation(context).connections,
                   buttonColor: Colors.white,
                   fontColor: Colors.black,
                   borderColor: AppColors.primaryColor,
@@ -78,7 +79,7 @@ class MyConnectionsBody extends StatelessWidget {
                   onPress: () {},
                 ),
                 CustomButton(
-                  text: 'Exchange',
+                  text: translation(context).exchange,
                   buttonColor: Colors.white,
                   fontColor: Colors.black,
                   borderColor: Colors.grey,

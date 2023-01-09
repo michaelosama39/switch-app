@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:switch_app/core/utils/app_colors.dart';
+import 'package:switch_app/localization/language_constants.dart';
 
 Future showDialogLogout(context) {
   return showDialog(
@@ -9,7 +10,7 @@ Future showDialogLogout(context) {
       return AlertDialog(
         title: Center(
           child: Text(
-            'Log out',
+            translation(context).logOut,
             style: TextStyle(
               fontSize: 14.sp,
               color: Colors.black,
@@ -18,7 +19,7 @@ Future showDialogLogout(context) {
           ),
         ),
         content: Text(
-          'Are You Sure ,you want to log out',
+          translation(context).areYouSureLogout,
           style: TextStyle(
             fontSize: 12.sp,
             color: Colors.black,
@@ -26,8 +27,8 @@ Future showDialogLogout(context) {
         ),
         actions: <Widget>[
           TextButton(
-            child: const Text(
-              'cancel',
+            child: Text(
+              translation(context).cancel,
               style: TextStyle(
                 color: Colors.black,
               ),
@@ -37,8 +38,8 @@ Future showDialogLogout(context) {
             },
           ),
           TextButton(
-            child: const Text(
-              'ok',
+            child: Text(
+              translation(context).ok,
               style: TextStyle(
                 color: AppColors.primaryColor,
               ),

@@ -9,4 +9,8 @@ class AppAssets {
   static const String move_img = 'assets/images/move_img.png';
   static const String background_profile = 'assets/images/background_profile.png';
   static const String qr_code = 'assets/images/qr_code.jpeg';
+  static const String facebook_icon = 'assets/images/facebook-icon.png';
+  static const String google_icon = 'assets/images/google-icon.png';
+  static const String linkedin_icon = 'assets/images/linkedin-icon.png';
+  static const String twitter_icon = 'assets/images/twitter-icon.png';
 }

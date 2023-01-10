@@ -7,6 +7,8 @@ import 'package:switch_app/view/login/presentation/screens/login_screen.dart';
 import '../../../../core/utils/app_assets.dart';
 import '../../../../core/utils/app_sizes.dart';
 import '../../../../core/validator/validator.dart';
+import '../../../../localization/language.dart';
+import '../../../../main.dart';
 import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/input_form_field.dart';
 import '../../../../widgets/space_height.dart';
@@ -24,12 +26,37 @@ class NewPasswordBody extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Container(
-            width: AppSizes.screenWidth,
+          Align(
             alignment: Alignment.centerLeft,
-            child: IconButton(
-              icon: Icon(Icons.language),
-              onPressed: () {},
+            child: PopupMenuButton(
+              icon: const Icon(
+                Icons.language,
+              ),
+              onSelected: (Language language) async {
+                if (language != null) {
+                  Locale _locale = await setLocale(language.languageCode);
+                  MyApp.setLocale(context, _locale);
+                }
+              },
+              itemBuilder: (context) {
+                return Language.languageList()
+                    .map<PopupMenuItem<Language>>(
+                      (e) => PopupMenuItem<Language>(
+                        value: e,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            Text(
+                              e.flag,
+                              style: const TextStyle(fontSize: 30),
+                            ),
+                            Text(e.name)
+                          ],
+                        ),
+                      ),
+                    )
+                    .toList();
+              },
             ),
           ),
           Image.asset(

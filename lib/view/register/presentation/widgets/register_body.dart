@@ -12,6 +12,8 @@ import 'package:switch_app/view/register/presentation/controller/register_cubit.
 import 'package:switch_app/widgets/custom_button.dart';
 import 'package:switch_app/widgets/space_height.dart';
 import '../../../../core/utils/app_enums.dart';
+import '../../../../localization/language.dart';
+import '../../../../main.dart';
 import '../../../../widgets/input_form_field.dart';
 import '../../../../widgets/loading_indicator.dart';
 
@@ -32,12 +34,37 @@ class RegisterBody extends StatelessWidget {
           key: cubit.formKey,
           child: Column(
             children: [
-              Container(
-                width: AppSizes.screenWidth,
+              Align(
                 alignment: Alignment.centerLeft,
-                child: IconButton(
-                  icon: Icon(Icons.language),
-                  onPressed: () {},
+                child: PopupMenuButton(
+                  icon: const Icon(
+                    Icons.language,
+                  ),
+                  onSelected: (Language language) async {
+                    if (language != null) {
+                      Locale _locale = await setLocale(language.languageCode);
+                      MyApp.setLocale(context, _locale);
+                    }
+                  },
+                  itemBuilder: (context) {
+                    return Language.languageList()
+                        .map<PopupMenuItem<Language>>(
+                          (e) => PopupMenuItem<Language>(
+                        value: e,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            Text(
+                              e.flag,
+                              style: const TextStyle(fontSize: 30),
+                            ),
+                            Text(e.name)
+                          ],
+                        ),
+                      ),
+                    )
+                        .toList();
+                  },
                 ),
               ),
               Image.asset(

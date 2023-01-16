@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:switch_app/core/appStorage/app_storage.dart';
 import 'package:switch_app/core/models/user_model.dart';
 
 import '../../../../core/dioHelper/dio_helper.dart';
@@ -20,8 +21,12 @@ class LoginRemoteDatasource extends BaseLoginRemoteDatasource {
         'email': email,
         'password': password,
       },
+      headers: {
+        'Accept-Language' : 'application/json',
+        'lang' : AppStorage.getLang
+      }
     );
-    if (response.statusCode == 200 && response.data['status'] == 'success') {
+    if (response.statusCode == 200 && response.data['status'] == true) {
       print("Success LoginRepo");
       return UserModel.fromJson(jsonDecode(response.toString()));
     } else {

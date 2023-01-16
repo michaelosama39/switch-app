@@ -5,5 +5,5 @@ import '../../../../core/models/user_model.dart';
 
 abstract class BaseRegisterRepository {
   Future<Either<Failure, UserModel>> register(
-      String name, String email, String phone, String password);
+      String name, String lastName, String jobTitle, String email, String phone, String password);
 }

@@ -12,7 +12,7 @@ class SplashBody extends StatelessWidget {
       width: AppSizes.screenWidth,
       height: AppSizes.screenHeight,
       child: Image.asset(
-        AppAssets.logo,
+        AppAssets.logo_gif,
       ),
     );
   }

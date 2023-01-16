@@ -81,7 +81,7 @@ class ForgetPasswordBody extends StatelessWidget {
           ),
           InputFormField(
             hint: translation(context).yourEmail,
-            validator: Validator.email,
+            validator: (v)=> Validator.email(context , v),
             fillColor: Colors.white,
             icon: Icons.email_outlined,
           ),

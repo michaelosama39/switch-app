@@ -6,10 +6,12 @@ import 'package:meta/meta.dart';
 import 'package:switch_app/core/models/user_model.dart';
 import 'package:switch_app/view/login/domain/usecases/login.dart';
 
+import '../../../../core/appStorage/app_storage.dart';
 import '../../../../core/router/router.dart';
 import '../../../../core/utils/app_enums.dart';
 import '../../../../widgets/snackBar.dart';
 import '../../../bottomNav/presentation/screens/bottom_nav_screen.dart';
+import '../../../../core/models/user_model.dart';
 
 part 'login_state.dart';
 
@@ -41,9 +43,11 @@ class LoginCubit extends Cubit<LoginState> {
         },
         (res) async {
           emit(LoginState(
-            userModel: res,
+            loginModel: res,
             loginState: RequestState.loaded,
           ));
+          await AppStorage.cacheUserInfo(res);
+          await AppStorage.cachePasswordUserInfo(passwordController.text);
           MagicRouter.navigateAndPopAll(BottomNavScreen());
         },
       );

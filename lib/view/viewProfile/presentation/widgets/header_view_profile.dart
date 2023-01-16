@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:switch_app/localization/language_constants.dart';
+import 'package:switch_app/view/editProfile/presentation/controller/edit_profile_cubit.dart';
 
 import '../../../../core/utils/app_assets.dart';
 import '../../../../core/utils/app_sizes.dart';
@@ -11,6 +13,7 @@ class HeaderViewProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = EditProfileCubit.of(context);
     return Column(
       children: [
         Image.asset(
@@ -24,9 +27,11 @@ class HeaderViewProfile extends StatelessWidget {
                   right: AppSizes.getProportionateScreenWidth(15),
                   left: AppSizes.getProportionateScreenWidth(15),
                   bottom: AppSizes.getProportionateScreenHeight(35)),
-              child: Image.asset(
+              child: cubit.userData!.user!.backgroundImage == null
+                  ? Image.asset(
                 AppAssets.background_profile,
-              ),
+              )
+                  : Image.network(cubit.userData!.user!.backgroundImage!),
             ),
             Positioned(
               bottom: 0,
@@ -36,8 +41,12 @@ class HeaderViewProfile extends StatelessWidget {
                 width: AppSizes.getProportionateScreenWidth(90),
                 height: AppSizes.getProportionateScreenHeight(90),
                 decoration: BoxDecoration(
-                  image: DecorationImage(
+                  image: cubit.userData!.user!.image == null
+                      ? DecorationImage(
                     image: AssetImage(AppAssets.avater),
+                  )
+                      : DecorationImage(
+                    image: NetworkImage(cubit.userData!.user!.image!),
                   ),
                 ),
               ),
@@ -45,7 +54,9 @@ class HeaderViewProfile extends StatelessWidget {
           ],
         ),
         Text(
-          'Dominic Ovo',
+          cubit.userData!.user!.name == null
+              ? 'name'
+              : cubit.userData!.user!.name!,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.black,
@@ -53,14 +64,18 @@ class HeaderViewProfile extends StatelessWidget {
           ),
         ),
         Text(
-          'software engineer',
+          cubit.userData!.user!.jobTitle == null
+              ? 'job Title'
+              : cubit.userData!.user!.jobTitle!,
           style: TextStyle(
             color: Colors.grey,
             fontSize: 12.sp,
           ),
         ),
         Text(
-          'BIO',
+          cubit.userData!.user!.bio == null
+              ? 'Bio'
+              : cubit.userData!.user!.bio!,
           style: TextStyle(
             color: Colors.grey,
             fontSize: 12.sp,

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:switch_app/view/store/presentation/controller/store_cubit.dart';
+import '../../../../core/services/services_locator.dart';
 import '../widgets/store_body.dart';
 
 class StoreScreen extends StatelessWidget {
@@ -6,8 +9,11 @@ class StoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: StoreBody(),
+    return BlocProvider(
+      create: (context) => StoreCubit(sl(), sl())..getAllProducts(),
+      child: Scaffold(
+        body: StoreBody(),
+      ),
     );
   }
 }

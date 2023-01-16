@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:switch_app/core/router/router.dart';
 import 'package:switch_app/core/utils/app_sizes.dart';
+import 'package:switch_app/core/validator/validator.dart';
 import 'package:switch_app/localization/language_constants.dart';
+import 'package:switch_app/view/addLinks/presentation/controller/add_links_cubit.dart';
 import 'package:switch_app/widgets/custom_button.dart';
 import 'package:switch_app/widgets/input_form_field.dart';
 import 'package:switch_app/widgets/space_height.dart';
 
-Future showDialogAddLink(context, IconData icon) {
+import '../../../../core/models/applications_model.dart';
+
+Future showDialogAddLink(context, IconData icon, AddLinksCubit cubit,
+    ApplicationsData applicationsData, String categoryName) {
   return showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -21,12 +26,12 @@ Future showDialogAddLink(context, IconData icon) {
               Column(
                 children: [
                   SpaceH(inputHeigth: 15),
-                  Icon(
-                    icon,
-                    size: 60,
+                  Container(
+                    width: AppSizes.getProportionateScreenWidth(50),
+                    child: Image.network(applicationsData.icon!),
                   ),
                   Text(
-                    'facebook',
+                    applicationsData.name!,
                     style: TextStyle(
                       fontSize: 16.sp,
                       color: Colors.black,
@@ -36,15 +41,20 @@ Future showDialogAddLink(context, IconData icon) {
                   SpaceH(inputHeigth: 20),
                   InputFormField(
                     hint: translation(context).pageTitle,
+                    validator: (value) => Validator.name(context, value),
+                    controller: cubit.pageTitleController,
                   ),
                   InputFormField(
                     hint: translation(context).url,
+                    controller: cubit.urlController,
                   ),
                   SpaceH(inputHeigth: 30),
                   CustomButton(
                     text: translation(context).save,
                     onPress: () {
-                      MagicRouter.pop();
+                      cubit.typeId = applicationsData.id;
+                      cubit.categoryName = categoryName;
+                      cubit.addLink();
                     },
                   ),
                 ],

@@ -1,19 +1,25 @@
 class UserModel {
-  String? status;
-  UserData? data;
+  bool? status;
+  String? message;
+  String? token;
+  UserData? user;
 
-  UserModel({this.status, this.data});
+  UserModel({this.status, this.message, this.token, this.user});
 
   UserModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    data = json['data'] != null ? new UserData.fromJson(json['data']) : null;
+    message = json['message'];
+    token = json['token'];
+    user = json['user'] != null ? new UserData.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['status'] = this.status;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
+    data['message'] = this.message;
+    data['token'] = this.token;
+    if (this.user != null) {
+      data['user'] = this.user!.toJson();
     }
     return data;
   }
@@ -22,102 +28,52 @@ class UserModel {
 class UserData {
   int? id;
   String? name;
+  String? familyName;
+  String? jobTitle;
   String? email;
   String? phone;
-  String? whatsAPP;
-  String? emailVerifiedAt;
-  String? photo;
-  var provianceID;
-  var cityID;
-  var areaID;
-  String? mapLong;
-  String? mapLat;
-  int? activationCode;
-  String? deviceToken;
-  String? createdAt;
-  String? updatedAt;
+  String? bio;
+  String? language;
+  String? image;
+  String? backgroundImage;
 
   UserData(
       {this.id,
         this.name,
+        this.familyName,
+        this.jobTitle,
         this.email,
         this.phone,
-        this.whatsAPP,
-        this.emailVerifiedAt,
-        this.photo,
-        this.provianceID,
-        this.cityID,
-        this.areaID,
-        this.mapLong,
-        this.mapLat,
-        this.activationCode,
-        this.deviceToken,
-        this.createdAt,
-        this.updatedAt,
-      });
+        this.bio,
+        this.language,
+        this.image,
+        this.backgroundImage});
 
   UserData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
+    familyName = json['familyName'];
+    jobTitle = json['job_title'];
     email = json['email'];
     phone = json['phone'];
-    whatsAPP = json['WhatsAPP'];
-    emailVerifiedAt = json['email_verified_at'];
-    photo = json['photo'];
-    provianceID = json['ProvianceID'];
-    cityID = json['CityID'];
-    areaID = json['AreaID'];
-    mapLong = json['mapLong'];
-    mapLat = json['mapLat'];
-    activationCode = json['ActivationCode'];
-    deviceToken = json['DeviceToken'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
+    bio = json['bio'];
+    language = json['language'];
+    image = json['image'];
+    backgroundImage = json['background_image'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
+    data['familyName'] = this.familyName;
+    data['job_title'] = this.jobTitle;
     data['email'] = this.email;
     data['phone'] = this.phone;
-    data['WhatsAPP'] = this.whatsAPP;
-    data['email_verified_at'] = this.emailVerifiedAt;
-    data['photo'] = this.photo;
-    if (this.provianceID != null) {
-      data['ProvianceID'] = this.provianceID!.toJson();
-    }
-    if (this.cityID != null) {
-      data['CityID'] = this.cityID!.toJson();
-    }
-    if (this.areaID != null) {
-      data['AreaID'] = this.areaID!.toJson();
-    }
-    data['mapLong'] = this.mapLong;
-    data['mapLat'] = this.mapLat;
-    data['ActivationCode'] = this.activationCode;
-    data['DeviceToken'] = this.deviceToken;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    return data;
-  }
-}
-
-class ProvianceID {
-  int? id;
-  String? name;
-
-  ProvianceID({this.id, this.name});
-
-  ProvianceID.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
+    data['bio'] = this.bio;
+    data['language'] = this.language;
+    data['image'] = this.image;
+    data['background_image'] = this.backgroundImage;
     return data;
   }
 }

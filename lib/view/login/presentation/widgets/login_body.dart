@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:switch_app/core/appStorage/app_storage.dart';
 import 'package:switch_app/core/utils/app_assets.dart';
 import 'package:switch_app/core/utils/app_colors.dart';
 import 'package:switch_app/core/utils/app_enums.dart';
@@ -48,6 +49,7 @@ class LoginBody extends StatelessWidget {
                     if (language != null) {
                       Locale _locale = await setLocale(language.languageCode);
                       MyApp.setLocale(context, _locale);
+                      await AppStorage.cacheLang(language.languageCode);
                     }
                   },
                   itemBuilder: (context) {
@@ -93,14 +95,14 @@ class LoginBody extends StatelessWidget {
               ),
               InputFormField(
                 hint: translation(context).yourEmail,
-                validator: Validator.email,
+                validator: (v)=> Validator.email(context , v),
                 fillColor: Colors.white,
                 icon: Icons.email_outlined,
                 controller: cubit.emailController,
               ),
               InputFormField(
                 hint: translation(context).password,
-                validator: Validator.password,
+                validator: (v)=> Validator.password(context , v),
                 fillColor: Colors.white,
                 icon: Icons.lock_outlined,
                 secure: true,

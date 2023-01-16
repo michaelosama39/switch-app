@@ -9,8 +9,9 @@ class Register {
 
   Register(this.baseRegisterRepository);
 
-  Future<Either<Failure, UserModel>> execute(
-      String name, String email, String phone, String password) async {
-    return await baseRegisterRepository.register(name, email, phone, password);
+  Future<Either<Failure, UserModel>> execute(String name, String lastName,
+      String jobTitle, String email, String phone, String password) async {
+    return await baseRegisterRepository.register(
+        name, lastName, jobTitle, email, phone, password);
   }
 }

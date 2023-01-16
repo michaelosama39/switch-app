@@ -1,188 +1,191 @@
+import 'package:flutter/cupertino.dart';
+import 'package:switch_app/localization/language_constants.dart';
+
 class Validator {
-  static String? generalField(String value) {
+  static String? generalField(BuildContext context , String value) {
     if (value.isEmpty)
-      return 'حقل فارغ!';
+      return translation(context).emptyField;
     else
       return null;
   }
 
-  static String? email(String value) {
+  static String? email(BuildContext context , String value) {
     if (value.isEmpty)
-      return 'حقل فارغ!';
+      return translation(context).emptyField;
     else if (!value.contains('@') || !value.contains('.'))
-      return 'EX: example@mail.com';
+      return translation(context).examplemailcom;
     else
       return null;
   }
 
-  static String? phoneNumber(String value) {
+  static String? phoneNumber(BuildContext context , String value) {
     if (value.isEmpty)
-      return 'حقل فارغ!';
+      return translation(context).emptyField;
     else if (!value.startsWith('01'))
-      return 'رقم الجوال يجب ان يبدأ بالرقم 01';
+      return translation(context).mobileNumberMustStartWith;
     else if (value.length != 11)
-      return 'رقم الجوال يجب ان يتكون من 11 ارقام';
+      return translation(context).mobileNumberMustConsistOf;
     else
       return null;
   }
 
-  static String? pinCode(String value) {
+  static String? pinCode(BuildContext context , String value) {
     if (value.isEmpty)
-      return 'حقل فارغ!';
+      return translation(context).emptyField;
     else if (value.length != 4)
-      return 'الكود يجب ان يتكون من ٤ ارقام';
+      return translation(context).theCodeMustConsistOf;
     else
       return null;
   }
 
-  static String? password(String value) {
+  static String? password(BuildContext context , String value) {
     if (value.isEmpty)
-      return 'حقل فارغ!';
+      return translation(context).emptyField;
     else if (value.length < 3)
-      return 'كلمة المرور يجب الا تقل عن ٦ احرف';
+      return translation(context).passwordMustNotBeLessThan;
     else
       return null;
   }
 
-  static String? confirmPassword(String value, String password) {
+  static String? confirmPassword(BuildContext context , String value, String password) {
     if (value.isEmpty)
-      return 'حقل فارغ!';
+      return translation(context).emptyField;
     else if (value.length < 6)
-      return 'كلمة المرور يجب الا تقل عن ٦ احرف';
+      return translation(context).passwordMustNotBeLessThan;
     else if (password != value)
-      return 'كلمة المرور غير متطابقة';
+      return translation(context).passwordDoesNotMatch;
     else
       return null;
   }
 
-  static String? name(String value) {
+  static String? name(BuildContext context , String value) {
     if (value.isEmpty)
-      return 'حقل فارغ!';
+      return translation(context).emptyField;
     else if (value.length < 4)
-      return 'الاسم يجب الا يقل عن ٤ احرف';
+      return translation(context).theNameMustBeAtLeast;
     else
       return null;
   }
 
-  static String? notes(String value) {
+  static String? notes(BuildContext context , String value) {
     if (value.isEmpty)
-      return 'حقل فارغ!';
+      return translation(context).emptyField;
     else
       return null;
   }
 
-  static String? enquiry(String value) {
+  static String? enquiry(BuildContext context , String value) {
     if (value.isEmpty)
-      return 'حقل فارغ!';
+      return translation(context).emptyField;
     else if (value.length < 10 || value.length > 3000)
-      return "رسالتك يجب ان تكون اكبر من ١٠ احرف واقل من ٣٠٠٠";
+      return translation(context).yourMessageMustBeLongerThan;
     else
       return null;
   }
 
-  static String? search(String value) {
+  static String? search(BuildContext context , String value) {
     if (value.isEmpty)
-      return 'حقل فارغ!';
+      return translation(context).emptyField;
     else
       return null;
   }
 
-  static String? address(String value) {
+  static String? address(BuildContext context , String value) {
     if (value.isEmpty)
-      return 'حقل فارغ!';
+      return translation(context).emptyField;
     else if (value.length < 10 || value.length > 50)
-      return 'العنوان يجب ان يكون اكبر من ١٠ احرف واقل من ٥٠ حرف';
+      return translation(context).titleMustBeGreaterThan;
     else
       return null;
   }
 
-  static String? day(String value) {
+  static String? day(BuildContext context , String value) {
     if (value.isEmpty)
-      return 'حقل فارغ!';
+      return translation(context).emptyField;
     else if (value.contains('.') ||
         value.contains(',') ||
         value.contains('-') ||
         value.contains('_'))
-      return 'محتوي خاطيء';
+      return translation(context).wrongContent;
     else if (int.parse(value) < 1 || int.parse(value) > 31)
       return '1 - 31';
     else if (value.length > 2)
-      return 'محتوي خاطيء';
+      return translation(context).wrongContent;
     else
       return null;
   }
 
-  static String? month(String value) {
+  static String? month(BuildContext context , String value) {
     if (value.isEmpty)
-      return 'حقل فارغ!';
+      return translation(context).emptyField;
     else if (value.contains('.') ||
         value.contains(',') ||
         value.contains('-') ||
         value.contains('_'))
-      return 'محتوي خاطيء';
+      return translation(context).wrongContent;
     else if (int.parse(value) < 1 || int.parse(value) > 12)
       return '1 - 12';
     else if (value.length > 2)
-      return 'محتوي خاطيء';
+      return translation(context).wrongContent;
     else
       return null;
   }
 
-  static String? year(String value) {
+  static String? year(BuildContext context , String value) {
     if (value.isEmpty)
-      return 'حقل فارغ!';
+      return translation(context).emptyField;
     else if (value.contains('.') ||
         value.contains(',') ||
         value.contains('-') ||
         value.contains('_'))
-      return 'محتوي خاطيء';
+      return translation(context).wrongContent;
     else if (int.parse(value) < 1950 || int.parse(value) > 2020)
       return '1950 - 2020';
     else if (value.length > 4)
-      return 'محتوي خاطيء';
+      return translation(context).wrongContent;
     else
       return null;
   }
 
-  static String? comment(String value) {
+  static String? comment(BuildContext context , String value) {
     if (value.isEmpty)
-      return 'حقل فارغ!';
+      return translation(context).emptyField;
     else if (value.length < 25)
-      return 'التعليق يجب ان يكون اكبر من ٢٥ حرف';
+      return translation(context).commentMustBeGreaterThan;
     else
       return null;
   }
 
-  static String? report(String value) {
+  static String? report(BuildContext context , String value) {
     if (value.isEmpty)
-      return 'حقل فارغ!';
+      return translation(context).emptyField;
     else if (value.length < 5)
-      return 'التقرير يجب ان يكون اكبر من 5 حرف';
+      return translation(context).theReportMustBeLongerThan;
     else
       return null;
   }
 
-  static String? productTitle(String value) {
+  static String? productTitle(BuildContext context , String value) {
     if (value.isEmpty)
-      return 'حقل فارغ!';
+      return translation(context).emptyField;
     else if (value.length < 4)
-      return 'العنوان يجب ان يكون اكبر من ٤ احرف';
+      return translation(context).productTitleMustBeGreaterThan;
     else
       return null;
   }
 
-  static String? productDetails(String value) {
+  static String? productDetails(BuildContext context , String value) {
     if (value.isEmpty)
-      return 'حقل فارغ!';
+      return translation(context).emptyField;
     else if (value.length < 10)
-      return 'التفاصيل يجب ان تكون اكبر من ١٠ احرف';
+      return translation(context).detailsMustBeLongerThan;
     else
       return null;
   }
 
-  static String? productPrice(String value) {
+  static String? productPrice(BuildContext context , String value) {
     if (value.isEmpty)
-      return 'حقل فارغ!';
+      return translation(context).emptyField;
     else
       return null;
   }

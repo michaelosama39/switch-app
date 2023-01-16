@@ -1,4 +1,4 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:switch_app/core/router/router.dart';
@@ -11,6 +11,7 @@ import 'package:switch_app/view/login/presentation/screens/login_screen.dart';
 import 'package:switch_app/view/register/presentation/controller/register_cubit.dart';
 import 'package:switch_app/widgets/custom_button.dart';
 import 'package:switch_app/widgets/space_height.dart';
+import '../../../../core/appStorage/app_storage.dart';
 import '../../../../core/utils/app_enums.dart';
 import '../../../../localization/language.dart';
 import '../../../../main.dart';
@@ -44,25 +45,26 @@ class RegisterBody extends StatelessWidget {
                     if (language != null) {
                       Locale _locale = await setLocale(language.languageCode);
                       MyApp.setLocale(context, _locale);
+                      await AppStorage.cacheLang(language.languageCode);
                     }
                   },
                   itemBuilder: (context) {
                     return Language.languageList()
                         .map<PopupMenuItem<Language>>(
                           (e) => PopupMenuItem<Language>(
-                        value: e,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            Text(
-                              e.flag,
-                              style: const TextStyle(fontSize: 30),
+                            value: e,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                Text(
+                                  e.flag,
+                                  style: const TextStyle(fontSize: 30),
+                                ),
+                                Text(e.name)
+                              ],
                             ),
-                            Text(e.name)
-                          ],
-                        ),
-                      ),
-                    )
+                          ),
+                        )
                         .toList();
                   },
                 ),
@@ -88,30 +90,44 @@ class RegisterBody extends StatelessWidget {
                 ),
               ),
               InputFormField(
-                hint: translation(context).fullName,
+                hint: translation(context).name,
                 controller: cubit.nameController,
-                validator: (value) => Validator.name(value),
+                validator: (v) => Validator.name(context , v),
                 fillColor: Colors.white,
                 icon: Icons.person,
               ),
               InputFormField(
+                hint: translation(context).lastName,
+                controller: cubit.lastNameController,
+                validator: (v) => Validator.name(context , v),
+                fillColor: Colors.white,
+                icon: Icons.person,
+              ),
+              InputFormField(
+                hint: translation(context).jobTitle,
+                controller: cubit.jobTitleController,
+                validator: (v) => Validator.productTitle(context , v),
+                fillColor: Colors.white,
+                icon: Icons.work,
+              ),
+              InputFormField(
                 hint: translation(context).yourEmail,
                 controller: cubit.emailController,
-                validator: (value) => Validator.email(value),
+                validator: (v) => Validator.email(context , v),
                 fillColor: Colors.white,
                 icon: Icons.email_outlined,
               ),
               InputFormField(
                 hint: translation(context).yourPhone,
                 controller: cubit.phoneController,
-                validator: (value) => Validator.phoneNumber(value),
+                validator: (v) => Validator.phoneNumber(context , v),
                 fillColor: Colors.white,
                 icon: Icons.phone,
               ),
               InputFormField(
                 hint: translation(context).password,
                 controller: cubit.passwordController,
-                validator: (value) => Validator.password(value),
+                validator: (v) => Validator.password(context , v),
                 fillColor: Colors.white,
                 icon: Icons.lock_outlined,
                 secure: true,
@@ -119,8 +135,8 @@ class RegisterBody extends StatelessWidget {
               InputFormField(
                 hint: translation(context).confirmPassword,
                 controller: cubit.checkPasswordController,
-                validator: (value) => Validator.confirmPassword(
-                    value, cubit.passwordController.text),
+                validator: (v) => Validator.confirmPassword(
+                    context, v, cubit.passwordController.text),
                 fillColor: Colors.white,
                 icon: Icons.lock_outlined,
                 secure: true,

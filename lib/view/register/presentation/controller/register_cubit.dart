@@ -22,6 +22,8 @@ class RegisterCubit extends Cubit<RegisterState> {
   final formKey = GlobalKey<FormState>();
 
   final nameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final jobTitleController = TextEditingController();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
@@ -34,6 +36,8 @@ class RegisterCubit extends Cubit<RegisterState> {
       ));
       final res = await registerUseCase.execute(
         nameController.text,
+        lastNameController.text,
+        jobTitleController.text,
         emailController.text,
         phoneController.text,
         passwordController.text,

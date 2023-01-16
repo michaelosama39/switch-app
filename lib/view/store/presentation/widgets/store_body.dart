@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:switch_app/core/utils/app_assets.dart';
 import 'package:switch_app/localization/language_constants.dart';
-import 'package:switch_app/view/activation/presentation/widgets/activation_product_item.dart';
+import 'package:switch_app/view/store/presentation/controller/store_cubit.dart';
 import 'package:switch_app/view/store/presentation/widgets/store_product_item.dart';
+import 'package:switch_app/widgets/loading_indicator.dart';
 
+import '../../../../core/utils/app_enums.dart';
 import '../../../../core/utils/app_sizes.dart';
 
 class StoreBody extends StatelessWidget {
@@ -12,6 +14,7 @@ class StoreBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = StoreCubit.of(context);
     return Container(
       padding: EdgeInsets.only(
         top: AppSizes.getProportionateScreenHeight(30),
@@ -32,13 +35,21 @@ class StoreBody extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return StoreProductItem();
-              },
-            ),
+          BlocBuilder<StoreCubit, StoreState>(
+            builder: (context, state) {
+              return state == RequestState.loading
+                  ? LoadingIndicator()
+                  : Expanded(
+                      child: ListView.builder(
+                        itemCount: cubit.listOfProductsData.length,
+                        itemBuilder: (context, index) {
+                          return StoreProductItem(
+                            productsData: cubit.listOfProductsData[index],
+                          );
+                        },
+                      ),
+                    );
+            },
           ),
         ],
       ),

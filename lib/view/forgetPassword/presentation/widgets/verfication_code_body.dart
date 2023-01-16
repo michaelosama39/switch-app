@@ -80,7 +80,7 @@ class VerficationCodeBody extends StatelessWidget {
           ),
           InputFormField(
             hint: translation(context).enterCodeHere,
-            validator: Validator.pinCode,
+            validator: (v)=> Validator.pinCode(context , v),
             fillColor: Colors.white,
             icon: Icons.code,
           ),

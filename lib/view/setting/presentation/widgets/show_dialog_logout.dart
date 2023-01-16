@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:switch_app/core/appStorage/app_storage.dart';
+import 'package:switch_app/core/router/router.dart';
 import 'package:switch_app/core/utils/app_colors.dart';
 import 'package:switch_app/localization/language_constants.dart';
+import 'package:switch_app/view/login/presentation/screens/login_screen.dart';
+import 'package:switch_app/view/setting/presentation/controller/setting_cubit.dart';
 
-Future showDialogLogout(context) {
+Future showDialogLogout(context , SettingCubit cubit) {
   return showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -34,7 +38,7 @@ Future showDialogLogout(context) {
               ),
             ),
             onPressed: () {
-              Navigator.of(context).pop();
+              MagicRouter.pop();
             },
           ),
           TextButton(
@@ -44,8 +48,8 @@ Future showDialogLogout(context) {
                 color: AppColors.primaryColor,
               ),
             ),
-            onPressed: () {
-              Navigator.of(context).pop();
+            onPressed: () async{
+              cubit.logout();
             },
           ),
         ],

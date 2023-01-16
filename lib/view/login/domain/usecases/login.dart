@@ -1,7 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:switch_app/core/error/failure.dart';
-import 'package:switch_app/core/models/user_model.dart';
 import 'package:switch_app/view/login/domain/repository/base_login_repository.dart';
+
+import '../../../../core/models/user_model.dart';
 
 class Login {
   final BaseLoginRepository baseLoginRepository;

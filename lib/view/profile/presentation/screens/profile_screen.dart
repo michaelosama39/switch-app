@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:switch_app/view/addLinks/presentation/controller/add_links_cubit.dart';
+import 'package:switch_app/view/editProfile/presentation/controller/edit_profile_cubit.dart';
 
+import '../../../../core/services/services_locator.dart';
 import '../widgets/profile_body.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -7,8 +11,22 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ProfileBody(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => EditProfileCubit(sl(), sl())..getProfile(),
+        ),
+        BlocProvider(
+          create: (context) => AddLinksCubit(sl(), sl(), sl(), sl(), sl())
+            ..getSocialApps()
+            ..getMusicApps()
+            ..getCreativeApps()
+            ..getBusinessApps()
+        ),
+      ],
+      child: Scaffold(
+        body: ProfileBody(),
+      ),
     );
   }
 }

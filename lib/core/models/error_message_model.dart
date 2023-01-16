@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class ErrorMessageModel extends Equatable {
   final String message;
-  final String status;
+  final bool status;
 
   const ErrorMessageModel({
     required this.message,
@@ -11,7 +11,7 @@ class ErrorMessageModel extends Equatable {
 
   factory ErrorMessageModel.fromJson(Map<String, dynamic> json) {
     return ErrorMessageModel(
-      message: json["error"],
+      message: json["message"],
       status: json["status"],
     );
   }

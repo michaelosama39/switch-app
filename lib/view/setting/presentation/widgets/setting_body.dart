@@ -4,6 +4,7 @@ import 'package:switch_app/core/router/router.dart';
 import 'package:switch_app/core/utils/app_sizes.dart';
 import 'package:switch_app/localization/language_constants.dart';
 import 'package:switch_app/view/myConnections/presentation/screens/my_connections_screen.dart';
+import 'package:switch_app/view/setting/presentation/controller/setting_cubit.dart';
 import 'package:switch_app/view/setting/presentation/widgets/setting_item.dart';
 import 'package:switch_app/view/setting/presentation/widgets/show_dialog_delete_account.dart';
 import 'package:switch_app/view/setting/presentation/widgets/show_dialog_logout.dart';
@@ -11,6 +12,7 @@ import 'package:switch_app/view/setting/presentation/widgets/social_button.dart'
 import 'package:switch_app/widgets/custom_button.dart';
 import 'package:switch_app/widgets/space_height.dart';
 import 'package:switch_app/widgets/space_width.dart';
+import '../../../../core/appStorage/app_storage.dart';
 import '../../../../core/utils/app_assets.dart';
 import '../../../../localization/language.dart';
 import '../../../../main.dart';
@@ -22,6 +24,7 @@ class SettingBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = SettingCubit.of(context);
     return Container(
       padding: EdgeInsets.only(
         top: AppSizes.getProportionateScreenHeight(30),
@@ -141,25 +144,26 @@ class SettingBody extends StatelessWidget {
                   if (language != null) {
                     Locale _locale = await setLocale(language.languageCode);
                     MyApp.setLocale(context, _locale);
+                    await AppStorage.cacheLang(language.languageCode);
                   }
                 },
                 itemBuilder: (context) {
                   return Language.languageList()
                       .map<PopupMenuItem<Language>>(
                         (e) => PopupMenuItem<Language>(
-                      value: e,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          Text(
-                            e.flag,
-                            style: const TextStyle(fontSize: 30),
+                          value: e,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Text(
+                                e.flag,
+                                style: const TextStyle(fontSize: 30),
+                              ),
+                              Text(e.name)
+                            ],
                           ),
-                          Text(e.name)
-                        ],
-                      ),
-                    ),
-                  )
+                        ),
+                      )
                       .toList();
                 },
               ),
@@ -167,7 +171,7 @@ class SettingBody extends StatelessWidget {
             SettingItem(
               text: translation(context).logOut,
               onTap: () {
-                showDialogLogout(context);
+                showDialogLogout(context ,cubit);
               },
             ),
             SpaceH(inputHeigth: 20),
@@ -179,7 +183,7 @@ class SettingBody extends StatelessWidget {
                 showDialogDeleteAccount(context);
               },
             ),
-            SpaceH(inputHeigth: 20),
+            SpaceH(inputHeigth: 25),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -187,7 +191,7 @@ class SettingBody extends StatelessWidget {
                   img: AppAssets.facebook_icon,
                   imgColor: Colors.white,
                   buttonColor: Colors.blueAccent,
-                  onPress: (){
+                  onPress: () {
                     // AppFunc.launchUrlFun(facebook_url!);
                   },
                 ),
@@ -195,7 +199,7 @@ class SettingBody extends StatelessWidget {
                   img: AppAssets.twitter_icon,
                   imgColor: Colors.white,
                   buttonColor: Colors.blue.withOpacity(0.8),
-                  onPress: (){
+                  onPress: () {
                     // AppFunc.launchUrlFun(twitter_url!);
                   },
                 ),
@@ -203,7 +207,7 @@ class SettingBody extends StatelessWidget {
                   img: AppAssets.google_icon,
                   imgColor: Colors.white,
                   buttonColor: Colors.redAccent.withOpacity(0.9),
-                  onPress: (){
+                  onPress: () {
                     // AppFunc.launchUrlFun(google_url!);
                   },
                 ),
@@ -211,13 +215,30 @@ class SettingBody extends StatelessWidget {
                   img: AppAssets.linkedin_icon,
                   imgColor: Colors.white,
                   buttonColor: Colors.blueAccent,
-                  onPress: (){
+                  onPress: () {
                     // AppFunc.launchUrlFun(linkedin_url!);
                   },
                 ),
               ],
             ),
-            // Text('test@gmail.com'),
+            SpaceH(inputHeigth: 20),
+            Image.asset(
+              AppAssets.logo_without_image,
+              width: AppSizes.screenWidth * 0.25,
+            ),
+            Text(
+              'Switch v1.0.0',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+            Text(
+              translation(context).allRightsReservedToSwitch,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
           ],
         ),
       ),

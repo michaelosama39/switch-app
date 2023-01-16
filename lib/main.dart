@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:switch_app/core/appStorage/app_storage.dart';
 import 'package:switch_app/view/splash/presentation/screens/splash_screen.dart';
 import 'core/router/router.dart';
 import 'core/services/services_locator.dart';
@@ -50,9 +51,6 @@ class _MyAppState extends State<MyApp> {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           home: const SplashScreen(),
-          theme: ThemeData(
-            fontFamily: 'Cairo',
-          ),
           onGenerateRoute: onGenerateRoute,
           navigatorKey: navigatorKey,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -62,10 +60,7 @@ class _MyAppState extends State<MyApp> {
             AppSizes().init(context);
             return Directionality(
               textDirection: _locale!.languageCode == 'en'? TextDirection.ltr : TextDirection.rtl,
-              child: Container(
-                color: Colors.white,
-                child: child!,
-              ),
+              child: child!,
             );
           },
         );

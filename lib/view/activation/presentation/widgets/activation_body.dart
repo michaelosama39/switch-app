@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:switch_app/core/utils/app_assets.dart';
+import 'package:switch_app/core/utils/app_enums.dart';
 import 'package:switch_app/localization/language_constants.dart';
+import 'package:switch_app/view/activation/presentation/controller/activation_cubit.dart';
 import 'package:switch_app/view/activation/presentation/widgets/activation_product_item.dart';
+import 'package:switch_app/widgets/loading_indicator.dart';
 
 import '../../../../core/utils/app_sizes.dart';
 
@@ -31,13 +35,24 @@ class ActivationBody extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return ActivationProductItem();
-              },
-            ),
+          BlocBuilder<ActivationCubit, ActivationState>(
+            builder: (context, state) {
+              final cubit = ActivationCubit.of(context);
+              return state.ordersState == RequestState.loading
+                  ? Expanded(
+                      child: LoadingIndicator(),
+                    )
+                  : Expanded(
+                      child: ListView.builder(
+                        itemCount: cubit.listOfOrders.length,
+                        itemBuilder: (context, index) {
+                          return ActivationProductItem(
+                            ordersData: cubit.listOfOrders[index],
+                          );
+                        },
+                      ),
+                    );
+            },
           ),
         ],
       ),

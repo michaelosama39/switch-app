@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:switch_app/core/router/router.dart';
 import 'package:switch_app/localization/language_constants.dart';
+import 'package:switch_app/view/activation/data/model/orders_model.dart';
 import 'package:switch_app/view/activation/presentation/screens/scan_screen.dart';
 
 import '../../../../core/utils/app_assets.dart';
 import '../../../../core/utils/app_sizes.dart';
 
 class ActivationProductItem extends StatelessWidget {
-  const ActivationProductItem({Key? key}) : super(key: key);
+  ActivationProductItem({Key? key, required this.ordersData}) : super(key: key);
+
+  final OrdersData ordersData;
 
   @override
   Widget build(BuildContext context) {
@@ -20,22 +23,26 @@ class ActivationProductItem extends StatelessWidget {
         },
         child: Container(
           padding: EdgeInsets.symmetric(
-            horizontal: AppSizes.getProportionateScreenWidth(10),
+              horizontal: AppSizes.getProportionateScreenWidth(10),
+              vertical: AppSizes.getProportionateScreenHeight(20),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              Container(
+                height: AppSizes.getProportionateScreenHeight(110),
+                child: Image.network(
+                  ordersData.product!.first.image!,
+                  width: AppSizes.getProportionateScreenWidth(80),
+                ),
+              ),
               Text(
-                translation(context).switchSticker,
+                ordersData.product!.first.productName!,
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                 ),
-              ),
-              Image.asset(
-                AppAssets.nfc_card,
-                width: AppSizes.getProportionateScreenWidth(80),
               ),
             ],
           ),

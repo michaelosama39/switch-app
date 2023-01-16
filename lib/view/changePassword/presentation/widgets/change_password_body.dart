@@ -23,21 +23,21 @@ class ChangePasswordBody extends StatelessWidget {
         children: [
           InputFormField(
             hint: translation(context).oldPassword,
-            validator: Validator.password,
+            validator: (v)=> Validator.password(context , v),
             fillColor: Colors.white,
             icon: Icons.lock_outlined,
             secure: true,
           ),
           InputFormField(
             hint: translation(context).newPassword,
-            validator: Validator.password,
+            validator: (v)=> Validator.password(context , v),
             fillColor: Colors.white,
             icon: Icons.lock_outlined,
             secure: true,
           ),
           InputFormField(
             hint: translation(context).confirmPassword,
-            // validator: Validator.confirmPassword(value, password),
+            // validator: Validator.confirmPassword(context , value, password),
             fillColor: Colors.white,
             icon: Icons.lock_outlined,
             secure: true,

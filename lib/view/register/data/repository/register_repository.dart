@@ -12,9 +12,9 @@ class RegisterRepository extends BaseRegisterRepository{
   RegisterRepository(this.baseRegisterRemoteDatasource);
 
   @override
-  Future<Either<Failure, UserModel>> register(name, email, phone, password) async{
+  Future<Either<Failure, UserModel>> register(name, lastName, jobTitle,email, phone, password) async{
     try {
-      final res = await baseRegisterRemoteDatasource.register(name, email, phone, password);
+      final res = await baseRegisterRemoteDatasource.register(name, lastName, jobTitle,email, phone, password);
       return Right(res);
     } on ServerException catch (e) {
       return Left(ServerFailure(e.errorMessageModel.message));

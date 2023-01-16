@@ -32,7 +32,11 @@ class ActivationCubit extends Cubit<ActivationState> {
         ));
       },
       (res) async {
-        listOfOrders.addAll(res.data!);
+        for (var element in res.data!) {
+          if (element.status == 'done') {
+            listOfOrders.add(element);
+          }
+        }
         emit(ActivationState(
           ordersModel: res,
           ordersState: RequestState.loaded,

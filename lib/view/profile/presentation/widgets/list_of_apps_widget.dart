@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:switch_app/view/profile/presentation/widgets/app_profile_item.dart';
 import '../../../../core/models/applications_model.dart';
 import '../../../addLinks/presentation/controller/add_links_cubit.dart';
+import '../controller/profile_cubit.dart';
 
 class ListOfAppsWidget extends StatelessWidget {
   ListOfAppsWidget({Key? key}) : super(key: key);
@@ -12,25 +13,33 @@ class ListOfAppsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = AddLinksCubit.of(context);
+    final addLinksCubit = AddLinksCubit.of(context);
+    final profileCubit = ProfileCubit.of(context);
     List<ApplicationsData> listOfAllApps = [];
-    listOfAllApps.addAll(cubit.listOfBusinessApps);
-    listOfAllApps.addAll(cubit.listOfCreativeApps);
-    listOfAllApps.addAll(cubit.listOfMusicApps);
-    listOfAllApps.addAll(cubit.listOfSocialApps);
+    List<ApplicationsData> listOfFristApp = [];
+    listOfAllApps.addAll(addLinksCubit.listOfBusinessApps);
+    listOfAllApps.addAll(addLinksCubit.listOfCreativeApps);
+    listOfAllApps.addAll(addLinksCubit.listOfMusicApps);
+    listOfAllApps.addAll(addLinksCubit.listOfSocialApps);
+    listOfFristApp.insert(0, listOfAllApps.first);
     return Expanded(
       child: ReorderableListView.builder(
-        itemCount: listOfAllApps.length,
+        itemCount: profileCubit.isDircect!
+            ? listOfFristApp.length
+            : listOfAllApps.length,
         proxyDecorator: proxyDecorator,
         onReorder: (oldIndex, newIndex) {
           if (newIndex > oldIndex) newIndex--;
           final item = listOfAllApps.removeAt(oldIndex);
           listOfAllApps.insert(newIndex, item);
+          print(listOfAllApps.first.name);
         },
         itemBuilder: (context, index) {
           return AppProfileItem(
             key: Key("${listOfAllApps[index].name}"),
-            applicationsData: listOfAllApps[index],
+            applicationsData: profileCubit.isDircect!
+                ? listOfFristApp[index]
+                : listOfAllApps[index],
           );
         },
       ),

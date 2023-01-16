@@ -9,5 +9,10 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   static ProfileCubit of(context) => BlocProvider.of(context);
 
+  bool isDircect = false;
 
+  changeSelectedDircect(){
+    isDircect = !isDircect;
+    emit(ChangeSelectedDircectState());
+  }
 }

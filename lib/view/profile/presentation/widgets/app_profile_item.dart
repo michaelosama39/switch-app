@@ -6,10 +6,18 @@ import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_sizes.dart';
 import '../../../../widgets/space_width.dart';
 
-class AppProfileItem extends StatelessWidget {
+class AppProfileItem extends StatefulWidget {
   AppProfileItem({Key? key, required this.applicationsData}) : super(key: key);
 
   final ApplicationsData applicationsData;
+
+  @override
+  State<AppProfileItem> createState() => _AppProfileItemState();
+}
+
+class _AppProfileItemState extends State<AppProfileItem> {
+
+  bool? isCheck;
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +39,11 @@ class AppProfileItem extends StatelessWidget {
                 SpaceW(inputWidth: 5),
                 Container(
                   width: AppSizes.getProportionateScreenWidth(25),
-                  child: Image.network(applicationsData.icon!),
+                  child: Image.network(widget.applicationsData.icon!),
                 ),
                 SpaceW(inputWidth: 10),
                 Text(
-                  applicationsData.name!,
+                  widget.applicationsData.name!,
                   style: TextStyle(
                     fontSize: 14.sp,
                     fontWeight: FontWeight.bold,
@@ -45,8 +53,12 @@ class AppProfileItem extends StatelessWidget {
             ),
             Switch(
               activeColor: AppColors.primaryColor,
-              value: true,
-              onChanged: (value) {},
+              value: isCheck!,
+              onChanged: (value) {
+                setState(() {
+                  isCheck = value;
+                });
+              },
             ),
           ],
         ),

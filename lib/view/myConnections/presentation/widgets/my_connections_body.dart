@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:switch_app/core/router/router.dart';
-import 'package:switch_app/core/utils/app_assets.dart';
 import 'package:switch_app/core/utils/app_colors.dart';
+import 'package:switch_app/core/utils/app_enums.dart';
 import 'package:switch_app/localization/language_constants.dart';
-import 'package:switch_app/view/favourite/presentation/screens/favourite_screen.dart';
+import 'package:switch_app/view/myConnections/presentation/screens/favourite_screen.dart';
+import 'package:switch_app/view/myConnections/presentation/controller/my_connections_cubit.dart';
 import 'package:switch_app/view/myConnections/presentation/widgets/exchange_list.dart';
 import 'package:switch_app/widgets/custom_button.dart';
 import 'package:switch_app/widgets/input_form_field.dart';
 import 'package:switch_app/widgets/space_height.dart';
-import 'package:switch_app/widgets/space_width.dart';
-
 import '../../../../core/utils/app_sizes.dart';
-import '../../../../widgets/connection_item.dart';
-import '../../../addConnection/presentation/screens/add_connection_screen.dart';
+import '../screens/add_connection_screen.dart';
 import 'connection_list.dart';
 
 class MyConnectionsBody extends StatelessWidget {
@@ -64,34 +61,62 @@ class MyConnectionsBody extends StatelessWidget {
             fillColor: Colors.white,
           ),
           SpaceH(inputHeigth: 10),
-          Container(
-            width: AppSizes.screenWidth,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                CustomButton(
-                  text: translation(context).connections,
-                  buttonColor: Colors.white,
-                  fontColor: Colors.black,
-                  borderColor: AppColors.primaryColor,
-                  radius: 20,
-                  paddingVertical: 5,
-                  onPress: () {},
-                ),
-                CustomButton(
-                  text: translation(context).exchange,
-                  buttonColor: Colors.white,
-                  fontColor: Colors.black,
-                  borderColor: Colors.grey,
-                  radius: 20,
-                  paddingVertical: 5,
-                  onPress: () {},
-                ),
-              ],
-            ),
+          BlocBuilder<MyConnectionsCubit, MyConnectionsState>(
+            builder: (context, state) {
+              final myConnectionsCubit = MyConnectionsCubit.of(context);
+              return Column(
+                children: [
+                  Container(
+                    width: AppSizes.screenWidth,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        CustomButton(
+                          text: translation(context).connections,
+                          buttonColor: Colors.white,
+                          fontColor: Colors.black,
+                          borderColor: myConnectionsCubit.myConnection ==
+                                  MyConnection.connections
+                              ? AppColors.primaryColor
+                              : Colors.grey,
+                          radius: 20,
+                          paddingVertical: 5,
+                          onPress: () {
+                            myConnectionsCubit.changeTabButton('connection');
+                            myConnectionsCubit.getConnectionList();
+                          },
+                        ),
+                        CustomButton(
+                          text: translation(context).exchange,
+                          buttonColor: Colors.white,
+                          fontColor: Colors.black,
+                          borderColor: myConnectionsCubit.myConnection ==
+                                  MyConnection.exchange
+                              ? AppColors.primaryColor
+                              : Colors.grey,
+                          radius: 20,
+                          paddingVertical: 5,
+                          onPress: () {
+                            myConnectionsCubit.changeTabButton('exchange');
+                            myConnectionsCubit.getExchangeList();
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
-          ConnectionList(),
-          // ExchangeList(),
+          SpaceH(inputHeigth: 10),
+          BlocBuilder<MyConnectionsCubit, MyConnectionsState>(
+            builder: (context, state) {
+              return MyConnectionsCubit.of(context).myConnection ==
+                      MyConnection.connections
+                  ? ConnectionList()
+                  : ExchangeList();
+            },
+          ),
         ],
       ),
     );

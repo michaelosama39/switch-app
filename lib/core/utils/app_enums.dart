@@ -4,3 +4,8 @@ enum RequestState {
   loaded,
   error,
 }
+
+enum MyConnection {
+  connections,
+  exchange,
+}

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:switch_app/view/myConnections/data/model/connection_model.dart';
 import 'package:switch_app/widgets/space_width.dart';
 import '../core/utils/app_assets.dart';
 import '../core/utils/app_sizes.dart';
 
 class ConnectionItem extends StatelessWidget {
-  const ConnectionItem({Key? key, required this.onTapMore}) : super(key: key);
+  const ConnectionItem({Key? key, required this.onTapMore, required this.getData}) : super(key: key);
 
   final Function() onTapMore;
+  final ConnectionData getData;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class ConnectionItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Dominic Ovo',
+                      getData.name!,
                       style: TextStyle(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.bold,
@@ -44,7 +46,7 @@ class ConnectionItem extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'software engineer',
+                      getData.title!,
                       style: TextStyle(
                         fontSize: 12.sp,
                         color: Colors.grey,

@@ -14,4 +14,11 @@ class AppStrings {
   static const String endpoint_updateAccount = '$baseurl/updateAccount';
   static const String endpoint_orders = '$baseurl/orders';
   static const String endpoint_serialNumber = '$baseurl/serialNumber';
+  static const String endpoint_exchangeStatus = '$baseurl/exchangeStatus';
+  static const String endpoint_exchange = '$baseurl/exchange';
+  static const String endpoint_userconnection = '$baseurl/userconnection';
+  static const String endpoint_sendmessage = '$baseurl/sendmessage';
+  static const String endpoint_favorite = '$baseurl/favorite';
+  static const String endpoint_favoriteShow = '$baseurl/favoriteShow';
+  static const String endpoint_show = '$baseurl/show';
 }

@@ -26,10 +26,8 @@ class SettingBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final settingCubit = SettingCubit.of(context);
     return Container(
       padding: EdgeInsets.only(
-        // top: AppSizes.getProportionateScreenHeight(30),
         left: AppSizes.getProportionateScreenWidth(10),
         right: AppSizes.getProportionateScreenWidth(10),
       ),
@@ -187,7 +185,7 @@ class SettingBody extends StatelessWidget {
             SettingItem(
               text: translation(context).logOut,
               onTap: () {
-                showDialogLogout(context, settingCubit);
+                showDialogLogout(context, SettingCubit.of(context));
               },
             ),
             SpaceH(inputHeigth: 20),

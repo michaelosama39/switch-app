@@ -8,6 +8,7 @@ import '../../../../core/utils/app_sizes.dart';
 import '../../../../widgets/loading_indicator.dart';
 import '../../../addLinks/presentation/controller/add_links_cubit.dart';
 import '../../../editProfile/presentation/controller/edit_profile_cubit.dart';
+import '../controller/view_profile_cubit.dart';
 
 class ViewProfileBody extends StatelessWidget {
   const ViewProfileBody({Key? key}) : super(key: key);
@@ -26,17 +27,19 @@ class ViewProfileBody extends StatelessWidget {
           children: [
             BlocBuilder<EditProfileCubit, EditProfileState>(
               builder: (context, state) {
-                return EditProfileCubit.of(context).userData == null
+                return EditProfileCubit
+                    .of(context)
+                    .userData == null
                     ? const LoadingIndicator()
                     : HeaderViewProfile();
               },
             ),
             SpaceH(inputHeigth: 10),
-            BlocBuilder<AddLinksCubit, AddLinksState>(
+            BlocBuilder<ViewProfileCubit, ViewProfileState>(
               builder: (context, state) {
                 return SocialItemsViewProfile();
               },
-            )
+            ),
           ],
         ),
       ),

@@ -14,6 +14,12 @@ import 'package:switch_app/view/editProfile/data/datasource/edit_profile_remote_
 import 'package:switch_app/view/editProfile/domain/usecases/edit_profile.dart';
 import 'package:switch_app/view/editProfile/domain/usecases/get_profile.dart';
 import 'package:switch_app/view/login/presentation/controller/login_cubit.dart';
+import 'package:switch_app/view/myConnections/domain/usecases/add_new_connection.dart';
+import 'package:switch_app/view/myConnections/domain/usecases/exchange_status.dart';
+import 'package:switch_app/view/myConnections/domain/usecases/favourite_status.dart';
+import 'package:switch_app/view/myConnections/domain/usecases/get_connection_list.dart';
+import 'package:switch_app/view/myConnections/domain/usecases/get_exchange_list.dart';
+import 'package:switch_app/view/myConnections/domain/usecases/get_favourite_list.dart';
 import 'package:switch_app/view/register/data/datasource/register_remote_datasource.dart';
 import 'package:switch_app/view/register/presentation/controller/register_cubit.dart';
 import 'package:switch_app/view/setting/domain/usecases/logout.dart';
@@ -24,6 +30,9 @@ import 'package:switch_app/view/store/domain/repository/base_store_repository.da
 import 'package:switch_app/view/store/domain/usecases/get_all_products.dart';
 import 'package:switch_app/view/store/domain/usecases/make_order.dart';
 import 'package:switch_app/view/store/presentation/controller/store_cubit.dart';
+import 'package:switch_app/view/viewProfile/data/datasource/view_profile_remote_datasource.dart';
+import 'package:switch_app/view/viewProfile/domain/repository/base_view_profle_repository.dart';
+import 'package:switch_app/view/viewProfile/domain/usecases/show_app_details.dart';
 import '../../view/activation/data/datasource/activation_remote_datasource.dart';
 import '../../view/activation/data/repository/activation_repository.dart';
 import '../../view/activation/domain/repository/base_activation_repository.dart';
@@ -35,27 +44,57 @@ import '../../view/login/data/datasource/login_remote_datasource.dart';
 import '../../view/login/data/repository/login_repository.dart';
 import '../../view/login/domain/repository/base_login_repository.dart';
 import '../../view/login/domain/usecases/login.dart';
+import '../../view/myConnections/data/datasource/my_connection_remote_datasource.dart';
+import '../../view/myConnections/data/repository/my_connection_repository.dart';
+import '../../view/myConnections/domain/repository/base_my_connection_repository.dart';
+import '../../view/myConnections/presentation/controller/my_connections_cubit.dart';
 import '../../view/register/data/repository/register_repository.dart';
 import '../../view/register/domain/repository/base_register_repository.dart';
 import '../../view/register/domain/usecases/register.dart';
 import '../../view/setting/data/datasource/setting_remote_datasource.dart';
 import '../../view/setting/data/repository/setting_repository.dart';
 import '../../view/setting/domain/repository/base_setting_repository.dart';
+import '../../view/viewProfile/data/repository/view_profile_repository.dart';
 
 final sl = GetIt.instance;
 
 class ServicesLocator {
   void init() {
+    // myConnection
+    sl.registerLazySingleton(() => GetFavouriteList(sl()));
+    sl.registerLazySingleton(() => GetConnectionList(sl()));
+    sl.registerLazySingleton(() => GetExchangeList(sl()));
+    sl.registerLazySingleton(() => FavouriteStatus(sl()));
+    sl.registerLazySingleton(() => ExchangeStatus(sl()));
+    sl.registerLazySingleton(() => AddNewConnection(sl()));
+    sl.registerFactory(
+        () => MyConnectionsCubit(sl(), sl(), sl(), sl(), sl(), sl()));
+
+    sl.registerLazySingleton<BaseMyConnectionRepository>(
+        () => MyConnectionRepository(sl()));
+
+    sl.registerLazySingleton<BaseMyConnectionRemoteDatasource>(
+        () => MyConnectionRemoteDatasource());
 
     // activation
     sl.registerLazySingleton(() => GetOrders(sl()));
     sl.registerLazySingleton(() => ActivationProduct(sl()));
-    sl.registerFactory(() => ActivationCubit(sl() , sl()));
+    sl.registerFactory(() => ActivationCubit(sl(), sl()));
 
-    sl.registerLazySingleton<BaseActivationRepository>(() => ActivationRepository(sl()));
+    sl.registerLazySingleton<BaseActivationRepository>(
+        () => ActivationRepository(sl()));
 
     sl.registerLazySingleton<BaseActivationRemoteDatasource>(
-            () => ActivationRemoteDatasource());
+        () => ActivationRemoteDatasource());
+
+    // viewProfile
+    sl.registerLazySingleton(() => ShowAppDetails(sl()));
+
+    sl.registerLazySingleton<BaseViewProfileRepository>(
+        () => ViewProfileRepository(sl()));
+
+    sl.registerLazySingleton<BaseViewProfileRemoteDatasource>(
+        () => ViewProfileRemoteDatasource());
 
     // editProfile
     sl.registerLazySingleton(() => EditProfile(sl()));

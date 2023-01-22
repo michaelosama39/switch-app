@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:switch_app/view/activation/domain/usecases/activation_product.dart';
 import 'package:switch_app/view/activation/domain/usecases/get_orders.dart';
 import 'package:switch_app/view/activation/presentation/controller/activation_cubit.dart';
 import 'package:switch_app/view/addLinks/data/datasource/add_links_remote_datasource.dart';
@@ -48,7 +49,8 @@ class ServicesLocator {
 
     // activation
     sl.registerLazySingleton(() => GetOrders(sl()));
-    sl.registerFactory(() => ActivationCubit(sl()));
+    sl.registerLazySingleton(() => ActivationProduct(sl()));
+    sl.registerFactory(() => ActivationCubit(sl() , sl()));
 
     sl.registerLazySingleton<BaseActivationRepository>(() => ActivationRepository(sl()));
 

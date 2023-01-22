@@ -6,15 +6,17 @@ import 'package:switch_app/view/register/domain/repository/base_register_reposit
 
 import '../../../../core/error/exception.dart';
 
-class RegisterRepository extends BaseRegisterRepository{
+class RegisterRepository extends BaseRegisterRepository {
   final BaseRegisterRemoteDatasource baseRegisterRemoteDatasource;
 
   RegisterRepository(this.baseRegisterRemoteDatasource);
 
   @override
-  Future<Either<Failure, UserModel>> register(name, lastName, jobTitle,email, phone, password) async{
+  Future<Either<Failure, UserModel>> register(
+      name, lastName, jobTitle, email, phone, password, deviceToken) async {
     try {
-      final res = await baseRegisterRemoteDatasource.register(name, lastName, jobTitle,email, phone, password);
+      final res = await baseRegisterRemoteDatasource.register(
+          name, lastName, jobTitle, email, phone, password, deviceToken);
       return Right(res);
     } on ServerException catch (e) {
       return Left(ServerFailure(e.errorMessageModel.message));

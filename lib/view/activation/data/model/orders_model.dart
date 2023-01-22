@@ -1,5 +1,5 @@
 class OrdersModel {
-  String? status;
+  bool? status;
   List<OrdersData>? data;
 
   OrdersModel({this.status, this.data});

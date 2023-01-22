@@ -11,9 +11,10 @@ class LoginRepository extends BaseLoginRepository {
   LoginRepository(this.baseLoginRemoteDatasource);
 
   @override
-  Future<Either<Failure, UserModel>> login(email, password) async {
+  Future<Either<Failure, UserModel>> login(email, password, deviceToken) async {
     try {
-      final res = await baseLoginRemoteDatasource.login(email, password);
+      final res =
+          await baseLoginRemoteDatasource.login(email, password, deviceToken);
       return Right(res);
     } on ServerException catch (e) {
       return Left(ServerFailure(e.errorMessageModel.message));

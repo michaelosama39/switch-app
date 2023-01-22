@@ -1,10 +1,12 @@
 class ProfileModel {
   User? user;
+  String? qrcode;
 
-  ProfileModel({this.user});
+  ProfileModel({this.user , this.qrcode});
 
   ProfileModel.fromJson(Map<String, dynamic> json) {
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
+    qrcode = json['qrcode'];
   }
 
   Map<String, dynamic> toJson() {
@@ -12,6 +14,7 @@ class ProfileModel {
     if (this.user != null) {
       data['user'] = this.user!.toJson();
     }
+    data['qrcode'] = this.qrcode;
     return data;
   }
 }

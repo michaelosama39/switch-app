@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:switch_app/core/router/router.dart';
 import 'package:switch_app/core/utils/app_assets.dart';
 import 'package:switch_app/localization/language_constants.dart';
 import 'package:switch_app/widgets/space_height.dart';
 
 import '../../../../core/utils/app_sizes.dart';
 import '../../../../widgets/custom_button.dart';
+import '../controller/activation_cubit.dart';
 
 void bottomSheetScan(BuildContext context) {
   showModalBottomSheet(
@@ -50,7 +52,9 @@ void bottomSheetScan(BuildContext context) {
             SpaceH(inputHeigth: 10),
             CustomButton(
               text: translation(context).cancel,
-              onPress: () {},
+              onPress: () {
+                MagicRouter.pop();
+              },
             ),
           ],
         ),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:switch_app/core/router/router.dart';
 import 'package:switch_app/core/utils/app_sizes.dart';
 import 'package:switch_app/localization/language_constants.dart';
+import 'package:switch_app/view/editProfile/presentation/controller/edit_profile_cubit.dart';
 import 'package:switch_app/view/myConnections/presentation/screens/my_connections_screen.dart';
 import 'package:switch_app/view/setting/presentation/controller/setting_cubit.dart';
 import 'package:switch_app/view/setting/presentation/widgets/setting_item.dart';
@@ -24,82 +26,96 @@ class SettingBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = SettingCubit.of(context);
+    final settingCubit = SettingCubit.of(context);
     return Container(
       padding: EdgeInsets.only(
-        top: AppSizes.getProportionateScreenHeight(30),
+        // top: AppSizes.getProportionateScreenHeight(30),
         left: AppSizes.getProportionateScreenWidth(10),
         right: AppSizes.getProportionateScreenWidth(10),
       ),
       child: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              width: AppSizes.screenWidth,
-              child: Text(
-                translation(context).setting,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  fontSize: 20.sp,
-                ),
-              ),
-            ),
-            Card(
-              elevation: 0,
-              child: Container(
-                padding: EdgeInsets.symmetric(
-                  vertical: AppSizes.getProportionateScreenHeight(10),
-                  horizontal: AppSizes.getProportionateScreenWidth(25),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: AppSizes.getProportionateScreenWidth(90),
-                      height: AppSizes.getProportionateScreenHeight(90),
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(AppAssets.avater),
-                        ),
-                      ),
-                    ),
-                    SpaceW(inputWidth: 10),
-                    Column(
-                      children: [
-                        Text(
-                          'Dominic Ovo',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                            fontSize: 14.sp,
+            BlocBuilder<EditProfileCubit, EditProfileState>(
+              builder: (context, state) {
+                final editProfileCubit = EditProfileCubit.of(context);
+                return editProfileCubit.userData == null
+                    ? const SizedBox()
+                    : Card(
+                        elevation: 0,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                            vertical: AppSizes.getProportionateScreenHeight(10),
+                            horizontal:
+                                AppSizes.getProportionateScreenWidth(25),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: AppSizes.getProportionateScreenWidth(90),
+                                height:
+                                    AppSizes.getProportionateScreenHeight(90),
+                                decoration: BoxDecoration(
+                                  image: editProfileCubit
+                                              .userData!.user!.image ==
+                                          null
+                                      ? const DecorationImage(
+                                          image: AssetImage(AppAssets.avater),
+                                        )
+                                      : DecorationImage(
+                                          image: NetworkImage(editProfileCubit
+                                              .userData!.user!.image!),
+                                        ),
+                                ),
+                              ),
+                              SpaceW(inputWidth: 10),
+                              Column(
+                                children: [
+                                  Text(
+                                    editProfileCubit.userData!.user!.name ==
+                                            null
+                                        ? 'name'
+                                        : editProfileCubit
+                                            .userData!.user!.name!,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                      fontSize: 14.sp,
+                                    ),
+                                  ),
+                                  Text(
+                                    editProfileCubit.userData!.user!.email ==
+                                            null
+                                        ? 'email'
+                                        : editProfileCubit
+                                            .userData!.user!.email!,
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 13.sp,
+                                    ),
+                                  ),
+                                  SpaceH(inputHeigth: 5),
+                                  TextButton(
+                                    child: Text(
+                                      translation(context).changePassword,
+                                      style: TextStyle(
+                                        color: Colors.blue,
+                                        fontSize: 12.sp,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      MagicRouter.navigateTo(
+                                          ChangePasswordScreen());
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
-                        Text(
-                          'test@gmail.com',
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 13.sp,
-                          ),
-                        ),
-                        SpaceH(inputHeigth: 5),
-                        TextButton(
-                          child: Text(
-                            translation(context).changePassword,
-                            style: TextStyle(
-                              color: Colors.blue,
-                              fontSize: 12.sp,
-                            ),
-                          ),
-                          onPressed: () {
-                            MagicRouter.navigateTo(ChangePasswordScreen());
-                          },
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+                      );
+              },
             ),
             SpaceH(inputHeigth: 30),
             SettingItem(
@@ -171,7 +187,7 @@ class SettingBody extends StatelessWidget {
             SettingItem(
               text: translation(context).logOut,
               onTap: () {
-                showDialogLogout(context ,cubit);
+                showDialogLogout(context, settingCubit);
               },
             ),
             SpaceH(inputHeigth: 20),

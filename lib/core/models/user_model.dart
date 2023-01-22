@@ -2,6 +2,7 @@ class UserModel {
   bool? status;
   String? message;
   String? token;
+  String? qrCode;
   UserData? user;
 
   UserModel({this.status, this.message, this.token, this.user});
@@ -10,6 +11,7 @@ class UserModel {
     status = json['status'];
     message = json['message'];
     token = json['token'];
+    qrCode = json['qrCode'];
     user = json['user'] != null ? new UserData.fromJson(json['user']) : null;
   }
 
@@ -18,6 +20,7 @@ class UserModel {
     data['status'] = this.status;
     data['message'] = this.message;
     data['token'] = this.token;
+    data['qrCode'] = this.qrCode;
     if (this.user != null) {
       data['user'] = this.user!.toJson();
     }

@@ -16,30 +16,25 @@ class ListOfAppsWidget extends StatelessWidget {
     final addLinksCubit = AddLinksCubit.of(context);
     final profileCubit = ProfileCubit.of(context);
     List<ApplicationsData> listOfAllApps = [];
-    List<ApplicationsData> listOfFristApp = [];
     listOfAllApps.addAll(addLinksCubit.listOfBusinessApps);
     listOfAllApps.addAll(addLinksCubit.listOfCreativeApps);
     listOfAllApps.addAll(addLinksCubit.listOfMusicApps);
     listOfAllApps.addAll(addLinksCubit.listOfSocialApps);
-    listOfFristApp.insert(0, listOfAllApps.first);
     return Expanded(
       child: ReorderableListView.builder(
-        itemCount: profileCubit.isDircect!
-            ? listOfFristApp.length
-            : listOfAllApps.length,
+        itemCount: listOfAllApps.length,
         proxyDecorator: proxyDecorator,
         onReorder: (oldIndex, newIndex) {
           if (newIndex > oldIndex) newIndex--;
           final item = listOfAllApps.removeAt(oldIndex);
           listOfAllApps.insert(newIndex, item);
-          print(listOfAllApps.first.name);
         },
         itemBuilder: (context, index) {
           return AppProfileItem(
             key: Key("${listOfAllApps[index].name}"),
-            applicationsData: profileCubit.isDircect!
-                ? listOfFristApp[index]
-                : listOfAllApps[index],
+            applicationsData: listOfAllApps[index],
+            index: index,
+            profileCubit: profileCubit,
           );
         },
       ),

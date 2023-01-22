@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "209801609379",
+    "project_id": "switch-app-b6c33",
+    "storage_bucket": "switch-app-b6c33.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209801609379:android:030b881a5dcfa0bd313f16",
+        "android_client_info": {
+          "package_name": "com.technomasr.switchapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "209801609379-h6h9mm2gae13edg87btdp2pgkmi50ol7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLRFvRT9PeXO-5hv2fXTc-Yukb5Wjwhd8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "209801609379-h6h9mm2gae13edg87btdp2pgkmi50ol7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

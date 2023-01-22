@@ -17,24 +17,12 @@ class ActivationBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
-        top: AppSizes.getProportionateScreenHeight(30),
+        // top: AppSizes.getProportionateScreenHeight(30),
         left: AppSizes.getProportionateScreenWidth(10),
         right: AppSizes.getProportionateScreenWidth(10),
       ),
       child: Column(
         children: [
-          Container(
-            width: AppSizes.screenWidth,
-            alignment: Alignment.centerLeft,
-            child: Text(
-              translation(context).chooseSwitchProductToActivate,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16.sp,
-                color: Colors.black,
-              ),
-            ),
-          ),
           BlocBuilder<ActivationCubit, ActivationState>(
             builder: (context, state) {
               final cubit = ActivationCubit.of(context);

@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:switch_app/core/utils/app_func.dart';
 import 'package:switch_app/view/register/domain/usecases/register.dart';
 
 import '../../../../core/models/user_model.dart';
@@ -41,6 +42,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         emailController.text,
         phoneController.text,
         passwordController.text,
+        await AppFunc.getTokenDevice(),
       );
       res.fold(
         (err) {

@@ -1,5 +1,5 @@
 class ApplicationsModel {
-  String? status;
+  bool? status;
   List<ApplicationsData>? item;
 
   ApplicationsModel({this.status, this.item});

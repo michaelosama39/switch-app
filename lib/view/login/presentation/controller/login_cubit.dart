@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:switch_app/core/models/user_model.dart';
+import 'package:switch_app/core/utils/app_func.dart';
 import 'package:switch_app/view/login/domain/usecases/login.dart';
 
 import '../../../../core/appStorage/app_storage.dart';
@@ -32,7 +33,10 @@ class LoginCubit extends Cubit<LoginState> {
         loginState: RequestState.loading,
       ));
       final res = await loginUseCase.execute(
-          emailController.text, passwordController.text);
+        emailController.text,
+        passwordController.text,
+        await AppFunc.getTokenDevice(),
+      );
       res.fold(
         (err) {
           showSnackBar(err.message);

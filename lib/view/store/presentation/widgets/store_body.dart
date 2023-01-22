@@ -17,29 +17,15 @@ class StoreBody extends StatelessWidget {
     final cubit = StoreCubit.of(context);
     return Container(
       padding: EdgeInsets.only(
-        top: AppSizes.getProportionateScreenHeight(30),
+        // top: AppSizes.getProportionateScreenHeight(30),
         left: AppSizes.getProportionateScreenWidth(10),
         right: AppSizes.getProportionateScreenWidth(10),
       ),
       child: Column(
         children: [
-          Container(
-            width: AppSizes.screenWidth,
-            alignment: Alignment.centerLeft,
-            child: Text(
-              translation(context).switchProducts,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16.sp,
-                color: Colors.black,
-              ),
-            ),
-          ),
           BlocBuilder<StoreCubit, StoreState>(
             builder: (context, state) {
-              return state == RequestState.loading
-                  ? LoadingIndicator()
-                  : Expanded(
+              return Expanded(
                       child: ListView.builder(
                         itemCount: cubit.listOfProductsData.length,
                         itemBuilder: (context, index) {

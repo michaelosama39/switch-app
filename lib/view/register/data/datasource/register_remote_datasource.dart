@@ -8,31 +8,29 @@ import '../../../../core/utils/app_strings.dart';
 
 abstract class BaseRegisterRemoteDatasource {
   Future<UserModel> register(String name, String lastName, String jobTitle,
-      String email, String phone, String password);
+      String email, String phone, String password, String deviceToken);
 }
 
 class RegisterRemoteDatasource extends BaseRegisterRemoteDatasource {
   @override
   Future<UserModel> register(
-      name, lastName, jobTitle, email, phone, password) async {
-    final response = await DioHelper.post(
-      AppStrings.endpoint_register,
-      body: {
-        'name': name,
-        'familyName': lastName,
-        'job_title': jobTitle,
-        'email': email,
-        'phone': phone,
-        'password': password,
-      },
-        headers: {
-          'Accept-Language' : 'application/json',
-          'lang' : AppStorage.getLang
-        }
-    );
+      name, lastName, jobTitle, email, phone, password, deviceToken) async {
+    final response = await DioHelper.post(AppStrings.endpoint_register, body: {
+      'name': name,
+      'familyName': lastName,
+      'job_title': jobTitle,
+      'email': email,
+      'phone': phone,
+      'password': password,
+      'device_token': deviceToken,
+    }, headers: {
+      'Accept-Language': 'application/json',
+      'lang': AppStorage.getLang
+    });
     if (response.statusCode == 200 && response.data['status'] == true) {
       print("Success RegisterRepo");
-      await AppStorage.cacheUserInfo(UserModel.fromJson(jsonDecode(response.toString())));
+      await AppStorage.cacheUserInfo(
+          UserModel.fromJson(jsonDecode(response.toString())));
       return UserModel.fromJson(jsonDecode(response.toString()));
     } else {
       throw ServerException(

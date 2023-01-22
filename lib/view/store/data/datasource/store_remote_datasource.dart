@@ -24,7 +24,7 @@ class StoreRemoteDatasource extends BaseStoreRemoteDatasource {
       'lang': AppStorage.getLang,
       'Authorization': 'Bearer ${AppStorage.getUserData.token}'
     });
-    if (response.statusCode == 200 && response.data['status'] == 'Success') {
+    if (response.statusCode == 200 && response.data['status'] == true) {
       print("Success getAllProductsRepo");
       return ProductsModel.fromJson(jsonDecode(response.toString()));
     } else {
@@ -46,7 +46,7 @@ class StoreRemoteDatasource extends BaseStoreRemoteDatasource {
         'user': AppStorage.getUserId
       },
     );
-    if (response.statusCode == 200 && response.data['status'] == 'success') {
+    if (response.statusCode == 200 && response.data['status'] == true) {
       print("Success makeOrderRepo");
       return MsgModel.fromJson(jsonDecode(response.toString()));
     } else {

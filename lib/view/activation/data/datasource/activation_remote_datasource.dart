@@ -9,20 +9,44 @@ import '../model/orders_model.dart';
 
 abstract class BaseActivationRemoteDatasource {
   Future<OrdersModel> getOrders();
+
+  Future<MsgModel> activationProduct(String serialNumber);
 }
 
 class ActivationRemoteDatasource extends BaseActivationRemoteDatasource {
   @override
   Future<OrdersModel> getOrders() async {
-    final response =
-        await DioHelper.get(AppStrings.endpoint_orders, headers: {
+    final response = await DioHelper.get(AppStrings.endpoint_orders, headers: {
       'Accept-Language': 'application/json',
       'lang': AppStorage.getLang,
       'Authorization': 'Bearer ${AppStorage.getUserData.token}'
     });
-    if (response.statusCode == 200 && response.data['status'] == 'Success') {
+    if (response.statusCode == 200 && response.data['status'] == true) {
       print("Success getOrdersRepo");
       return OrdersModel.fromJson(jsonDecode(response.toString()));
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromJson(response.data),
+      );
+    }
+  }
+
+  @override
+  Future<MsgModel> activationProduct(serialNumber) async {
+    final response = await DioHelper.post(
+      AppStrings.endpoint_serialNumber,
+      headers: {
+        'Accept-Language': 'application/json',
+        'lang': AppStorage.getLang,
+        'Authorization': 'Bearer ${AppStorage.getUserData.token}'
+      },
+      body: {
+        "serialNumber": serialNumber,
+      },
+    );
+    if (response.statusCode == 200 && response.data['status'] == true) {
+      print("Success getOrdersRepo");
+      return MsgModel.fromJson(jsonDecode(response.toString()));
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromJson(response.data),

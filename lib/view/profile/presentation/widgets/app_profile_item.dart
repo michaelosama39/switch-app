@@ -5,25 +5,38 @@ import 'package:switch_app/core/models/applications_model.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_sizes.dart';
 import '../../../../widgets/space_width.dart';
+import '../controller/profile_cubit.dart';
 
 class AppProfileItem extends StatefulWidget {
-  AppProfileItem({Key? key, required this.applicationsData}) : super(key: key);
+  AppProfileItem({
+    Key? key,
+    required this.applicationsData,
+    required this.index, required this.profileCubit,
+  }) : super(key: key);
 
   final ApplicationsData applicationsData;
+  final int index;
+  final ProfileCubit profileCubit;
 
   @override
   State<AppProfileItem> createState() => _AppProfileItemState();
 }
 
 class _AppProfileItemState extends State<AppProfileItem> {
-
-  bool? isCheck;
+  bool isCheck = false;
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 0,
       child: Container(
+        decoration: widget.profileCubit.isDircect && widget.index == 0 ? BoxDecoration(
+          border: Border.all(
+            color: AppColors.primaryColor,
+            width: 2,
+          ),
+          borderRadius: BorderRadius.circular(5),
+        ) : null,
         padding: EdgeInsets.symmetric(
           horizontal: AppSizes.getProportionateScreenWidth(10),
         ),
@@ -53,7 +66,7 @@ class _AppProfileItemState extends State<AppProfileItem> {
             ),
             Switch(
               activeColor: AppColors.primaryColor,
-              value: isCheck!,
+              value: isCheck,
               onChanged: (value) {
                 setState(() {
                   isCheck = value;

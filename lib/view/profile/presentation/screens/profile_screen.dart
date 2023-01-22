@@ -18,14 +18,14 @@ class ProfileScreen extends StatelessWidget {
           create: (context) => ProfileCubit(),
         ),
         BlocProvider(
-          create: (context) => EditProfileCubit(sl(), sl())..getProfile(),
-        ),
-        BlocProvider(
           create: (context) => AddLinksCubit(sl(), sl(), sl(), sl(), sl())
             ..getSocialApps()
             ..getMusicApps()
             ..getCreativeApps()
             ..getBusinessApps()
+        ),
+        BlocProvider(
+          create: (context) => EditProfileCubit(sl(), sl())..getProfile(),
         ),
       ],
       child: Scaffold(

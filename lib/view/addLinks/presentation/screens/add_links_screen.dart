@@ -11,16 +11,9 @@ class AddLinksScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AddLinksCubit(sl(), sl(), sl(), sl(), sl())
-        ..getSocialApps()
-        ..getMusicApps()
-        ..getCreativeApps()
-        ..getBusinessApps(),
-      child: Scaffold(
-        appBar: AddLinksAppBar(),
-        body: AddLinksBody(),
-      ),
+    return Scaffold(
+      appBar: AddLinksAppBar(),
+      body: AddLinksBody(),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -15,7 +16,7 @@ class AppFunc {
     }
   }
 
-  static  shareImage(String imgUrl , String name , String price) async {
+  static shareImage(String imgUrl, String name, String price) async {
     var httpClient = HttpClient();
     var request = await httpClient.getUrl(Uri.parse(imgUrl));
     var response = await request.close();
@@ -23,14 +24,25 @@ class AppFunc {
     final dir = await getTemporaryDirectory();
     File file = File('${dir.path}/$name.jpeg');
     await file.writeAsBytes(bytes);
-    Share.shareFiles(['${file.path}'], text: 'اسم المنج: $name\nسعر المنتح: $price',);
+    Share.shareFiles(
+      ['${file.path}'],
+      text: 'اسم المنج: $name\nسعر المنتح: $price',
+    );
   }
 
   static shareText({String? text}) async {
-    if (text != null ) {
+    if (text != null) {
       await Share.share(
         text,
       );
     }
+  }
+
+  static Future<String> getTokenDevice() async {
+    FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+    String? token = await firebaseMessaging.getToken();
+    // deviceToken = token;
+    print("token is $token");
+    return token!;
   }
 }

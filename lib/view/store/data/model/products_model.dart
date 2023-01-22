@@ -1,5 +1,5 @@
 class ProductsModel {
-  String? status;
+  bool? status;
   List<ProductsData>? data;
 
   ProductsModel({this.status, this.data});

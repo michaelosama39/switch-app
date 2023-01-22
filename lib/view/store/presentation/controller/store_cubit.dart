@@ -57,13 +57,12 @@ class StoreCubit extends Cubit<StoreState> {
         ));
       },
       (res) async {
-        showSnackBar(res.message!);
         emit(MakeOrderState(
           message: res.message!,
           msgModel: res,
           makeOrderState: RequestState.loaded,
         ));
-        MagicRouter.pop();
+        showSnackBar(res.message!);
       },
     );
   }

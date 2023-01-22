@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:switch_app/view/addLinks/presentation/controller/add_links_cubit.dart';
-import 'package:switch_app/view/editProfile/presentation/controller/edit_profile_cubit.dart';
 import '../../../../core/services/services_locator.dart';
+import '../../../editProfile/presentation/controller/edit_profile_cubit.dart';
 import '../widgets/view_profile_appbar.dart';
 import '../widgets/view_profile_body.dart';
 
@@ -14,11 +14,12 @@ class ViewProfileScreen extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => AddLinksCubit(sl(), sl(), sl(), sl(), sl())
-            ..getCreativeApps()
+          create: (context) =>
+          AddLinksCubit(sl(), sl(), sl(), sl(), sl())
+            ..getSocialApps()
             ..getMusicApps()
-            ..getBusinessApps()
-            ..getSocialApps(),
+            ..getCreativeApps()
+            ..getBusinessApps(),
         ),
         BlocProvider(
           create: (context) => EditProfileCubit(sl(), sl())..getProfile(),

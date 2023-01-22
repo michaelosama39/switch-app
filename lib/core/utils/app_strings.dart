@@ -13,4 +13,5 @@ class AppStrings {
   static const String endpoint_addAccount = '$baseurl/addAccount';
   static const String endpoint_updateAccount = '$baseurl/updateAccount';
   static const String endpoint_orders = '$baseurl/orders';
+  static const String endpoint_serialNumber = '$baseurl/serialNumber';
 }

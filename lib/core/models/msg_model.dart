@@ -1,5 +1,5 @@
 class MsgModel {
-  var status;
+  bool? status;
   String? message;
 
   MsgModel({this.status, this.message});

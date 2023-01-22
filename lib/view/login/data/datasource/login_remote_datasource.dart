@@ -9,23 +9,20 @@ import '../../../../core/models/error_message_model.dart';
 import '../../../../core/utils/app_strings.dart';
 
 abstract class BaseLoginRemoteDatasource {
-  Future<UserModel> login(String email, String password);
+  Future<UserModel> login(String email, String password, String deviceToken);
 }
 
 class LoginRemoteDatasource extends BaseLoginRemoteDatasource {
   @override
-  Future<UserModel> login(email, password) async {
-    final response = await DioHelper.post(
-      AppStrings.endpoint_login,
-      body: {
-        'email': email,
-        'password': password,
-      },
-      headers: {
-        'Accept-Language' : 'application/json',
-        'lang' : AppStorage.getLang
-      }
-    );
+  Future<UserModel> login(email, password, deviceToken) async {
+    final response = await DioHelper.post(AppStrings.endpoint_login, body: {
+      'email': email,
+      'password': password,
+      'device_token': deviceToken,
+    }, headers: {
+      'Accept-Language': 'application/json',
+      'lang': AppStorage.getLang
+    });
     if (response.statusCode == 200 && response.data['status'] == true) {
       print("Success LoginRepo");
       return UserModel.fromJson(jsonDecode(response.toString()));

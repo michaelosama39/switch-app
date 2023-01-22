@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:switch_app/core/router/router.dart';
+import 'package:switch_app/core/utils/app_func.dart';
 import 'package:switch_app/localization/language_constants.dart';
 import 'package:switch_app/view/addLinks/presentation/controller/add_links_cubit.dart';
 import 'package:switch_app/view/bottomNav/presentation/screens/bottom_nav_screen.dart';
@@ -33,7 +34,9 @@ class SocialItemsViewProfile extends StatelessWidget {
                   listOfAllApps.length,
                   (index) {
                     return InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        // AppFunc.launchUrlFun(listOfAllApps[index].url);
+                      },
                       child: Container(
                         width: AppSizes.getProportionateScreenWidth(60),
                         child: Image.network(listOfAllApps[index].icon!),

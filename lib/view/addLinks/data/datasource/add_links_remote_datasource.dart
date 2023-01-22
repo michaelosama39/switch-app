@@ -28,7 +28,7 @@ class AddLinksRemoteDatasource extends BaseAddLinksRemoteDatasource {
       'lang': AppStorage.getLang,
       'Authorization': 'Bearer ${AppStorage.getUserData.token}'
     });
-    if (response.statusCode == 200 && response.data['status'] == 'Success') {
+    if (response.statusCode == 200 ) {
       print("Success getSocialAppsRepo");
       return ApplicationsModel.fromJson(jsonDecode(response.toString()));
     } else {
@@ -46,7 +46,7 @@ class AddLinksRemoteDatasource extends BaseAddLinksRemoteDatasource {
       'lang': AppStorage.getLang,
       'Authorization': 'Bearer ${AppStorage.getUserData.token}'
     });
-    if (response.statusCode == 200 && response.data['status'] == 'Success') {
+    if (response.statusCode == 200 ) {
       print("Success getBusinessAppsRepo");
       return ApplicationsModel.fromJson(jsonDecode(response.toString()));
     } else {
@@ -64,7 +64,7 @@ class AddLinksRemoteDatasource extends BaseAddLinksRemoteDatasource {
       'lang': AppStorage.getLang,
       'Authorization': 'Bearer ${AppStorage.getUserData.token}'
     });
-    if (response.statusCode == 200 && response.data['status'] == 'Success') {
+    if (response.statusCode == 200 ) {
       print("Success getCreativeAppsRepo");
       return ApplicationsModel.fromJson(jsonDecode(response.toString()));
     } else {
@@ -81,7 +81,7 @@ class AddLinksRemoteDatasource extends BaseAddLinksRemoteDatasource {
       'lang': AppStorage.getLang,
       'Authorization': 'Bearer ${AppStorage.getUserData.token}'
     });
-    if (response.statusCode == 200 && response.data['status'] == 'Success') {
+    if (response.statusCode == 200) {
       print("Success getMusicAppsRepo");
       return ApplicationsModel.fromJson(jsonDecode(response.toString()));
     } else {
@@ -110,7 +110,7 @@ class AddLinksRemoteDatasource extends BaseAddLinksRemoteDatasource {
       }
     );
     print(response);
-    if (response.statusCode == 200 && response.data['status'] == true) {
+    if (response.statusCode == 200) {
       print("Success addLinkRepo");
       return MsgModel.fromJson(jsonDecode(response.toString()));
     } else {

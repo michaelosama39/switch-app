@@ -28,6 +28,7 @@ Future showDialogBookNow(context , StoreCubit cubit ,int productId) {
                 text: translation(context).bookNow,
                 onPress: () {
                   cubit.makeOrder(productId);
+                  MagicRouter.pop();
                 },
               ),
               SpaceH(inputHeigth: 10),

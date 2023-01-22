@@ -10,7 +10,7 @@ class Login {
   Login(this.baseLoginRepository);
 
   Future<Either<Failure, UserModel>> execute(
-      String email, String password) async {
-    return await baseLoginRepository.login(email, password);
+      String email, String password , String deviceToken) async {
+    return await baseLoginRepository.login(email, password , deviceToken);
   }
 }

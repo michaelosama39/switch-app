@@ -26,7 +26,9 @@ class ViewProfileBody extends StatelessWidget {
           children: [
             BlocBuilder<EditProfileCubit, EditProfileState>(
               builder: (context, state) {
-                return cubit.userData == null ? SizedBox() : HeaderViewProfile();
+                return EditProfileCubit.of(context).userData == null
+                    ? const LoadingIndicator()
+                    : HeaderViewProfile();
               },
             ),
             SpaceH(inputHeigth: 10),

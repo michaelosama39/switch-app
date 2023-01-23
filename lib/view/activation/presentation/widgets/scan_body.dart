@@ -61,9 +61,9 @@ class ScanBody extends StatelessWidget {
               SpaceH(inputHeigth: 5),
               CustomButton(
                 text: translation(context).beginActivate,
-                onPress: () {
+                onPress: () async{
                   bottomSheetScan(context);
-                  cubit.tagNFCRead();
+                  cubit.tagNFCReadAndWrite();
                 },
               ),
               CustomButton(

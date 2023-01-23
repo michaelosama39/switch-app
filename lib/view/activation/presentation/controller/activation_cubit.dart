@@ -1,4 +1,7 @@
+import 'dart:typed_data';
+
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 import 'package:switch_app/core/router/router.dart';
@@ -6,6 +9,7 @@ import 'package:switch_app/view/activation/data/model/orders_model.dart';
 import 'package:switch_app/view/activation/domain/usecases/activation_product.dart';
 import 'package:switch_app/view/activation/domain/usecases/get_orders.dart';
 
+import '../../../../core/appStorage/app_storage.dart';
 import '../../../../core/utils/app_enums.dart';
 import '../../../../widgets/snackBar.dart';
 
@@ -71,15 +75,39 @@ class ActivationCubit extends Cubit<ActivationState> {
     );
   }
 
-  void tagNFCRead() {
-    NfcManager.instance.startSession(onDiscovered: (NfcTag tag) async {
-      // result.value = tag.data;
-      final ndef = Ndef.from(tag);
-      String tagRecordText =
-          String.fromCharCodes(ndef!.cachedMessage!.records[0].payload);
-      MagicRouter.pop();
-      activationProduct(tagRecordText.split('en')[1]);
-      NfcManager.instance.stopSession();
-    });
+  Future tagNFCReadAndWrite() async {
+    NfcManager.instance.startSession(
+      onDiscovered: (NfcTag tag) async {
+        final ndef = Ndef.from(tag);
+        String tagRecordText =
+            String.fromCharCodes(ndef!.cachedMessage!.records[0].payload);
+        MagicRouter.pop();
+        activationProduct(tagRecordText.split('en')[1]);
+        if (ndef == null || !ndef.isWritable) {
+          NfcManager.instance
+              .stopSession(errorMessage: 'Tag is not ndef writable');
+          return;
+        }
+
+        NdefMessage message = NdefMessage([
+          NdefRecord.createText('123456'),
+          NdefRecord.createUri(Uri.parse(
+              'https://switch-profile.technomasrsystems.com/${AppStorage.getUserId}')),
+          NdefRecord.createMime(
+              'text/plain', Uint8List.fromList('Hello'.codeUnits)),
+          NdefRecord.createExternal(
+              'com.example', 'mytype', Uint8List.fromList('mydata'.codeUnits)),
+        ]);
+
+        try {
+          await ndef.write(message);
+          print('Success to "Ndef Write"');
+          NfcManager.instance.stopSession();
+        } catch (e) {
+          NfcManager.instance.stopSession(errorMessage: e.toString());
+          return;
+        }
+      },
+    );
   }
 }

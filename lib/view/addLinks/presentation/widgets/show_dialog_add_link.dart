@@ -5,14 +5,13 @@ import 'package:switch_app/core/utils/app_sizes.dart';
 import 'package:switch_app/core/validator/validator.dart';
 import 'package:switch_app/localization/language_constants.dart';
 import 'package:switch_app/view/addLinks/presentation/controller/add_links_cubit.dart';
-import 'package:switch_app/view/viewProfile/presentation/controller/view_profile_cubit.dart';
 import 'package:switch_app/widgets/custom_button.dart';
 import 'package:switch_app/widgets/input_form_field.dart';
 import 'package:switch_app/widgets/space_height.dart';
 
 import '../../../../core/models/applications_model.dart';
 
-Future showDialogAddLink(context, IconData icon, AddLinksCubit cubit,
+Future showDialogAddLink(context, AddLinksCubit cubit,
     ApplicationsData applicationsData, String categoryName ) {
   return showDialog(
     context: context,

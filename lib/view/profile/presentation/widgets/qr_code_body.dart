@@ -7,12 +7,14 @@ import 'package:image_downloader/image_downloader.dart';
 import 'package:switch_app/core/router/router.dart';
 import 'package:switch_app/core/utils/app_assets.dart';
 import 'package:switch_app/core/utils/app_enums.dart';
+import 'package:switch_app/core/utils/app_func.dart';
 import 'package:switch_app/view/editProfile/presentation/controller/edit_profile_cubit.dart';
 import 'package:switch_app/widgets/custom_button.dart';
 import 'package:switch_app/widgets/loading_indicator.dart';
 import 'package:switch_app/widgets/snackBar.dart';
 import 'package:switch_app/widgets/space_height.dart';
 
+import '../../../../core/appStorage/app_storage.dart';
 import '../../../../core/utils/app_sizes.dart';
 import '../../../../localization/language_constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -20,8 +22,6 @@ import 'dart:ui' as ui;
 
 class QrCodeBody extends StatelessWidget {
   QrCodeBody({Key? key}) : super(key: key);
-
-  String? qrcode;
 
   @override
   Widget build(BuildContext context) {
@@ -51,45 +51,28 @@ class QrCodeBody extends StatelessWidget {
                   ),
                   IconButton(
                     icon: Icon(Icons.ios_share),
-                    onPressed: () {},
+                    onPressed: () {
+                      AppFunc.shareText(
+                          text:
+                          'https://switch-profile.technomasrsystems.com/${AppStorage.getUserId}');
+                    },
                   ),
                 ],
               ),
               SpaceH(inputHeigth: 30),
               state is GetProfileLoading
                   ? LoadingIndicator()
-                  : SvgPicture.network(
+                  : Image.network(
                       cubit.userData!.qrcode!,
                       height: AppSizes.screenHeight * 0.5,
                     ),
               SpaceH(inputHeigth: 20),
               CustomButton(
-                text: translation(context).downloadQRCode,
+                text: translation(context).shareQRCode,
                 onPress: () async {
-                  // try {
-                  //   // Saved with this method.
-                  //   var imageId = await ImageDownloader.downloadImage(
-                  //     cubit.userData!.qrcode!,
-                  //     outputMimeType: 'image/png',
-                  //   );
-                  //   print(imageId);
-                  //   print(cubit.userData!.qrcode!);
-                  //   if (imageId == null) {
-                  //     return;
-                  //   }
-                  //   // Below is a method of obtaining saved image information.
-                  //   var fileName = await ImageDownloader.findName(imageId);
-                  //   var path = await ImageDownloader.findPath(imageId);
-                  //   var size = await ImageDownloader.findByteSize(imageId);
-                  //   var mimeType = await ImageDownloader.findMimeType(imageId);
-                  //   showSnackBar(path!);
-                  //   print(mimeType);
-                  // } on PlatformException catch (error) {
-                  //   print(error);
-                  //   showSnackBar(error.message!);
-                  // }
+                  AppFunc.shareText(text: cubit.userData!.qrcode);
                 },
-              )
+              ),
             ],
           ),
         );

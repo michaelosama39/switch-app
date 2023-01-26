@@ -52,7 +52,7 @@ class SocialMediaSection extends StatelessWidget {
                           ? cubit.listOfSocialApps.length ~/ 3
                           : 1,
                       scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
+                      itemBuilder: (context, indexCo) {
                         lengthOfSubList =
                             (((cubit.listOfSocialApps.length / 3) -
                                         (cubit.listOfSocialApps.length ~/ 3)) *
@@ -65,32 +65,42 @@ class SocialMediaSection extends StatelessWidget {
                                 cubit.listOfSocialApps.length >= 3
                                     ? 3
                                     : cubit.listOfSocialApps.length,
-                                (index) => AddLinkItem(
-                                  applicationsData:
-                                      cubit.listOfSocialApps[index],
+                                (indexIn) => AddLinkItem(
+                                  applicationsData: cubit.listOfSocialApps[
+                                      (indexCo * 3) + indexIn],
                                   onTap: () {
                                     showDialogAddLink(
                                       context,
                                       cubit,
-                                      cubit.listOfSocialApps[index],
+                                      cubit.listOfSocialApps[
+                                          (indexCo * 3) + indexIn],
                                       'social',
                                     );
                                   },
                                 ),
                               ),
                             ),
-                            index == (cubit.listOfSocialApps.length ~/ 3) - 1
+                            indexCo == (cubit.listOfSocialApps.length ~/ 3) - 1
                                 ? Column(
                                     children: List.generate(
                                       lengthOfSubList!.toInt(),
-                                      (index) => AddLinkItem(
-                                        applicationsData:
-                                            cubit.listOfSocialApps[index],
+                                      (indexIn) => AddLinkItem(
+                                        applicationsData: cubit
+                                                .listOfSocialApps[
+                                            ((cubit.listOfSocialApps.length ~/
+                                                        3) *
+                                                    3) +
+                                                indexIn],
                                         onTap: () {
                                           showDialogAddLink(
                                             context,
                                             cubit,
-                                            cubit.listOfSocialApps[index],
+                                            cubit.listOfSocialApps[((cubit
+                                                            .listOfSocialApps
+                                                            .length ~/
+                                                        3) *
+                                                    3) +
+                                                indexIn],
                                             'social',
                                           );
                                         },

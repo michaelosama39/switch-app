@@ -52,7 +52,6 @@ class BusinessSection extends StatelessWidget {
                           : 1,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, indexCo) {
-                        print("indexCo: ${indexCo}");
                         lengthOfSubList = (((cubit.listOfBusinessApps.length /
                                         3) -
                                     (cubit.listOfBusinessApps.length ~/ 3)) *

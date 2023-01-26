@@ -38,9 +38,8 @@ class ProfileAppbar extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.ios_share),
               onPressed: () {
-                print(cubit.listOfAllApps.first.account!.name);
                 AppFunc.shareText(
-                    text: cubit.isDircect
+                    text: cubit.listOfAllApps.isEmpty? 'https://switch-profile.technomasrsystems.com/${AppStorage.getUserId}' : cubit.isDircect
                         ? cubit.listOfAllApps.first.url!
                         : 'https://switch-profile.technomasrsystems.com/${AppStorage.getUserId}');
               },

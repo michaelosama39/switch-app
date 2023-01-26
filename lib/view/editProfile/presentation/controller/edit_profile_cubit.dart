@@ -41,14 +41,12 @@ class EditProfileCubit extends Cubit<EditProfileState> {
       },
       (res) {
         userData = res;
-        nameController.text = res.user!.name == null ? '' : res.user!.name!;
-        lastNameController.text =
-            res.user!.familyName == null ? '' : res.user!.familyName!;
-        emailController.text = res.user!.email == null ? '' : res.user!.email!;
-        phoneController.text = res.user!.phone == null ? '' : res.user!.phone!;
-        jobTitleController.text =
-            res.user!.jobTitle == null ? '' : res.user!.jobTitle!;
-        bioController.text = res.user!.bio == null ? '' : res.user!.bio!;
+        nameController.text = res.user!.name.toString();
+        lastNameController.text = res.user!.familyName.toString();
+        emailController.text = res.user!.email.toString();
+        phoneController.text = res.user!.phone.toString();
+        jobTitleController.text = res.user!.jobTitle.toString();
+        bioController.text = res.user!.bio.toString();
         emit(EditProfileInitial());
       },
     );

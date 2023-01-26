@@ -52,7 +52,7 @@ class MusicSection extends StatelessWidget {
                           ? cubit.listOfMusicApps.length ~/ 3
                           : 1,
                       scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
+                      itemBuilder: (context, indexCo) {
                         lengthOfSubList = (((cubit.listOfMusicApps.length / 3) -
                                     (cubit.listOfMusicApps.length ~/ 3)) *
                                 10) /
@@ -64,32 +64,41 @@ class MusicSection extends StatelessWidget {
                                 cubit.listOfMusicApps.length >= 3
                                     ? 3
                                     : cubit.listOfMusicApps.length,
-                                (index) => AddLinkItem(
-                                  applicationsData:
-                                      cubit.listOfMusicApps[index],
+                                (indexIn) => AddLinkItem(
+                                  applicationsData: cubit
+                                      .listOfMusicApps[(indexCo * 3) + indexIn],
                                   onTap: () {
                                     showDialogAddLink(
                                       context,
                                       cubit,
-                                      cubit.listOfMusicApps[index],
+                                      cubit.listOfMusicApps[
+                                          (indexCo * 3) + indexIn],
                                       'music',
                                     );
                                   },
                                 ),
                               ),
                             ),
-                            index == (cubit.listOfMusicApps.length ~/ 3) - 1
+                            indexCo == (cubit.listOfMusicApps.length ~/ 3) - 1
                                 ? Column(
                                     children: List.generate(
                                       lengthOfSubList!.toInt(),
-                                      (index) => AddLinkItem(
-                                        applicationsData:
-                                            cubit.listOfMusicApps[index],
+                                      (indexIn) => AddLinkItem(
+                                        applicationsData: cubit.listOfMusicApps[
+                                            ((cubit.listOfMusicApps.length ~/
+                                                        3) *
+                                                    3) +
+                                                indexIn],
                                         onTap: () {
                                           showDialogAddLink(
                                             context,
                                             cubit,
-                                            cubit.listOfMusicApps[index],
+                                            cubit.listOfMusicApps[((cubit
+                                                            .listOfMusicApps
+                                                            .length ~/
+                                                        3) *
+                                                    3) +
+                                                indexIn],
                                             'music',
                                           );
                                         },

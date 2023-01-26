@@ -31,7 +31,6 @@ class ProfileBody extends StatelessWidget {
             top: AppSizes.getProportionateScreenHeight(30),
             left: AppSizes.getProportionateScreenWidth(10),
             right: AppSizes.getProportionateScreenWidth(10),
-            // bottom: AppSizes.getProportionateScreenHeight(10),
           ),
           child: Column(
             children: [
@@ -116,7 +115,6 @@ class ProfileBody extends StatelessWidget {
                 buildWhen: (previous, current) =>
                     previous != current || current is ViewProfileLoaded,
                 builder: (context, state) {
-                  print(state);
                   if(state is ViewProfileLoaded){
                     return ViewProfileCubit.of(context)
                         .listOfAppDetailsData
@@ -124,7 +122,7 @@ class ProfileBody extends StatelessWidget {
                         ? EmptyListAppsWidget()
                         : ListOfAppsWidget();
                   }else{
-                    return LoadingIndicator();
+                    return EmptyListAppsWidget();
                   }
                 },
               ),

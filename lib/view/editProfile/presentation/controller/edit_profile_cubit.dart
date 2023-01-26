@@ -1,12 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
-import 'package:switch_app/core/models/user_model.dart';
 import 'package:switch_app/view/editProfile/domain/usecases/edit_profile.dart';
 import 'package:switch_app/view/editProfile/domain/usecases/get_profile.dart';
-
-import '../../../../core/appStorage/app_storage.dart';
 import '../../../../core/models/msg_model.dart';
 import '../../../../core/utils/app_enums.dart';
 import '../../../../widgets/snackBar.dart';
@@ -29,42 +27,35 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
   final bioController = TextEditingController();
-  String? image;
-  String? backgroundImage;
   ProfileModel? userData;
+  XFile? backgroundImage;
+  XFile? image;
 
   Future getProfile() async {
-    emit(GetProfileState(
-      userState: RequestState.loading,
-    ));
+    emit(GetProfileLoading());
     final res = await getProfileUseCase.execute();
     res.fold(
       (err) {
         showSnackBar(err.message);
-        emit(GetProfileState(
-          message: err.message,
-          userState: RequestState.error,
-        ));
+        emit(EditProfileInitial());
       },
       (res) {
         userData = res;
-        image = res.user!.image;
-        backgroundImage = res.user!.backgroundImage;
-        nameController.text = res.user!.name!;
-        emailController.text = res.user!.email!;
-        phoneController.text = res.user!.phone!;
-        emit(GetProfileState(
-          userData: res,
-          userState: RequestState.loaded,
-        ));
+        nameController.text = res.user!.name == null ? '' : res.user!.name!;
+        lastNameController.text =
+            res.user!.familyName == null ? '' : res.user!.familyName!;
+        emailController.text = res.user!.email == null ? '' : res.user!.email!;
+        phoneController.text = res.user!.phone == null ? '' : res.user!.phone!;
+        jobTitleController.text =
+            res.user!.jobTitle == null ? '' : res.user!.jobTitle!;
+        bioController.text = res.user!.bio == null ? '' : res.user!.bio!;
+        emit(EditProfileInitial());
       },
     );
   }
 
   Future editProfile() async {
-    emit(EditProfileDataState(
-      userState: RequestState.loading,
-    ));
+    emit(EditProfileDataLoading());
     final res = await editProfileUseCase.execute(
         nameController.text,
         lastNameController.text,
@@ -77,17 +68,23 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     res.fold(
       (err) {
         showSnackBar(err.message);
-        emit(EditProfileDataState(
-          message: err.message,
-          userState: RequestState.error,
-        ));
+        emit(EditProfileInitial());
       },
       (res) async {
-        emit(EditProfileDataState(
-          userData: res,
-          userState: RequestState.loaded,
-        ));
+        emit(EditProfileInitial());
       },
     );
+  }
+
+  Future selectImage() async {
+    var image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    this.image = image!;
+    emit(SelectImageState());
+  }
+
+  Future selectBackgroundImage() async {
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    backgroundImage = image!;
+    emit(SelectImageState());
   }
 }

@@ -9,9 +9,12 @@ import 'package:switch_app/view/editProfile/presentation/controller/edit_profile
 import 'package:switch_app/view/profile/presentation/controller/profile_cubit.dart';
 import 'package:switch_app/view/profile/presentation/widgets/profile_appbar.dart';
 import 'package:switch_app/view/profile/presentation/widgets/profile_card.dart';
+import 'package:switch_app/widgets/loading_indicator.dart';
 import 'package:switch_app/widgets/space_height.dart';
 import '../../../../core/utils/app_sizes.dart';
 import '../../../addLinks/presentation/screens/add_links_screen.dart';
+import '../../../viewProfile/presentation/controller/view_profile_cubit.dart';
+import 'empty_list_apps_widget.dart';
 import 'list_of_apps_widget.dart';
 
 class ProfileBody extends StatelessWidget {
@@ -108,10 +111,21 @@ class ProfileBody extends StatelessWidget {
                   ),
                 ],
               ),
-              SpaceH(inputHeigth: 3),
-              BlocBuilder<AddLinksCubit, AddLinksState>(
+              SpaceH(inputHeigth: 5),
+              BlocBuilder<ViewProfileCubit, ViewProfileState>(
+                buildWhen: (previous, current) =>
+                    previous != current || current is ViewProfileLoaded,
                 builder: (context, state) {
-                  return ListOfAppsWidget();
+                  print(state);
+                  if(state is ViewProfileLoaded){
+                    return ViewProfileCubit.of(context)
+                        .listOfAppDetailsData
+                        .isEmpty
+                        ? EmptyListAppsWidget()
+                        : ListOfAppsWidget();
+                  }else{
+                    return LoadingIndicator();
+                  }
                 },
               ),
             ],

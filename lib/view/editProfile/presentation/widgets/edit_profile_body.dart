@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:switch_app/core/router/router.dart';
 import 'package:switch_app/core/utils/app_assets.dart';
 import 'package:switch_app/core/utils/app_colors.dart';
 import 'package:switch_app/core/utils/app_sizes.dart';
@@ -19,6 +23,7 @@ class EditProfileBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: BlocBuilder<EditProfileCubit, EditProfileState>(
+        buildWhen: (previous, current) => previous != current,
         builder: (context, state) {
           final cubit = EditProfileCubit.of(context);
           return cubit.userData == null
@@ -41,10 +46,11 @@ class EditProfileBody extends StatelessWidget {
                                     AppSizes.getProportionateScreenHeight(35)),
                             child: Stack(
                               children: [
-                                cubit.backgroundImage != null
-                                    ? Image.network(cubit.backgroundImage!)
-                                    : Image.asset(
-                                        AppAssets.background_profile,
+                                cubit.backgroundImage == null
+                                    ? Image.network(
+                                        cubit.userData!.user!.backgroundImage!)
+                                    : Image.file(
+                                        File(cubit.backgroundImage!.path),
                                       ),
                                 Positioned(
                                   right: 0,
@@ -53,7 +59,16 @@ class EditProfileBody extends StatelessWidget {
                                       FontAwesomeIcons.camera,
                                       color: Colors.grey,
                                     ),
-                                    onPressed: () {},
+                                    onPressed: () async {
+                                      await cubit.selectBackgroundImage();
+                                      // final image = await ImagePicker()
+                                      //     .pickImage(
+                                      //         source: ImageSource.gallery)
+                                      //     .then((value) {
+                                      //   cubit.backgroundImage = value!;
+                                      //   cubit.selectBackgroundImage();
+                                      // });
+                                    },
                                   ),
                                 ),
                               ],
@@ -68,20 +83,23 @@ class EditProfileBody extends StatelessWidget {
                               child: Stack(
                                 children: [
                                   Container(
-                                    padding: EdgeInsets.all(20),
                                     width: AppSizes.getProportionateScreenWidth(
                                         120),
                                     height:
                                         AppSizes.getProportionateScreenHeight(
                                             120),
                                     decoration: BoxDecoration(
-                                      image: cubit.image != null
+                                      shape: BoxShape.circle,
+                                      image: cubit.image == null
                                           ? DecorationImage(
-                                              image: NetworkImage(cubit.image!),
+                                              image: NetworkImage(
+                                                cubit.userData!.user!.image!,
+                                              ),
                                             )
                                           : DecorationImage(
-                                              image:
-                                                  AssetImage(AppAssets.avater),
+                                              image: FileImage(
+                                                File(cubit.image!.path),
+                                              ),
                                             ),
                                     ),
                                   ),
@@ -93,7 +111,16 @@ class EditProfileBody extends StatelessWidget {
                                         FontAwesomeIcons.camera,
                                         color: Colors.grey,
                                       ),
-                                      onPressed: () {},
+                                      onPressed: () async {
+                                        await cubit.selectImage();
+                                        // final image = await ImagePicker()
+                                        //     .pickImage(
+                                        //     source: ImageSource.gallery)
+                                        //     .then((value) {
+                                        //   cubit.image = value!;
+                                        //   cubit.selectImage();
+                                        // });
+                                      },
                                     ),
                                   ),
                                 ],
@@ -103,35 +130,42 @@ class EditProfileBody extends StatelessWidget {
                         ],
                       ),
                       InputFormField(
-                        hint: 'Dominic Ovo',
+                        hint: translation(context).name,
                         validator: (v) => Validator.name(context, v),
                         fillColor: Colors.white,
                         icon: Icons.person,
                         controller: cubit.nameController,
                       ),
                       InputFormField(
-                        hint: 'test@gmail.com',
+                        hint: translation(context).lastName,
+                        validator: (v) => Validator.name(context, v),
+                        fillColor: Colors.white,
+                        icon: Icons.person,
+                        controller: cubit.lastNameController,
+                      ),
+                      InputFormField(
+                        hint: translation(context).yourEmail,
                         validator: (v) => Validator.email(context, v),
                         fillColor: Colors.white,
                         icon: Icons.email_outlined,
                         controller: cubit.emailController,
                       ),
                       InputFormField(
-                        hint: '01000000000',
+                        hint: translation(context).phone,
                         validator: (v) => Validator.phoneNumber(context, v),
                         fillColor: Colors.white,
                         icon: Icons.phone,
                         controller: cubit.phoneController,
                       ),
                       InputFormField(
-                        hint: 'software engineer',
+                        hint: translation(context).jobTitle,
                         validator: (v) => Validator.productTitle(context, v),
                         fillColor: Colors.white,
                         icon: Icons.receipt,
                         controller: cubit.jobTitleController,
                       ),
                       InputFormField(
-                        hint: 'Bio',
+                        hint: translation(context).jopDescription,
                         validator: (v) => Validator.productTitle(context, v),
                         fillColor: Colors.white,
                         icon: Icons.wysiwyg_rounded,
@@ -140,12 +174,14 @@ class EditProfileBody extends StatelessWidget {
                       SpaceH(inputHeigth: 25),
                       BlocBuilder<EditProfileCubit, EditProfileState>(
                         builder: (context, state) {
-                          return CustomButton(
-                            text: translation(context).save,
-                            onPress: () {
-                              cubit.editProfile();
-                            },
-                          );
+                          return state is EditProfileDataLoading
+                              ? LoadingIndicator()
+                              : CustomButton(
+                                  text: translation(context).save,
+                                  onPress: () {
+                                    cubit.editProfile();
+                                  },
+                                );
                         },
                       ),
                       SpaceH(inputHeigth: 10),
@@ -154,7 +190,9 @@ class EditProfileBody extends StatelessWidget {
                         fontColor: AppColors.primaryColor,
                         buttonColor: Colors.white,
                         borderColor: AppColors.primaryColor,
-                        onPress: () {},
+                        onPress: () {
+                          MagicRouter.pop();
+                        },
                       ),
                     ],
                   ),

@@ -7,6 +7,7 @@ import 'package:switch_app/view/addLinks/presentation/widgets/show_dialog_add_li
 
 import '../../../../core/utils/app_sizes.dart';
 import '../../../../widgets/space_width.dart';
+import '../../../viewProfile/presentation/controller/view_profile_cubit.dart';
 import '../controller/add_links_cubit.dart';
 
 class BusinessSection extends StatelessWidget {
@@ -54,6 +55,7 @@ class BusinessSection extends StatelessWidget {
                               ? 3
                               : cubit.listOfBusinessApps.length,
                           (index) => Card(
+                            elevation: 0,
                             child: Container(
                               width: AppSizes.screenWidth * 0.7,
                               padding: EdgeInsets.symmetric(
@@ -122,6 +124,7 @@ class BusinessSection extends StatelessWidget {
                               children: List.generate(
                                 lengthOfSubList!.toInt(),
                                 (index) => Card(
+                                  elevation: 0,
                                   child: Container(
                                     width: AppSizes.screenWidth * 0.7,
                                     padding: EdgeInsets.symmetric(

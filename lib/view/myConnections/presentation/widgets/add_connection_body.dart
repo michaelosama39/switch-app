@@ -47,7 +47,7 @@ class AddConnectionBody extends StatelessWidget {
               controller: myConnectionsCubit.nameController,
               validator: (v) => Validator.name(context, v),
               fillColor: Colors.white,
-              icon: Icons.person,
+              icon: Icons.person_outlined,
             ),
             InputFormField(
               hint: translation(context).yourEmail,
@@ -57,7 +57,7 @@ class AddConnectionBody extends StatelessWidget {
               icon: Icons.email_outlined,
             ),
             InputFormField(
-              hint: 'your title',
+              hint: translation(context).jobTitle,
               controller: myConnectionsCubit.titleController,
               validator: (v) => Validator.productTitle(context, v),
               fillColor: Colors.white,
@@ -68,14 +68,14 @@ class AddConnectionBody extends StatelessWidget {
               controller: myConnectionsCubit.phoneController,
               validator: (v) => Validator.phoneNumber(context, v),
               fillColor: Colors.white,
-              icon: Icons.phone,
+              icon: Icons.phone_outlined,
             ),
             InputFormField(
               hint: translation(context).jopDescription,
               controller: myConnectionsCubit.contentController,
               validator: (v) => Validator.report(context, v),
               fillColor: Colors.white,
-              icon: Icons.phone,
+              icon: Icons.description_outlined,
             ),
             SpaceH(inputHeigth: 20),
             CustomButton(

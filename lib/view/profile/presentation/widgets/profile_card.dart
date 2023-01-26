@@ -33,14 +33,12 @@ class ProfileCard extends StatelessWidget {
                         width: AppSizes.getProportionateScreenWidth(100),
                         height: AppSizes.getProportionateScreenHeight(100),
                         decoration: BoxDecoration(
-                          image: cubit.userData!.user!.image == null
-                              ? const DecorationImage(
-                                  image: AssetImage(AppAssets.avater),
-                                )
-                              : DecorationImage(
-                                  image: NetworkImage(
-                                      cubit.userData!.user!.image!),
-                                ),
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: NetworkImage(
+                              cubit.userData!.user!.image!,
+                            ),
+                          ),
                         ),
                       ),
                       SpaceW(inputWidth: 10),

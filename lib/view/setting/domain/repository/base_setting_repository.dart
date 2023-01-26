@@ -4,4 +4,5 @@ import '../../../../core/error/failure.dart';
 
 abstract class BaseSettingRepository {
   Future<Either<Failure, MsgModel>> logout();
+  Future<Either<Failure, MsgModel>> deleteAccount();
 }

@@ -19,4 +19,14 @@ class SettingRepository extends BaseSettingRepository{
       return Left(ServerFailure(e.errorMessageModel.message));
     }
   }
+
+  @override
+  Future<Either<Failure, MsgModel>> deleteAccount() async{
+    try {
+      final res = await baseSettingRemoteDatasource.deleteAccount();
+      return Right(res);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.errorMessageModel.message));
+    }
+  }
 }

@@ -11,9 +11,9 @@ class ViewProfileRepository extends BaseViewProfileRepository{
   ViewProfileRepository(this.baseViewProfileRemoteDatasource);
 
   @override
-  Future<Either<Failure, AppDetailsModel>> showAppDetails(categoryName) async{
+  Future<Either<Failure, AppDetailsModel>> showAppDetails() async{
     try {
-      final res = await baseViewProfileRemoteDatasource.showAppDetails(categoryName);
+      final res = await baseViewProfileRemoteDatasource.showAppDetails();
       return Right(res);
     } on ServerException catch (e) {
       return Left(ServerFailure(e.errorMessageModel.message));

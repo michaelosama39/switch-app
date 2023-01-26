@@ -7,6 +7,7 @@ import 'package:switch_app/view/addLinks/presentation/widgets/show_dialog_add_li
 import '../../../../core/utils/app_sizes.dart';
 import '../../../../localization/language_constants.dart';
 import '../../../../widgets/space_width.dart';
+import '../../../viewProfile/presentation/controller/view_profile_cubit.dart';
 
 class SocialMediaSection extends StatelessWidget {
   SocialMediaSection({Key? key}) : super(key: key);
@@ -53,6 +54,7 @@ class SocialMediaSection extends StatelessWidget {
                               ? 3
                               : cubit.listOfSocialApps.length,
                           (index) => Card(
+                            elevation: 0,
                             child: Container(
                               width: AppSizes.screenWidth * 0.7,
                               padding: EdgeInsets.symmetric(
@@ -87,11 +89,12 @@ class SocialMediaSection extends StatelessWidget {
                                   InkWell(
                                     onTap: () {
                                       showDialogAddLink(
-                                          context,
-                                          FontAwesomeIcons.facebook,
-                                          cubit,
-                                          cubit.listOfSocialApps[index],
-                                          'social');
+                                        context,
+                                        FontAwesomeIcons.facebook,
+                                        cubit,
+                                        cubit.listOfSocialApps[index],
+                                        'social',
+                                      );
                                     },
                                     child: Row(
                                       children: [
@@ -120,6 +123,7 @@ class SocialMediaSection extends StatelessWidget {
                               children: List.generate(
                                 lengthOfSubList!.toInt(),
                                 (index) => Card(
+                                  elevation: 0,
                                   child: Container(
                                     width: AppSizes.screenWidth * 0.7,
                                     padding: EdgeInsets.symmetric(
@@ -159,11 +163,12 @@ class SocialMediaSection extends StatelessWidget {
                                         InkWell(
                                           onTap: () {
                                             showDialogAddLink(
-                                                context,
-                                                FontAwesomeIcons.facebook,
-                                                cubit,
-                                                cubit.listOfSocialApps[index],
-                                                'social');
+                                              context,
+                                              FontAwesomeIcons.facebook,
+                                              cubit,
+                                              cubit.listOfSocialApps[index],
+                                              'social',
+                                            );
                                           },
                                           child: Row(
                                             children: [

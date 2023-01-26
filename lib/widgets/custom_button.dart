@@ -13,6 +13,7 @@ class CustomButton extends StatelessWidget {
     required this.onPress,
     this.radius = 5,
     this.paddingVertical = 10,
+    this.paddingHorizontal = 10,
     this.buttonColor = AppColors.primaryColor,
     this.borderColor = Colors.white,
   }) : super(key: key);
@@ -23,13 +24,17 @@ class CustomButton extends StatelessWidget {
   final VoidCallback onPress;
   final double radius;
   final double paddingVertical;
+  final double paddingHorizontal;
   final Color buttonColor;
   final Color borderColor;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: AppSizes.getProportionateScreenWidth(20), vertical: paddingVertical),
+      padding: EdgeInsets.symmetric(
+        horizontal: AppSizes.getProportionateScreenWidth(paddingHorizontal),
+        vertical: AppSizes.getProportionateScreenHeight(paddingVertical),
+      ),
       decoration: BoxDecoration(
         color: buttonColor,
         borderRadius: BorderRadius.circular(radius),
@@ -41,10 +46,9 @@ class CustomButton extends StatelessWidget {
           child: Text(
             text,
             style: TextStyle(
-              fontSize: fontSize.sp,
-              color: fontColor,
-              fontWeight: FontWeight.bold
-            ),
+                fontSize: fontSize.sp,
+                color: fontColor,
+                fontWeight: FontWeight.bold),
           ),
         ),
       ),

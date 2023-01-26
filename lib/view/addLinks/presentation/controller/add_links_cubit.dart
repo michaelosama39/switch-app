@@ -10,6 +10,7 @@ import 'package:switch_app/view/addLinks/domain/usecases/get_business_apps.dart'
 import 'package:switch_app/view/addLinks/domain/usecases/get_creative_apps.dart';
 import 'package:switch_app/view/addLinks/domain/usecases/get_music_apps.dart';
 import 'package:switch_app/view/addLinks/domain/usecases/get_social_apps.dart';
+import 'package:switch_app/view/bottomNav/presentation/screens/bottom_nav_screen.dart';
 
 import '../../../../core/utils/app_enums.dart';
 import '../../../../widgets/snackBar.dart';
@@ -45,119 +46,79 @@ class AddLinksCubit extends Cubit<AddLinksState> {
   int? typeId;
 
   Future getSocialApps() async {
-    emit(GetSocialAppsState(
-      applicationsState: RequestState.loading,
-    ));
+    emit(GetAppsStateLoading());
     final res = await getSocialAppsUseCase.execute();
     res.fold(
       (err) {
         showSnackBar(err.message);
-        emit(GetSocialAppsState(
-          message: err.message,
-          applicationsState: RequestState.error,
-        ));
+        emit(AddLinksInitial());
       },
       (res) async {
         listOfSocialApps.addAll(res.item!);
-        emit(GetSocialAppsState(
-          applicationsModel: res,
-          applicationsState: RequestState.loaded,
-        ));
+        emit(AddLinksInitial());
       },
     );
   }
 
   Future getMusicApps() async {
-    emit(GetMusicAppsState(
-      applicationsState: RequestState.loading,
-    ));
+    emit(GetAppsStateLoading());
     final res = await getMusicAppsUseCase.execute();
     res.fold(
       (err) {
         showSnackBar(err.message);
-        emit(GetMusicAppsState(
-          message: err.message,
-          applicationsState: RequestState.error,
-        ));
+        emit(AddLinksInitial());
       },
       (res) async {
         listOfMusicApps.addAll(res.item!);
-        emit(GetMusicAppsState(
-          applicationsModel: res,
-          applicationsState: RequestState.loaded,
-        ));
+        emit(AddLinksInitial());
       },
     );
   }
 
   Future getBusinessApps() async {
-    emit(GetBusinessAppsState(
-      applicationsState: RequestState.loading,
-    ));
+    emit(GetAppsStateLoading());
     final res = await getBusinessAppsUseCase.execute();
     res.fold(
       (err) {
         showSnackBar(err.message);
-        emit(GetBusinessAppsState(
-          message: err.message,
-          applicationsState: RequestState.error,
-        ));
+        emit(AddLinksInitial());
       },
       (res) async {
         listOfBusinessApps.addAll(res.item!);
-        emit(GetBusinessAppsState(
-          applicationsModel: res,
-          applicationsState: RequestState.loaded,
-        ));
+        emit(AddLinksInitial());
       },
     );
   }
 
   Future getCreativeApps() async {
-    emit(GetCreativeAppsState(
-      applicationsState: RequestState.loading,
-    ));
+    emit(GetAppsStateLoading());
     final res = await getCreativeAppsUseCase.execute();
     res.fold(
       (err) {
         showSnackBar(err.message);
-        emit(GetCreativeAppsState(
-          message: err.message,
-          applicationsState: RequestState.error,
-        ));
+        emit(AddLinksInitial());
       },
       (res) async {
         listOfCreativeApps.addAll(res.item!);
-        emit(GetCreativeAppsState(
-          applicationsModel: res,
-          applicationsState: RequestState.loaded,
-        ));
+        emit(AddLinksInitial());
       },
     );
   }
 
   Future addLink() async {
-    emit(AddLinkState(
-      msgState: RequestState.loading,
-    ));
-    final res =
-        await addLinkUseCase.execute(pageTitleController.text, urlController.text, categoryName!, typeId!);
+    emit(AddLinkLoading());
+    final res = await addLinkUseCase.execute(
+        pageTitleController.text, urlController.text, categoryName!, typeId!);
     res.fold(
       (err) {
         showSnackBar(err.message);
-        emit(AddLinkState(
-          message: err.message,
-          msgState: RequestState.error,
-        ));
+        emit(AddLinksInitial());
       },
       (res) async {
-        emit(AddLinkState(
-          msgModel: res,
-          msgState: RequestState.loaded,
-        ));
+        emit(AddLinksInitial());
         pageTitleController.clear();
         urlController.clear();
-        MagicRouter.pop();
+        MagicRouter.navigateAndPopAll(BottomNavScreen());
       },
     );
   }

@@ -5,14 +5,6 @@ abstract class SettingState {}
 
 class SettingInitial extends SettingState {}
 
-class LogoutState extends SettingState {
-  final MsgModel? msgModel;
-  final RequestState logoutState;
-  final String message;
+class LogoutLoading extends SettingState {}
 
-  LogoutState({
-    this.msgModel,
-    this.logoutState = RequestState.initial,
-    this.message = '',
-  });
-}
+class DeleteAccountLoading extends SettingState {}

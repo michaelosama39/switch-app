@@ -25,6 +25,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
         selectedItemColor: AppColors.primaryColor,
         unselectedItemColor: Colors.grey,
         showUnselectedLabels: true,
+        type: BottomNavigationBarType.fixed,
         selectedFontSize: 12.sp,
         unselectedFontSize: 12.sp,
         selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),

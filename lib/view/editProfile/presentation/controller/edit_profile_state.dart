@@ -5,26 +5,7 @@ abstract class EditProfileState {}
 
 class EditProfileInitial extends EditProfileState {}
 
-class GetProfileState extends EditProfileState {
-  final ProfileModel? userData;
-  final RequestState userState;
-  final String message;
+class GetProfileLoading extends EditProfileState {}
+class SelectImageState extends EditProfileState {}
+class EditProfileDataLoading extends EditProfileState {}
 
-  GetProfileState({
-    this.userData,
-    this.userState = RequestState.initial,
-    this.message = '',
-  });
-}
-
-class EditProfileDataState extends EditProfileState {
-  final MsgModel? userData;
-  final RequestState userState;
-  final String message;
-
-  EditProfileDataState({
-    this.userData,
-    this.userState = RequestState.initial,
-    this.message = '',
-  });
-}

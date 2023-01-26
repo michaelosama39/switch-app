@@ -8,6 +8,7 @@ import '../../../../core/utils/app_strings.dart';
 
 abstract class BaseSettingRemoteDatasource {
   Future<MsgModel> logout();
+  Future<MsgModel> deleteAccount();
 }
 
 class SettingRemoteDatasource extends BaseSettingRemoteDatasource {
@@ -20,6 +21,23 @@ class SettingRemoteDatasource extends BaseSettingRemoteDatasource {
     }, body: {});
     if (response.statusCode == 200 && response.data['status'] == true) {
       print("Success logoutRepo");
+      return MsgModel.fromJson(jsonDecode(response.toString()));
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromJson(response.data),
+      );
+    }
+  }
+
+  @override
+  Future<MsgModel> deleteAccount() async{
+    final response = await DioHelper.post(AppStrings.endpoint_deleteAccount, headers: {
+      'Accept-Language': 'application/json',
+      'lang': AppStorage.getLang,
+      'Authorization': 'Bearer ${AppStorage.getUserData.token}'
+    }, body: {});
+    if (response.statusCode == 200 && response.data['status'] == true) {
+      print("Success deleteAccountRepo");
       return MsgModel.fromJson(jsonDecode(response.toString()));
     } else {
       throw ServerException(

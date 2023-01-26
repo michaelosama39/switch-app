@@ -21,4 +21,6 @@ class AppStrings {
   static const String endpoint_favorite = '$baseurl/favorite';
   static const String endpoint_favoriteShow = '$baseurl/favoriteShow';
   static const String endpoint_show = '$baseurl/show';
+  static const String endpoint_changePassword = '$baseurl/changePassword';
+  static const String endpoint_deleteAccount = '$baseurl/deleteAccount';
 }

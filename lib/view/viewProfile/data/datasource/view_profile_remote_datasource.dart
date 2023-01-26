@@ -7,16 +7,16 @@ import '../../../../core/utils/app_strings.dart';
 import '../model/app_details_model.dart';
 
 abstract class BaseViewProfileRemoteDatasource {
-  Future<AppDetailsModel> showAppDetails(String categoryName);
+  Future<AppDetailsModel> showAppDetails();
 }
 
 class ViewProfileRemoteDatasource extends BaseViewProfileRemoteDatasource {
   @override
-  Future<AppDetailsModel> showAppDetails(categoryName) async {
+  Future<AppDetailsModel> showAppDetails() async {
     final response = await DioHelper.get(AppStrings.endpoint_show, headers: {
       'Accept-Language': 'application/json',
       'lang': AppStorage.getLang,
-      'category_name': categoryName,
+      // 'category_name': categoryName,
       'Authorization': 'Bearer ${AppStorage.getUserData.token}'
     });
     if (response.statusCode == 200) {

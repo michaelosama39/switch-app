@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:switch_app/view/profile/presentation/widgets/app_profile_item.dart';
 import '../../../../core/models/applications_model.dart';
 import '../../../addLinks/presentation/controller/add_links_cubit.dart';
+import '../../../viewProfile/data/model/app_details_model.dart';
+import '../../../viewProfile/presentation/controller/view_profile_cubit.dart';
 import '../controller/profile_cubit.dart';
 
 class ListOfAppsWidget extends StatelessWidget {
@@ -13,26 +15,24 @@ class ListOfAppsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final addLinksCubit = AddLinksCubit.of(context);
+    final cubit = ViewProfileCubit.of(context);
     final profileCubit = ProfileCubit.of(context);
-    List<ApplicationsData> listOfAllApps = [];
-    listOfAllApps.addAll(addLinksCubit.listOfBusinessApps);
-    listOfAllApps.addAll(addLinksCubit.listOfCreativeApps);
-    listOfAllApps.addAll(addLinksCubit.listOfMusicApps);
-    listOfAllApps.addAll(addLinksCubit.listOfSocialApps);
+    profileCubit.listOfAllApps.addAll(cubit.listOfAppDetailsData);
     return Expanded(
       child: ReorderableListView.builder(
-        itemCount: listOfAllApps.length,
+        itemCount: cubit.listOfAppDetailsData.length,
         proxyDecorator: proxyDecorator,
         onReorder: (oldIndex, newIndex) {
           if (newIndex > oldIndex) newIndex--;
-          final item = listOfAllApps.removeAt(oldIndex);
-          listOfAllApps.insert(newIndex, item);
+          final item = cubit.listOfAppDetailsData.removeAt(oldIndex);
+          cubit.listOfAppDetailsData.insert(newIndex, item);
+          profileCubit.listOfAllApps.clear();
+          profileCubit.listOfAllApps.addAll(cubit.listOfAppDetailsData);
         },
         itemBuilder: (context, index) {
           return AppProfileItem(
-            key: Key("${listOfAllApps[index].name}"),
-            applicationsData: listOfAllApps[index],
+            key: Key("$index"),
+            applicationsData: cubit.listOfAppDetailsData[index],
             index: index,
             profileCubit: profileCubit,
           );

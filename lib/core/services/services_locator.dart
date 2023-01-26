@@ -10,6 +10,7 @@ import 'package:switch_app/view/addLinks/domain/usecases/get_business_apps.dart'
 import 'package:switch_app/view/addLinks/domain/usecases/get_creative_apps.dart';
 import 'package:switch_app/view/addLinks/domain/usecases/get_music_apps.dart';
 import 'package:switch_app/view/addLinks/presentation/controller/add_links_cubit.dart';
+import 'package:switch_app/view/changePassword/domain/usecases/change_password.dart';
 import 'package:switch_app/view/editProfile/data/datasource/edit_profile_remote_datasource.dart';
 import 'package:switch_app/view/editProfile/domain/usecases/edit_profile.dart';
 import 'package:switch_app/view/editProfile/domain/usecases/get_profile.dart';
@@ -22,6 +23,7 @@ import 'package:switch_app/view/myConnections/domain/usecases/get_exchange_list.
 import 'package:switch_app/view/myConnections/domain/usecases/get_favourite_list.dart';
 import 'package:switch_app/view/register/data/datasource/register_remote_datasource.dart';
 import 'package:switch_app/view/register/presentation/controller/register_cubit.dart';
+import 'package:switch_app/view/setting/domain/usecases/delete_account.dart';
 import 'package:switch_app/view/setting/domain/usecases/logout.dart';
 import 'package:switch_app/view/setting/presentation/controller/setting_cubit.dart';
 import 'package:switch_app/view/store/data/datasource/store_remote_datasource.dart';
@@ -37,6 +39,10 @@ import '../../view/activation/data/datasource/activation_remote_datasource.dart'
 import '../../view/activation/data/repository/activation_repository.dart';
 import '../../view/activation/domain/repository/base_activation_repository.dart';
 import '../../view/addLinks/domain/usecases/get_social_apps.dart';
+import '../../view/changePassword/data/datasource/change_password_remote_datasource.dart';
+import '../../view/changePassword/data/repository/change_password_repository.dart';
+import '../../view/changePassword/domain/repository/base_change_password_profile_repository.dart';
+import '../../view/changePassword/presentation/controller/change_password_cubit.dart';
 import '../../view/editProfile/data/repository/edit_profile_repository.dart';
 import '../../view/editProfile/domain/repository/base_edit_profile_repository.dart';
 import '../../view/editProfile/presentation/controller/edit_profile_cubit.dart';
@@ -60,6 +66,16 @@ final sl = GetIt.instance;
 
 class ServicesLocator {
   void init() {
+    // changePassword
+    sl.registerLazySingleton(() => ChangePassword(sl()));
+    sl.registerFactory(() => ChangePasswordCubit(sl()));
+
+    sl.registerLazySingleton<BaseChangePasswordRepository>(
+            () => ChangePasswordRepository(sl()));
+
+    sl.registerLazySingleton<BaseChangePasswordRemoteDatasource>(
+            () => ChangePasswordRemoteDatasource());
+
     // myConnection
     sl.registerLazySingleton(() => GetFavouriteList(sl()));
     sl.registerLazySingleton(() => GetConnectionList(sl()));
@@ -122,8 +138,9 @@ class ServicesLocator {
         () => AddLinksRemoteDatasource());
 
     // setting
+    sl.registerLazySingleton(() => DeleteAccount(sl()));
     sl.registerLazySingleton(() => Logout(sl()));
-    sl.registerFactory(() => SettingCubit(sl()));
+    sl.registerFactory(() => SettingCubit(sl() , sl()));
 
     sl.registerLazySingleton<BaseSettingRepository>(
         () => SettingRepository(sl()));

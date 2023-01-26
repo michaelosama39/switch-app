@@ -17,7 +17,7 @@ class SettingScreen extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => SettingCubit(sl()),
+          create: (context) => SettingCubit(sl(), sl()),
         ),
         BlocProvider(
           create: (context) => EditProfileCubit(sl(), sl())..getProfile(),

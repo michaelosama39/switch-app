@@ -9,8 +9,11 @@ class QrCodeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: QrCodeBody(),
+    return BlocProvider(
+      create: (context) => EditProfileCubit(sl(), sl())..getProfile(),
+      child: Scaffold(
+        body: QrCodeBody(),
+      ),
     );
   }
 }

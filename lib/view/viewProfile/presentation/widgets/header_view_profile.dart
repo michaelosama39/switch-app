@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:switch_app/localization/language_constants.dart';
 import 'package:switch_app/view/editProfile/presentation/controller/edit_profile_cubit.dart';
-
 import '../../../../core/utils/app_assets.dart';
 import '../../../../core/utils/app_sizes.dart';
 import '../../../../widgets/custom_button.dart';
@@ -27,11 +25,7 @@ class HeaderViewProfile extends StatelessWidget {
                   right: AppSizes.getProportionateScreenWidth(15),
                   left: AppSizes.getProportionateScreenWidth(15),
                   bottom: AppSizes.getProportionateScreenHeight(35)),
-              child: cubit.userData!.user!.backgroundImage == null
-                  ? Image.asset(
-                AppAssets.background_profile,
-              )
-                  : Image.network(cubit.userData!.user!.backgroundImage!),
+              child: Image.network(cubit.userData!.user!.backgroundImage!),
             ),
             Positioned(
               bottom: 0,
@@ -41,11 +35,8 @@ class HeaderViewProfile extends StatelessWidget {
                 width: AppSizes.getProportionateScreenWidth(90),
                 height: AppSizes.getProportionateScreenHeight(90),
                 decoration: BoxDecoration(
-                  image: cubit.userData!.user!.image == null
-                      ? DecorationImage(
-                    image: AssetImage(AppAssets.avater),
-                  )
-                      : DecorationImage(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
                     image: NetworkImage(cubit.userData!.user!.image!),
                   ),
                 ),

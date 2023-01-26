@@ -15,11 +15,7 @@ class ViewProfileScreen extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => ViewProfileCubit(sl())
-            ..showAppDetailsSocial()
-            ..showAppDetailsBusiness()
-            ..showAppDetailsCreative()
-            ..showAppDetailsMusic(),
+          create: (context) => ViewProfileCubit(sl())..showAppDetails(),
         ),
         BlocProvider(
           create: (context) => EditProfileCubit(sl(), sl())..getProfile(),

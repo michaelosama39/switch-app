@@ -14,4 +14,5 @@ class AppAssets {
   static const String google_icon = 'assets/images/google-icon.png';
   static const String linkedin_icon = 'assets/images/linkedin-icon.png';
   static const String twitter_icon = 'assets/images/twitter-icon.png';
+  static const String lets_started = 'assets/images/lets-started.png';
 }

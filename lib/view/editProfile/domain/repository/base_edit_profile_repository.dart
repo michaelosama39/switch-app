@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../../../core/error/failure.dart';
 import '../../../../core/models/msg_model.dart';
 import '../../data/model/profile_model.dart';
@@ -13,6 +14,6 @@ abstract class BaseEditProfileRepository {
       String phone,
       String jobTitle,
       String bio,
-      String image,
-      String backgroundImage);
+      XFile image,
+      XFile backgroundImage);
 }

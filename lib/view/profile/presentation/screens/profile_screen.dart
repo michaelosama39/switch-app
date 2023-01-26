@@ -4,6 +4,7 @@ import 'package:switch_app/view/addLinks/presentation/controller/add_links_cubit
 import 'package:switch_app/view/editProfile/presentation/controller/edit_profile_cubit.dart';
 
 import '../../../../core/services/services_locator.dart';
+import '../../../viewProfile/presentation/controller/view_profile_cubit.dart';
 import '../controller/profile_cubit.dart';
 import '../widgets/profile_body.dart';
 
@@ -18,11 +19,8 @@ class ProfileScreen extends StatelessWidget {
           create: (context) => ProfileCubit(),
         ),
         BlocProvider(
-          create: (context) => AddLinksCubit(sl(), sl(), sl(), sl(), sl())
-            ..getSocialApps()
-            ..getMusicApps()
-            ..getCreativeApps()
-            ..getBusinessApps()
+          create: (context) => ViewProfileCubit(sl())
+            ..showAppDetails(),
         ),
         BlocProvider(
           create: (context) => EditProfileCubit(sl(), sl())..getProfile(),

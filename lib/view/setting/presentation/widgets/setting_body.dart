@@ -50,64 +50,66 @@ class SettingBody extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Container(
-                                width: AppSizes.getProportionateScreenWidth(90),
-                                height:
-                                    AppSizes.getProportionateScreenHeight(90),
-                                decoration: BoxDecoration(
-                                  image: editProfileCubit
-                                              .userData!.user!.image ==
-                                          null
-                                      ? const DecorationImage(
-                                          image: AssetImage(AppAssets.avater),
-                                        )
-                                      : DecorationImage(
-                                          image: NetworkImage(editProfileCubit
-                                              .userData!.user!.image!),
-                                        ),
+                              Expanded(
+                                flex: 1,
+                                child: Container(
+                                  height:
+                                      AppSizes.getProportionateScreenHeight(90),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      image: NetworkImage(editProfileCubit
+                                          .userData!.user!.image!),
+                                    ),
+                                  ),
                                 ),
                               ),
                               SpaceW(inputWidth: 10),
-                              Column(
-                                children: [
-                                  Text(
-                                    editProfileCubit.userData!.user!.name ==
-                                            null
-                                        ? 'name'
-                                        : editProfileCubit
-                                            .userData!.user!.name!,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                      fontSize: 14.sp,
-                                    ),
-                                  ),
-                                  Text(
-                                    editProfileCubit.userData!.user!.email ==
-                                            null
-                                        ? 'email'
-                                        : editProfileCubit
-                                            .userData!.user!.email!,
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 13.sp,
-                                    ),
-                                  ),
-                                  SpaceH(inputHeigth: 5),
-                                  TextButton(
-                                    child: Text(
-                                      translation(context).changePassword,
+                              Expanded(
+                                flex: 2,
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      editProfileCubit.userData!.user!.name ==
+                                              null
+                                          ? 'name'
+                                          : editProfileCubit
+                                              .userData!.user!.name!,
+                                      textAlign: TextAlign.center,
                                       style: TextStyle(
-                                        color: Colors.blue,
-                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                        fontSize: 14.sp,
                                       ),
                                     ),
-                                    onPressed: () {
-                                      MagicRouter.navigateTo(
-                                          ChangePasswordScreen());
-                                    },
-                                  ),
-                                ],
+                                    Text(
+                                      editProfileCubit.userData!.user!.email ==
+                                              null
+                                          ? 'email'
+                                          : editProfileCubit
+                                              .userData!.user!.email!,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 13.sp,
+                                      ),
+                                    ),
+                                    SpaceH(inputHeigth: 5),
+                                    TextButton(
+                                      child: Text(
+                                        translation(context).changePassword,
+                                        style: TextStyle(
+                                          color: Colors.blue,
+                                          fontSize: 12.sp,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        MagicRouter.navigateTo(
+                                            ChangePasswordScreen());
+                                      },
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
@@ -130,16 +132,14 @@ class SettingBody extends StatelessWidget {
             ),
             SizedBox(
               width: AppSizes.screenWidth,
-              height: AppSizes.getProportionateScreenHeight(80),
-              child: PopupMenuButton(
-                icon: Card(
-                  elevation: 0,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: AppSizes.getProportionateScreenWidth(15),
-                      vertical: AppSizes.getProportionateScreenHeight(10),
-                    ),
-                    child: Row(
+              child: Card(
+                elevation: 0,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: AppSizes.getProportionateScreenWidth(5),
+                  ),
+                  child: PopupMenuButton(
+                    icon: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
@@ -152,34 +152,35 @@ class SettingBody extends StatelessWidget {
                         Icon(Icons.arrow_drop_down),
                       ],
                     ),
+                    onSelected: (Language language) async {
+                      if (language != null) {
+                        Locale _locale = await setLocale(language.languageCode);
+                        MyApp.setLocale(context, _locale);
+                        await AppStorage.cacheLang(language.languageCode);
+                      }
+                    },
+                    itemBuilder: (context) {
+                      return Language.languageList()
+                          .map<PopupMenuItem<Language>>(
+                            (e) => PopupMenuItem<Language>(
+                              value: e,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  Text(
+                                    e.flag,
+                                    style: const TextStyle(fontSize: 30),
+                                  ),
+                                  Text(e.name)
+                                ],
+                              ),
+                            ),
+                          )
+                          .toList();
+                    },
                   ),
                 ),
-                onSelected: (Language language) async {
-                  if (language != null) {
-                    Locale _locale = await setLocale(language.languageCode);
-                    MyApp.setLocale(context, _locale);
-                    await AppStorage.cacheLang(language.languageCode);
-                  }
-                },
-                itemBuilder: (context) {
-                  return Language.languageList()
-                      .map<PopupMenuItem<Language>>(
-                        (e) => PopupMenuItem<Language>(
-                          value: e,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              Text(
-                                e.flag,
-                                style: const TextStyle(fontSize: 30),
-                              ),
-                              Text(e.name)
-                            ],
-                          ),
-                        ),
-                      )
-                      .toList();
-                },
               ),
             ),
             SettingItem(
@@ -194,7 +195,7 @@ class SettingBody extends StatelessWidget {
               fontColor: Colors.red,
               buttonColor: Colors.black26,
               onPress: () {
-                showDialogDeleteAccount(context);
+                showDialogDeleteAccount(context, SettingCubit.of(context));
               },
             ),
             SpaceH(inputHeigth: 25),

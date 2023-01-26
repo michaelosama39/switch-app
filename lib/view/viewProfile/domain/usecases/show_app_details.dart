@@ -9,7 +9,7 @@ class ShowAppDetails {
 
   ShowAppDetails(this.baseViewProfleRepository);
 
-  Future<Either<Failure, AppDetailsModel>> execute(String categoryName) async {
-    return await baseViewProfleRepository.showAppDetails(categoryName);
+  Future<Either<Failure, AppDetailsModel>> execute() async {
+    return await baseViewProfleRepository.showAppDetails();
   }
 }

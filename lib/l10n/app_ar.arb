@@ -52,8 +52,8 @@
   "addToContacts": "أضف إلى جهات الاتصال",
   "removeFromContacts": "ازالة من الاسماء",
   "search": "بحث",
-  "connections": "Connections",
-  "exchange": "Exchange",
+  "connections": "جهات الاتصال",
+  "exchange": "الطلبات",
   "qrCode": "QR Code",
   "direct": "مباشرة",
   "addLink": "إضافة رابط",
@@ -62,7 +62,7 @@
   "createAnNewAccount": "قم بإنشاء حساب جديد",
   "signUp": "تسجيل جديد",
   "haveAccount": "لديك حساب؟",
-  "myConnections": "my Connections",
+  "myConnections": "جهه اتصالي",
   "help": "المساعده",
   "changeLanguage": "تغيير اللغة",
   "logOut": "تسجيل خروج",
@@ -96,5 +96,6 @@
   "productTitleMustBeGreaterThan":"العنوان يجب ان يكون اكبر من ٤ احرف",
   "detailsMustBeLongerThan":"التفاصيل يجب ان تكون اكبر من ١٠ احرف",
   "lastName":"الاسم الاخير",
-   "jobTitle":"المسمى الوظيفي"
+   "jobTitle":"المسمى الوظيفي",
+   "noData":"لا يوجد بيانات"
 }

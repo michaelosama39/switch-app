@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:switch_app/core/router/router.dart';
 import 'package:switch_app/core/utils/app_colors.dart';
 import 'package:switch_app/core/utils/app_enums.dart';
+import 'package:switch_app/core/utils/app_func.dart';
 import 'package:switch_app/localization/language_constants.dart';
 import 'package:switch_app/view/myConnections/presentation/screens/favourite_screen.dart';
 import 'package:switch_app/view/myConnections/presentation/controller/my_connections_cubit.dart';
@@ -10,6 +11,8 @@ import 'package:switch_app/view/myConnections/presentation/widgets/exchange_list
 import 'package:switch_app/widgets/custom_button.dart';
 import 'package:switch_app/widgets/input_form_field.dart';
 import 'package:switch_app/widgets/space_height.dart';
+import 'package:switch_app/widgets/space_width.dart';
+import '../../../../core/appStorage/app_storage.dart';
 import '../../../../core/utils/app_sizes.dart';
 import '../screens/add_connection_screen.dart';
 import 'connection_list.dart';
@@ -32,24 +35,48 @@ class MyConnectionsBody extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                IconButton(
-                  icon: Icon(Icons.share),
-                  onPressed: () {},
-                ),
-                IconButton(
-                  icon: Icon(
-                    Icons.favorite,
-                    color: Colors.red,
+                InkWell(
+                  onTap: () {
+                    AppFunc.shareText(
+                        text:
+                            'https://switch-profile.technomasrsystems.com/${AppStorage.getUserId}');
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: AppSizes.getProportionateScreenWidth(10),
+                      vertical: AppSizes.getProportionateScreenHeight(5),
+                    ),
+                    child: Icon(Icons.share),
                   ),
-                  onPressed: () {
+                ),
+                InkWell(
+                  onTap: () {
                     MagicRouter.navigateTo(FavouriteScreen());
                   },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: AppSizes.getProportionateScreenWidth(10),
+                      vertical: AppSizes.getProportionateScreenHeight(5),
+                    ),
+                    child: Icon(
+                      Icons.favorite,
+                      color: Colors.red,
+                    ),
+                  ),
                 ),
-                IconButton(
-                  icon: Icon(Icons.add),
-                  onPressed: () {
+                InkWell(
+                  onTap: () {
                     MagicRouter.navigateTo(AddConnectionScreen());
                   },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: AppSizes.getProportionateScreenWidth(10),
+                      vertical: AppSizes.getProportionateScreenHeight(5),
+                    ),
+                    child: Icon(
+                      Icons.add,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -67,39 +94,48 @@ class MyConnectionsBody extends StatelessWidget {
               return Column(
                 children: [
                   Container(
-                    width: AppSizes.screenWidth,
+                    width: AppSizes.screenWidth * 0.9,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        CustomButton(
-                          text: translation(context).connections,
-                          buttonColor: Colors.white,
-                          fontColor: Colors.black,
-                          borderColor: myConnectionsCubit.myConnection ==
-                                  MyConnection.connections
-                              ? AppColors.primaryColor
-                              : Colors.grey,
-                          radius: 20,
-                          paddingVertical: 5,
-                          onPress: () {
-                            myConnectionsCubit.changeTabButton('connection');
-                            myConnectionsCubit.getConnectionList();
-                          },
+                        Expanded(
+                          flex: 1,
+                          child: CustomButton(
+                            text: translation(context).connections,
+                            buttonColor: Colors.white,
+                            fontColor: Colors.black,
+                            borderColor: myConnectionsCubit.myConnection ==
+                                    MyConnection.connections
+                                ? AppColors.primaryColor
+                                : Colors.grey,
+                            radius: 20,
+                            paddingVertical: 10,
+                            paddingHorizontal: 5,
+                            onPress: () {
+                              myConnectionsCubit.changeTabButton('connection');
+                              myConnectionsCubit.getConnectionList();
+                            },
+                          ),
                         ),
-                        CustomButton(
-                          text: translation(context).exchange,
-                          buttonColor: Colors.white,
-                          fontColor: Colors.black,
-                          borderColor: myConnectionsCubit.myConnection ==
-                                  MyConnection.exchange
-                              ? AppColors.primaryColor
-                              : Colors.grey,
-                          radius: 20,
-                          paddingVertical: 5,
-                          onPress: () {
-                            myConnectionsCubit.changeTabButton('exchange');
-                            myConnectionsCubit.getExchangeList();
-                          },
+                        SpaceW(inputWidth: 15),
+                        Expanded(
+                          flex: 1,
+                          child: CustomButton(
+                            text: translation(context).exchange,
+                            buttonColor: Colors.white,
+                            fontColor: Colors.black,
+                            borderColor: myConnectionsCubit.myConnection ==
+                                    MyConnection.exchange
+                                ? AppColors.primaryColor
+                                : Colors.grey,
+                            radius: 20,
+                            paddingVertical: 10,
+                            paddingHorizontal: 5,
+                            onPress: () {
+                              myConnectionsCubit.changeTabButton('exchange');
+                              myConnectionsCubit.getExchangeList();
+                            },
+                          ),
                         ),
                       ],
                     ),

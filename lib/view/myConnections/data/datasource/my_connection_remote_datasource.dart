@@ -89,7 +89,7 @@ class MyConnectionRemoteDatasource extends BaseMyConnectionRemoteDatasource {
   @override
   Future<MsgModel> addNewConnection(name, email, title, phone, content) async {
     final response = await DioHelper.get(
-      "${AppStrings.endpoint_sendmessage}?name=$name&email=$email&title=$title&phone=$phone&content=$content",
+      "${AppStrings.endpoint_sendmessage}?name=$name&email=$email&title=$title&phone=$phone&content=$content&status=1",
       headers: {
         'Accept-Language': 'application/json',
         'lang': AppStorage.getLang,

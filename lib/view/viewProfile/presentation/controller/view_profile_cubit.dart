@@ -14,68 +14,65 @@ class ViewProfileCubit extends Cubit<ViewProfileState> {
   static ViewProfileCubit of(context) => BlocProvider.of(context);
 
   final ShowAppDetails showAppDetailsUseCase;
-  List<AppDetailsData> listOfAppDetailsDataSocial = [];
-  List<AppDetailsData> listOfAppDetailsDataCreative = [];
-  List<AppDetailsData> listOfAppDetailsDataMusic = [];
-  List<AppDetailsData> listOfAppDetailsDataBusiness = [];
+  List<AppDetailsData> listOfAppDetailsData = [];
 
-  Future showAppDetailsSocial() async {
+  Future showAppDetails() async {
     emit(ShowAppDetailsSocialLoading());
-    final res = await showAppDetailsUseCase.execute('social');
+    final res = await showAppDetailsUseCase.execute();
     res.fold(
       (err) {
         showSnackBar(err.message);
         emit(ViewProfileInitial());
       },
       (res) async {
-        listOfAppDetailsDataSocial.addAll(res.accounts!);
-        emit(ViewProfileInitial());
+        listOfAppDetailsData.addAll(res.accounts!);
+        emit(ViewProfileLoaded());
       },
     );
   }
 
-  Future showAppDetailsCreative() async {
-    emit(ShowAppDetailsCreativeLoading());
-    final res = await showAppDetailsUseCase.execute('creative');
-    res.fold(
-      (err) {
-        showSnackBar(err.message);
-        emit(ViewProfileInitial());
-      },
-      (res) async {
-        listOfAppDetailsDataSocial.addAll(res.accounts!);
-        emit(ViewProfileInitial());
-      },
-    );
-  }
-
-  Future showAppDetailsMusic() async {
-    emit(ShowAppDetailsMusicLoading());
-    final res = await showAppDetailsUseCase.execute('music');
-    res.fold(
-      (err) {
-        showSnackBar(err.message);
-        emit(ViewProfileInitial());
-      },
-      (res) async {
-        listOfAppDetailsDataSocial.addAll(res.accounts!);
-        emit(ViewProfileInitial());
-      },
-    );
-  }
-
-  Future showAppDetailsBusiness() async {
-    emit(ShowAppDetailsBusinessLoading());
-    final res = await showAppDetailsUseCase.execute('business');
-    res.fold(
-      (err) {
-        showSnackBar(err.message);
-        emit(ViewProfileInitial());
-      },
-      (res) async {
-        listOfAppDetailsDataSocial.addAll(res.accounts!);
-        emit(ViewProfileInitial());
-      },
-    );
-  }
+  // Future showAppDetailsCreative() async {
+  //   emit(ShowAppDetailsCreativeLoading());
+  //   final res = await showAppDetailsUseCase.execute('creative');
+  //   res.fold(
+  //     (err) {
+  //       showSnackBar(err.message);
+  //       emit(ViewProfileInitial());
+  //     },
+  //     (res) async {
+  //       listOfAppDetailsDataSocial.addAll(res.accounts!);
+  //       emit(ViewProfileInitial());
+  //     },
+  //   );
+  // }
+  //
+  // Future showAppDetailsMusic() async {
+  //   emit(ShowAppDetailsMusicLoading());
+  //   final res = await showAppDetailsUseCase.execute('music');
+  //   res.fold(
+  //     (err) {
+  //       showSnackBar(err.message);
+  //       emit(ViewProfileInitial());
+  //     },
+  //     (res) async {
+  //       listOfAppDetailsDataSocial.addAll(res.accounts!);
+  //       emit(ViewProfileInitial());
+  //     },
+  //   );
+  // }
+  //
+  // Future showAppDetailsBusiness() async {
+  //   emit(ShowAppDetailsBusinessLoading());
+  //   final res = await showAppDetailsUseCase.execute('business');
+  //   res.fold(
+  //     (err) {
+  //       showSnackBar(err.message);
+  //       emit(ViewProfileInitial());
+  //     },
+  //     (res) async {
+  //       listOfAppDetailsDataSocial.addAll(res.accounts!);
+  //       emit(ViewProfileInitial());
+  //     },
+  //   );
+  // }
 }

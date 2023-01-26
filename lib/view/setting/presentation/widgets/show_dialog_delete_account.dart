@@ -3,8 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:switch_app/localization/language_constants.dart';
 
 import '../../../../core/utils/app_colors.dart';
+import '../controller/setting_cubit.dart';
 
-Future showDialogDeleteAccount(context) {
+Future showDialogDeleteAccount(context , SettingCubit cubit) {
   return showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -46,7 +47,7 @@ Future showDialogDeleteAccount(context) {
               ),
             ),
             onPressed: () {
-              Navigator.of(context).pop();
+              cubit.deleteAccount();
             },
           ),
         ],

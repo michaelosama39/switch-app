@@ -96,5 +96,6 @@
   "productTitleMustBeGreaterThan":"Title must be greater than 4 characters",
   "detailsMustBeLongerThan":"Details must be longer than 10 characters",
   "lastName":"Last Name",
-  "jobTitle":"Job Title"
+  "jobTitle":"Job Title",
+  "noData":"No Data"
 }

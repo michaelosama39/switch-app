@@ -104,7 +104,7 @@ class AddLinksRemoteDatasource extends BaseAddLinksRemoteDatasource {
       body: {
         'page_title' : pageTitle,
         'url' : url,
-        'user_id' : AppStorage.getUserId,
+        'user_id' : AppStorage.getUserId.toString(),
         'category_name' : categoryName,
         'type_id' : typeId,
       }

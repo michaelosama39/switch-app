@@ -39,9 +39,7 @@ import 'package:switch_app/view/store/domain/usecases/make_order.dart';
 import 'package:switch_app/view/store/presentation/controller/store_cubit.dart';
 import 'package:switch_app/view/viewProfile/data/datasource/view_profile_remote_datasource.dart';
 import 'package:switch_app/view/viewProfile/domain/repository/base_view_profle_repository.dart';
-import 'package:switch_app/view/viewProfile/domain/usecases/change_status_app.dart';
-import 'package:switch_app/view/viewProfile/domain/usecases/edit_app_details.dart';
-import 'package:switch_app/view/viewProfile/domain/usecases/show_app_details.dart';
+import 'package:switch_app/view/profile/domain/usecases/change_status_app.dart';
 import 'package:switch_app/view/viewProfile/presentation/controller/view_profile_cubit.dart';
 import '../../view/activation/data/datasource/activation_remote_datasource.dart';
 import '../../view/activation/data/repository/activation_repository.dart';
@@ -66,6 +64,12 @@ import '../../view/myConnections/data/datasource/my_connection_remote_datasource
 import '../../view/myConnections/data/repository/my_connection_repository.dart';
 import '../../view/myConnections/domain/repository/base_my_connection_repository.dart';
 import '../../view/myConnections/presentation/controller/my_connections_cubit.dart';
+import '../../view/profile/data/datasource/profile_remote_datasource.dart';
+import '../../view/profile/data/repository/profile_repository.dart';
+import '../../view/profile/domain/repository/base_profle_repository.dart';
+import '../../view/profile/domain/usecases/edit_app_details.dart';
+import '../../view/profile/domain/usecases/show_app_details.dart';
+import '../../view/profile/presentation/controller/profile_cubit.dart';
 import '../../view/register/data/repository/register_repository.dart';
 import '../../view/register/domain/repository/base_register_repository.dart';
 import '../../view/register/domain/usecases/register.dart';
@@ -78,6 +82,25 @@ final sl = GetIt.instance;
 
 class ServicesLocator {
   void init() {
+    //profile
+    sl.registerLazySingleton(() => ChangeStatusApp(sl()));
+    sl.registerLazySingleton(() => ShowAppDetails(sl()));
+    sl.registerLazySingleton(() => EditAppDetails(sl()));
+    sl.registerFactory(() => ProfileCubit(sl(), sl(), sl()));
+    sl.registerLazySingleton<BaseProfileRepository>(
+        () => ProfileRepository(sl()));
+
+    sl.registerLazySingleton<BaseProfileRemoteDatasource>(
+        () => ProfileRemoteDatasource());
+
+    // viewProfile
+    sl.registerFactory(() => ViewProfileCubit());
+    sl.registerLazySingleton<BaseViewProfileRepository>(
+        () => ViewProfileRepository(sl()));
+
+    sl.registerLazySingleton<BaseViewProfileRemoteDatasource>(
+        () => ViewProfileRemoteDatasource());
+
     // help
     sl.registerLazySingleton(() => GetHelp(sl()));
     sl.registerFactory(() => HelpCubit(sl()));
@@ -124,17 +147,6 @@ class ServicesLocator {
 
     sl.registerLazySingleton<BaseActivationRemoteDatasource>(
         () => ActivationRemoteDatasource());
-
-    // viewProfile
-    sl.registerLazySingleton(() => ChangeStatusApp(sl()));
-    sl.registerLazySingleton(() => ShowAppDetails(sl()));
-    sl.registerLazySingleton(() => EditAppDetails(sl()));
-    sl.registerFactory(() => ViewProfileCubit(sl(), sl(), sl()));
-    sl.registerLazySingleton<BaseViewProfileRepository>(
-        () => ViewProfileRepository(sl()));
-
-    sl.registerLazySingleton<BaseViewProfileRemoteDatasource>(
-        () => ViewProfileRemoteDatasource());
 
     // editProfile
     sl.registerLazySingleton(() => EditBackgroundImage(sl()));

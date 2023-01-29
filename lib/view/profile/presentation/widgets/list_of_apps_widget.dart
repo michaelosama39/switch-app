@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:switch_app/view/profile/presentation/widgets/app_profile_item.dart';
-import '../../../viewProfile/presentation/controller/view_profile_cubit.dart';
 import '../controller/profile_cubit.dart';
 
 class ListOfAppsWidget extends StatelessWidget {
@@ -11,27 +10,25 @@ class ListOfAppsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = ViewProfileCubit.of(context);
     final profileCubit = ProfileCubit.of(context);
-    profileCubit.listOfAllApps.addAll(cubit.listOfAppDetailsData);
+    profileCubit.listOfAllApps.addAll(profileCubit.listOfAppDetailsData);
     return Expanded(
       child: ReorderableListView.builder(
-        itemCount: cubit.listOfAppDetailsData.length,
+        itemCount: profileCubit.listOfAppDetailsData.length,
         proxyDecorator: proxyDecorator,
         onReorder: (oldIndex, newIndex) {
           if (newIndex > oldIndex) newIndex--;
-          final item = cubit.listOfAppDetailsData.removeAt(oldIndex);
-          cubit.listOfAppDetailsData.insert(newIndex, item);
+          final item = profileCubit.listOfAppDetailsData.removeAt(oldIndex);
+          profileCubit.listOfAppDetailsData.insert(newIndex, item);
           profileCubit.listOfAllApps.clear();
-          profileCubit.listOfAllApps.addAll(cubit.listOfAppDetailsData);
+          profileCubit.listOfAllApps.addAll(profileCubit.listOfAppDetailsData);
         },
         itemBuilder: (context, index) {
           return AppProfileItem(
             key: Key("$index"),
-            applicationsData: cubit.listOfAppDetailsData[index],
+            applicationsData: profileCubit.listOfAppDetailsData[index],
             index: index,
             profileCubit: profileCubit,
-            viewProfileCubit: ViewProfileCubit.of(context),
           );
         },
       ),

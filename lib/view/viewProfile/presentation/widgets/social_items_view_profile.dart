@@ -7,13 +7,14 @@ import 'package:switch_app/view/viewProfile/presentation/controller/view_profile
 import '../../../../core/utils/app_sizes.dart';
 import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/space_height.dart';
+import '../../../profile/presentation/controller/profile_cubit.dart';
 
 class SocialItemsViewProfile extends StatelessWidget {
   const SocialItemsViewProfile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final cubit = ViewProfileCubit.of(context);
+    final cubit = ProfileCubit.of(context);
 
     return Column(
       children: [

@@ -5,3 +5,9 @@ abstract class ProfileState {}
 
 class ProfileInitial extends ProfileState {}
 class ChangeSelectedDircectState extends ProfileState {}
+
+class ShowAppDetailsLoaded extends ProfileState {}
+
+class ShowAppDetailsLoading extends ProfileState {}
+
+class EditAppDetailsLoading extends ProfileState {}

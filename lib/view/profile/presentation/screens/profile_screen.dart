@@ -14,14 +14,14 @@ class ProfileScreen extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => ProfileCubit(),
+          create: (context) => ProfileCubit(sl(), sl(), sl())..showAppDetails(),
         ),
         BlocProvider(
-          create: (context) => ViewProfileCubit(sl() , sl(), sl())
-            ..showAppDetails(),
+          create: (context) => ViewProfileCubit(),
         ),
         BlocProvider(
-          create: (context) => EditProfileCubit(sl(), sl() , sl(), sl())..getProfile(),
+          create: (context) =>
+              EditProfileCubit(sl(), sl(), sl(), sl())..getProfile(),
         ),
       ],
       child: Scaffold(

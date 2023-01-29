@@ -4,7 +4,7 @@ import 'package:switch_app/view/profile/presentation/widgets/show_dialogedit_lin
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_sizes.dart';
 import '../../../../widgets/space_width.dart';
-import '../../../viewProfile/data/model/app_details_model.dart';
+import '../../../Profile/data/model/app_details_model.dart';
 import '../../../viewProfile/presentation/controller/view_profile_cubit.dart';
 import '../controller/profile_cubit.dart';
 
@@ -13,13 +13,12 @@ class AppProfileItem extends StatefulWidget {
     Key? key,
     required this.applicationsData,
     required this.index,
-    required this.profileCubit, required this.viewProfileCubit,
+    required this.profileCubit,
   }) : super(key: key);
 
   final AppDetailsData applicationsData;
   final int index;
   final ProfileCubit profileCubit;
-  final ViewProfileCubit viewProfileCubit;
 
   @override
   State<AppProfileItem> createState() => _AppProfileItemState();
@@ -57,7 +56,6 @@ class _AppProfileItemState extends State<AppProfileItem> {
                     showDialogEditLink(
                       context,
                       widget.profileCubit,
-                      widget.viewProfileCubit,
                       widget.applicationsData,
                     );
                   },
@@ -86,7 +84,7 @@ class _AppProfileItemState extends State<AppProfileItem> {
               onChanged: (value) {
                 setState(() {
                   isCheck = value;
-                  widget.viewProfileCubit.changeStatusApp(widget.applicationsData.id!, isCheck);
+                  widget.profileCubit.changeStatusApp(widget.applicationsData.id!, isCheck);
                 });
               },
             ),

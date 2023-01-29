@@ -21,7 +21,7 @@ class SettingRemoteDatasource extends BaseSettingRemoteDatasource {
     final response = await DioHelper.post(AppStrings.endpoint_logout, headers: {
       'Accept-Language': 'application/json',
       'lang': AppStorage.getLang,
-      'Authorization': 'Bearer ${AppStorage.getUserData.token}'
+      'Authorization': 'Bearer ${AppStorage.getToken}'
     }, body: {});
     if (response.statusCode == 200 && response.data['status'] == true) {
       print("Success logoutRepo");
@@ -39,7 +39,7 @@ class SettingRemoteDatasource extends BaseSettingRemoteDatasource {
         await DioHelper.post(AppStrings.endpoint_deleteAccount, headers: {
       'Accept-Language': 'application/json',
       'lang': AppStorage.getLang,
-      'Authorization': 'Bearer ${AppStorage.getUserData.token}'
+      'Authorization': 'Bearer ${AppStorage.getToken}'
     }, body: {});
     if (response.statusCode == 200 && response.data['status'] == true) {
       print("Success deleteAccountRepo");

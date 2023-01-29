@@ -26,7 +26,7 @@ class ChangePasswordRemoteDatasource
     }, headers: {
       'Accept-Language': 'application/json',
       'lang': AppStorage.getLang,
-      'Authorization': 'Bearer ${AppStorage.getUserData.token}'
+      'Authorization': 'Bearer ${AppStorage.getToken}'
     });
     if (response.statusCode == 200 && response.data['status'] == true) {
       print("Success ChangePasswordRepo");

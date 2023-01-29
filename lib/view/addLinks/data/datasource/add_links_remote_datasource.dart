@@ -26,7 +26,7 @@ class AddLinksRemoteDatasource extends BaseAddLinksRemoteDatasource {
     final response = await DioHelper.get(AppStrings.endpoint_social, headers: {
       'Accept-Language': 'application/json',
       'lang': AppStorage.getLang,
-      'Authorization': 'Bearer ${AppStorage.getUserData.token}'
+      'Authorization': 'Bearer ${AppStorage.getToken}'
     });
     if (response.statusCode == 200) {
       print("Success getSocialAppsRepo");
@@ -44,7 +44,7 @@ class AddLinksRemoteDatasource extends BaseAddLinksRemoteDatasource {
         await DioHelper.get(AppStrings.endpoint_business, headers: {
       'Accept-Language': 'application/json',
       'lang': AppStorage.getLang,
-      'Authorization': 'Bearer ${AppStorage.getUserData.token}'
+      'Authorization': 'Bearer ${AppStorage.getToken}'
     });
     if (response.statusCode == 200) {
       print("Success getBusinessAppsRepo");
@@ -62,7 +62,7 @@ class AddLinksRemoteDatasource extends BaseAddLinksRemoteDatasource {
         await DioHelper.get(AppStrings.endpoint_creative, headers: {
       'Accept-Language': 'application/json',
       'lang': AppStorage.getLang,
-      'Authorization': 'Bearer ${AppStorage.getUserData.token}'
+      'Authorization': 'Bearer ${AppStorage.getToken}'
     });
     if (response.statusCode == 200) {
       print("Success getCreativeAppsRepo");
@@ -79,7 +79,7 @@ class AddLinksRemoteDatasource extends BaseAddLinksRemoteDatasource {
     final response = await DioHelper.get(AppStrings.endpoint_music, headers: {
       'Accept-Language': 'application/json',
       'lang': AppStorage.getLang,
-      'Authorization': 'Bearer ${AppStorage.getUserData.token}'
+      'Authorization': 'Bearer ${AppStorage.getToken}'
     });
     if (response.statusCode == 200) {
       print("Success getMusicAppsRepo");
@@ -98,7 +98,7 @@ class AddLinksRemoteDatasource extends BaseAddLinksRemoteDatasource {
         await DioHelper.post(AppStrings.endpoint_addAccount, headers: {
       'Accept-Language': 'application/json',
       'lang': AppStorage.getLang,
-      'Authorization': 'Bearer ${AppStorage.getUserData.token}'
+      'Authorization': 'Bearer ${AppStorage.getToken}'
     }, body: {
       'page_title': pageTitle,
       'url': url,

@@ -52,6 +52,7 @@ class LoginCubit extends Cubit<LoginState> {
           ));
           await AppStorage.cacheUserInfo(res);
           await AppStorage.cachePasswordUserInfo(passwordController.text);
+          await AppStorage.cacheToken(res.token!);
           MagicRouter.navigateAndPopAll(BottomNavScreen());
         },
       );

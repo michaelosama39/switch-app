@@ -16,6 +16,10 @@ abstract class AppStorage {
     if (_box.hasData('password')) return _box.read('password');
   }
 
+  static String? get getToken {
+    if (_box.hasData('token')) return _box.read('token');
+  }
+
   static String get getLang {
     if (_box.hasData('language')) {
       return _box.read('language');
@@ -33,11 +37,15 @@ abstract class AppStorage {
   static Future<void> cachePasswordUserInfo(String passwoed) =>
       _box.write('password', passwoed);
 
-  static int get getUserId => getUserInfo!.user!.id!;
+  static Future<void> cacheToken(String token) =>
+      _box.write('token', token);
+
+  static int get getUserId => getUserInfo!.data!.id!;
 
   static String get getCurrentLang => getLang;
 
   static String get getPasswordUserInfo => getPassword!;
+  static String get getTokenInfo => getToken!;
 
   static UserModel get getUserData => getUserInfo!;
 

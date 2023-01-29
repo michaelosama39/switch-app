@@ -19,7 +19,7 @@ class ActivationRemoteDatasource extends BaseActivationRemoteDatasource {
     final response = await DioHelper.get(AppStrings.endpoint_orders, headers: {
       'Accept-Language': 'application/json',
       'lang': AppStorage.getLang,
-      'Authorization': 'Bearer ${AppStorage.getUserData.token}'
+      'Authorization': 'Bearer ${AppStorage.getToken}'
     });
     if (response.statusCode == 200 && response.data['status'] == true) {
       print("Success getOrdersRepo");
@@ -38,7 +38,7 @@ class ActivationRemoteDatasource extends BaseActivationRemoteDatasource {
       headers: {
         'Accept-Language': 'application/json',
         'lang': AppStorage.getLang,
-        'Authorization': 'Bearer ${AppStorage.getUserData.token}'
+        'Authorization': 'Bearer ${AppStorage.getToken}'
       },
       body: {
         "serialNumber": serialNumber,

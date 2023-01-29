@@ -1,3 +1,5 @@
-abstract class BaseViewProfileRemoteDatasource {}
+abstract class BaseViewProfileRemoteDatasource {
+
+}
 
 class ViewProfileRemoteDatasource extends BaseViewProfileRemoteDatasource {}

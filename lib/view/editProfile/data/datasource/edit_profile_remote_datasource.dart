@@ -1,11 +1,9 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:switch_app/core/appStorage/app_storage.dart';
 import 'package:switch_app/core/models/msg_model.dart';
-import 'package:switch_app/core/models/user_model.dart';
 import 'package:switch_app/view/editProfile/data/model/profile_model.dart';
 
 import '../../../../core/dioHelper/dio_helper.dart';
@@ -34,11 +32,11 @@ class EditProfileRemoteDatasource extends BaseEditProfileRemoteDatasource {
   @override
   Future<ProfileModel> getProfileData() async {
     final response = await DioHelper.get(
-        "${AppStrings.endpoint_editAccount}/${AppStorage.getUserInfo!.user!.id}",
+        "${AppStrings.endpoint_editAccount}/${AppStorage.getUserInfo!.data!.id}",
         headers: {
           'Accept-Language': 'application/json',
           'lang': AppStorage.getLang,
-          'Authorization': 'Bearer ${AppStorage.getUserData.token}'
+          'Authorization': 'Bearer ${AppStorage.getToken}'
         });
     if (response.statusCode == 200) {
       print("Success getProfileDataRepo");
@@ -64,7 +62,7 @@ class EditProfileRemoteDatasource extends BaseEditProfileRemoteDatasource {
       headers: {
         'Accept-Language': 'application/json',
         'lang': AppStorage.getLang,
-        'Authorization': 'Bearer ${AppStorage.getUserData.token}',
+        'Authorization': 'Bearer ${AppStorage.getToken}',
         'user_id': AppStorage.getUserId,
       },
       body: {
@@ -95,7 +93,7 @@ class EditProfileRemoteDatasource extends BaseEditProfileRemoteDatasource {
       headers: {
         'Accept-Language': 'application/json',
         'lang': AppStorage.getLang,
-        'Authorization': 'Bearer ${AppStorage.getUserData.token}',
+        'Authorization': 'Bearer ${AppStorage.getToken}',
         'user_id': AppStorage.getUserId,
       },
       body: {
@@ -121,7 +119,7 @@ class EditProfileRemoteDatasource extends BaseEditProfileRemoteDatasource {
       headers: {
         'Accept-Language': 'application/json',
         'lang': AppStorage.getLang,
-        'Authorization': 'Bearer ${AppStorage.getUserData.token}',
+        'Authorization': 'Bearer ${AppStorage.getToken}',
         'user_id': AppStorage.getUserId,
       },
       body: {

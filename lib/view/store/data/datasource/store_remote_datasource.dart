@@ -22,7 +22,7 @@ class StoreRemoteDatasource extends BaseStoreRemoteDatasource {
         await DioHelper.get(AppStrings.endpoint_products, headers: {
       'Accept-Language': 'application/json',
       'lang': AppStorage.getLang,
-      'Authorization': 'Bearer ${AppStorage.getUserData.token}'
+      'Authorization': 'Bearer ${AppStorage.getToken}'
     });
     if (response.statusCode == 200 && response.data['status'] == true) {
       print("Success getAllProductsRepo");
@@ -42,7 +42,7 @@ class StoreRemoteDatasource extends BaseStoreRemoteDatasource {
       headers: {
         'Accept-Language': 'application/json',
         'lang': AppStorage.getLang,
-        'Authorization': 'Bearer ${AppStorage.getUserData.token}',
+        'Authorization': 'Bearer ${AppStorage.getToken}',
         'user': AppStorage.getUserId
       },
     );

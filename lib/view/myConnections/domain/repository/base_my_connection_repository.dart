@@ -17,4 +17,5 @@ abstract class BaseMyConnectionRepository {
       int connectionId, int status);
 
   Future<Either<Failure, ConnectionModel>> getFavouriteList();
+  Future<Either<Failure, MsgModel>> deleteUserConnection(int connectionId);
 }

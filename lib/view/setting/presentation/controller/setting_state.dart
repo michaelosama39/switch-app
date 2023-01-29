@@ -8,3 +8,4 @@ class SettingInitial extends SettingState {}
 class LogoutLoading extends SettingState {}
 
 class DeleteAccountLoading extends SettingState {}
+class GetMediaLoading extends SettingState {}

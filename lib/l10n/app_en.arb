@@ -58,6 +58,7 @@
   "direct": "direct",
   "addLink": "add link",
   "shareQRCode": "Share QR Code",
+  "examplurl": "https://example.com",
   "letsGetStarted": "Let’s Get Started",
   "createAnNewAccount": "Create an new account",
   "signUp": "Sign Up",

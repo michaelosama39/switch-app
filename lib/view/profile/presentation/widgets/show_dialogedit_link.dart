@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:switch_app/view/viewProfile/presentation/controller/view_profile_cubit.dart';
 import '../../../../core/router/router.dart';
 import '../../../../core/utils/app_sizes.dart';
 import '../../../../core/validator/validator.dart';
@@ -10,8 +11,8 @@ import '../../../../widgets/space_height.dart';
 import '../../../viewProfile/data/model/app_details_model.dart';
 import '../controller/profile_cubit.dart';
 
-Future showDialogEditLink(
-    context, ProfileCubit cubit, AppDetailsData appDetailsData) {
+Future showDialogEditLink(context, ProfileCubit cubit,
+    ViewProfileCubit viewProfileCubit, AppDetailsData appDetailsData) {
   return showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -52,9 +53,10 @@ Future showDialogEditLink(
                   CustomButton(
                     text: translation(context).save,
                     onPress: () {
-                      // cubit.typeId = applicationsData.id;
-                      // cubit.categoryName = categoryName;
-                      // cubit.addLink();
+                      viewProfileCubit.editAppDetails(
+                          appDetailsData.id!,
+                          cubit.accountNameController.text,
+                          cubit.accountUrlController.text);
                     },
                   ),
                 ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:switch_app/core/utils/app_colors.dart';
+import 'package:switch_app/localization/language_constants.dart';
 
 class HelpAppBar extends StatelessWidget with PreferredSizeWidget {
   HelpAppBar({Key? key}) : super(key: key);
@@ -10,7 +11,7 @@ class HelpAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       backgroundColor: AppColors.primaryColor,
       title: Text(
-        'المساعدات',
+        translation(context).help,
         style: TextStyle(
           fontSize: 17.sp,
         ),

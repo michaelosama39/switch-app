@@ -5,10 +5,12 @@ import 'package:meta/meta.dart';
 import 'package:switch_app/core/utils/app_enums.dart';
 import 'package:switch_app/view/myConnections/data/model/connection_model.dart';
 import 'package:switch_app/view/myConnections/domain/usecases/add_new_connection.dart';
+import 'package:switch_app/view/myConnections/domain/usecases/delete_connection.dart';
 import 'package:switch_app/view/myConnections/domain/usecases/favourite_status.dart';
 import 'package:switch_app/view/myConnections/domain/usecases/get_connection_list.dart';
 import 'package:switch_app/view/myConnections/domain/usecases/get_exchange_list.dart';
 import 'package:switch_app/view/myConnections/domain/usecases/get_favourite_list.dart';
+import 'package:switch_app/view/myConnections/presentation/screens/my_connections_screen.dart';
 
 import '../../../../core/router/router.dart';
 import '../../../../widgets/snackBar.dart';
@@ -23,7 +25,8 @@ class MyConnectionsCubit extends Cubit<MyConnectionsState> {
       this.getConnectionListUseCase,
       this.addNewConnectionUseCase,
       this.favouriteStatusUseCase,
-      this.getFavouriteListUseCase)
+      this.getFavouriteListUseCase,
+      this.deleteConnectionUseCase)
       : super(MyConnectionsInitial());
 
   static MyConnectionsCubit of(context) => BlocProvider.of(context);
@@ -41,6 +44,7 @@ class MyConnectionsCubit extends Cubit<MyConnectionsState> {
   final AddNewConnection addNewConnectionUseCase;
   final FavouriteStatus favouriteStatusUseCase;
   final GetFavouriteList getFavouriteListUseCase;
+  final DeleteConnection deleteConnectionUseCase;
   List<ConnectionData> listOfExchangeData = [];
   List<ConnectionData> listOfConnectionData = [];
   List<ConnectionData> listOfFavouriteData = [];
@@ -123,6 +127,7 @@ class MyConnectionsCubit extends Cubit<MyConnectionsState> {
         (res) async {
           emit(MyConnectionsInitial());
           MagicRouter.pop();
+          MagicRouter.navigateAndReplacement(MyConnectionsScreen());
         },
       );
     }
@@ -158,6 +163,25 @@ class MyConnectionsCubit extends Cubit<MyConnectionsState> {
         listOfFavouriteData.clear();
         listOfFavouriteData.addAll(res.data!);
         emit(GetFavouriteListLoaded());
+      },
+    );
+  }
+
+  Future deleteConnection(int connectionId) async {
+    emit(FavouriteStatusLoading());
+    final res = await deleteConnectionUseCase.execute(
+      connectionId,
+    );
+    res.fold(
+      (err) {
+        showSnackBar(err.message);
+        emit(MyConnectionsInitial());
+      },
+      (res) async {
+        emit(DeleteConnectionLoaded());
+        getConnectionList();
+        MagicRouter.pop();
+        showSnackBar(res.message!);
       },
     );
   }

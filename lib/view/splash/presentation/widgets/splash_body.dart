@@ -11,6 +11,7 @@ class SplashBody extends StatelessWidget {
     return Container(
       width: AppSizes.screenWidth,
       height: AppSizes.screenHeight,
+      color: Colors.white,
       child: Image.asset(
         AppAssets.logo_gif,
       ),

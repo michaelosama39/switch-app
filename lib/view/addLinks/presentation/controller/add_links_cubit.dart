@@ -44,6 +44,7 @@ class AddLinksCubit extends Cubit<AddLinksState> {
 
   String? categoryName;
   int? typeId;
+  final formKey = GlobalKey<FormState>();
 
   Future getSocialApps() async {
     emit(GetAppsStateLoading());
@@ -106,20 +107,25 @@ class AddLinksCubit extends Cubit<AddLinksState> {
   }
 
   Future addLink() async {
-    emit(AddLinkLoading());
-    final res = await addLinkUseCase.execute(
-        pageTitleController.text, urlController.text, categoryName!, typeId!);
-    res.fold(
-      (err) {
-        showSnackBar(err.message);
-        emit(AddLinksInitial());
-      },
-      (res) async {
-        emit(AddLinksInitial());
-        pageTitleController.clear();
-        urlController.clear();
-        MagicRouter.navigateAndPopAll(BottomNavScreen());
-      },
-    );
+    if (formKey.currentState!.validate() == true) {
+      emit(AddLinkLoading());
+      final res = await addLinkUseCase.execute(
+          pageTitleController.text, urlController.text, categoryName!, typeId!);
+      res.fold(
+        (err) {
+          showSnackBar(err.message);
+          pageTitleController.clear();
+          urlController.clear();
+          MagicRouter.pop();
+          emit(AddLinksInitial());
+        },
+        (res) async {
+          pageTitleController.clear();
+          urlController.clear();
+          MagicRouter.navigateAndPopAll(BottomNavScreen());
+          emit(AddLinksInitial());
+        },
+      );
+    }
   }
 }

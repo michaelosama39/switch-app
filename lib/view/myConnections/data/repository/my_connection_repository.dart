@@ -75,4 +75,14 @@ class MyConnectionRepository extends BaseMyConnectionRepository {
       return Left(ServerFailure(e.errorMessageModel.message));
     }
   }
+
+  @override
+  Future<Either<Failure, MsgModel>> deleteUserConnection(int connectionId) async{
+    try {
+      final res = await baseMyConnectionRemoteDatasource.deleteUserConnection(connectionId);
+      return Right(res);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.errorMessageModel.message));
+    }
+  }
 }

@@ -23,41 +23,45 @@ Future showDialogAddLink(context, AddLinksCubit cubit,
           color: Colors.white,
           child: Stack(
             children: [
-              Column(
-                children: [
-                  SpaceH(inputHeigth: 15),
-                  Container(
-                    width: AppSizes.getProportionateScreenWidth(50),
-                    child: Image.network(applicationsData.icon!),
-                  ),
-                  Text(
-                    applicationsData.name!,
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
+              Form(
+                key: cubit.formKey,
+                child: Column(
+                  children: [
+                    SpaceH(inputHeigth: 15),
+                    Container(
+                      width: AppSizes.getProportionateScreenWidth(50),
+                      child: Image.network(applicationsData.icon!),
                     ),
-                  ),
-                  SpaceH(inputHeigth: 20),
-                  InputFormField(
-                    hint: translation(context).pageTitle,
-                    validator: (value) => Validator.name(context, value),
-                    controller: cubit.pageTitleController,
-                  ),
-                  InputFormField(
-                    hint: translation(context).url,
-                    controller: cubit.urlController,
-                  ),
-                  SpaceH(inputHeigth: 30),
-                  CustomButton(
-                    text: translation(context).save,
-                    onPress: () {
-                      cubit.typeId = applicationsData.id;
-                      cubit.categoryName = categoryName;
-                      cubit.addLink();
-                    },
-                  ),
-                ],
+                    Text(
+                      applicationsData.name!,
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SpaceH(inputHeigth: 20),
+                    InputFormField(
+                      hint: translation(context).pageTitle,
+                      validator: (value) => Validator.name(context, value),
+                      controller: cubit.pageTitleController,
+                    ),
+                    InputFormField(
+                      hint: translation(context).url,
+                      controller: cubit.urlController,
+                      validator: (value) => Validator.url(context, value),
+                    ),
+                    SpaceH(inputHeigth: 30),
+                    CustomButton(
+                      text: translation(context).save,
+                      onPress: () {
+                        cubit.typeId = applicationsData.id;
+                        cubit.categoryName = categoryName;
+                        cubit.addLink();
+                      },
+                    ),
+                  ],
+                ),
               ),
               Positioned(
                 top: -10,

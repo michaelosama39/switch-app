@@ -113,15 +113,17 @@ class ProfileBody extends StatelessWidget {
               SpaceH(inputHeigth: 5),
               BlocBuilder<ViewProfileCubit, ViewProfileState>(
                 buildWhen: (previous, current) =>
-                    previous != current || current is ViewProfileLoaded,
+                    current is ShowAppDetailsLoaded,
                 builder: (context, state) {
-                  if(state is ViewProfileLoaded){
+                  if (state is ShowAppDetailsLoaded) {
                     return ViewProfileCubit.of(context)
-                        .listOfAppDetailsData
-                        .isEmpty
+                            .listOfAppDetailsData
+                            .isEmpty
                         ? EmptyListAppsWidget()
                         : ListOfAppsWidget();
-                  }else{
+                  } else if (state is ShowAppDetailsLoading) {
+                    return LoadingIndicator();
+                  } else {
                     return EmptyListAppsWidget();
                   }
                 },

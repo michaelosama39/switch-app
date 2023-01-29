@@ -15,7 +15,6 @@ class StoreScreen extends StatelessWidget {
       create: (context) => StoreCubit(sl(), sl())..getAllProducts(),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
           elevation: 0,
           centerTitle: false,
           title: Text(

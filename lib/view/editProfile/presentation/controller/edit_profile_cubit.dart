@@ -3,23 +3,28 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
+import 'package:switch_app/core/router/router.dart';
+import 'package:switch_app/view/bottomNav/presentation/screens/bottom_nav_screen.dart';
+import 'package:switch_app/view/editProfile/domain/usecases/edit_background_image.dart';
+import 'package:switch_app/view/editProfile/domain/usecases/edit_image.dart';
 import 'package:switch_app/view/editProfile/domain/usecases/edit_profile.dart';
 import 'package:switch_app/view/editProfile/domain/usecases/get_profile.dart';
-import '../../../../core/models/msg_model.dart';
-import '../../../../core/utils/app_enums.dart';
 import '../../../../widgets/snackBar.dart';
 import '../../data/model/profile_model.dart';
 
 part 'edit_profile_state.dart';
 
 class EditProfileCubit extends Cubit<EditProfileState> {
-  EditProfileCubit(this.getProfileUseCase, this.editProfileUseCase)
+  EditProfileCubit(this.getProfileUseCase, this.editProfileUseCase,
+      this.editImageUseCase, this.editBackgroundImageUseCase)
       : super(EditProfileInitial());
 
   static EditProfileCubit of(context) => BlocProvider.of(context);
 
   final GetProfile getProfileUseCase;
   final EditProfile editProfileUseCase;
+  final EditImage editImageUseCase;
+  final EditBackgroundImage editBackgroundImageUseCase;
 
   final nameController = TextEditingController();
   final lastNameController = TextEditingController();
@@ -60,9 +65,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
         emailController.text,
         phoneController.text,
         jobTitleController.text,
-        bioController.text,
-        image!,
-        backgroundImage!);
+        bioController.text,);
     res.fold(
       (err) {
         showSnackBar(err.message);
@@ -70,19 +73,54 @@ class EditProfileCubit extends Cubit<EditProfileState> {
       },
       (res) async {
         emit(EditProfileInitial());
+        MagicRouter.navigateAndPopAll(BottomNavScreen());
+      },
+    );
+  }
+
+  Future editImage() async {
+    emit(EditImageLoading());
+    final res = await editImageUseCase.execute(
+      image!,
+    );
+    res.fold(
+      (err) {
+        showSnackBar(err.message);
+        emit(EditProfileInitial());
+      },
+      (res) async {
+        emit(EditProfileInitial());
+        MagicRouter.navigateAndPopAll(BottomNavScreen());
+      },
+    );
+  }
+
+  Future editBackgroundImage() async {
+    emit(EditBackgroundImageLoading());
+    final res = await editBackgroundImageUseCase.execute(backgroundImage!);
+    res.fold(
+      (err) {
+        showSnackBar(err.message);
+        emit(EditProfileInitial());
+      },
+      (res) async {
+        emit(EditProfileInitial());
+        MagicRouter.navigateAndPopAll(BottomNavScreen());
       },
     );
   }
 
   Future selectImage() async {
-    var image = await ImagePicker().pickImage(source: ImageSource.gallery);
-    this.image = image!;
+    await ImagePicker().pickImage(source: ImageSource.gallery).then((value) => this.image = value);
+    await editImage();
     emit(SelectImageState());
   }
 
   Future selectBackgroundImage() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-    backgroundImage = image!;
+    await ImagePicker()
+        .pickImage(source: ImageSource.gallery)
+        .then((value) => backgroundImage = value);
+    await editBackgroundImage();
     emit(SelectImageState());
   }
 }

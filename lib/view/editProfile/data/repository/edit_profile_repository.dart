@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:switch_app/core/models/msg_model.dart';
-import 'package:switch_app/core/models/user_model.dart';
 import 'package:switch_app/view/editProfile/data/datasource/edit_profile_remote_datasource.dart';
 import 'package:switch_app/view/editProfile/domain/repository/base_edit_profile_repository.dart';
 
@@ -26,17 +25,37 @@ class EditProfileRepository extends BaseEditProfileRepository {
 
   @override
   Future<Either<Failure, MsgModel>> editProfile(
-      String name,
-      String familyName,
-      String email,
-      String phone,
-      String jobTitle,
-      String bio,
-      XFile image,
-      XFile backgroundImage) async {
+    String name,
+    String familyName,
+    String email,
+    String phone,
+    String jobTitle,
+    String bio,
+  ) async {
     try {
       final res = await baseEditProfileRemoteDatasource.editProfile(name,
-          familyName, email, phone, jobTitle, bio, image, backgroundImage);
+          familyName, email, phone, jobTitle, bio);
+      return Right(res);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.errorMessageModel.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, MsgModel>> editBackgroundImage(backgroundImage) async {
+    try {
+      final res = await baseEditProfileRemoteDatasource
+          .editBackgroundImage(backgroundImage);
+      return Right(res);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.errorMessageModel.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, MsgModel>> editImage(XFile image) async {
+    try {
+      final res = await baseEditProfileRemoteDatasource.editImage(image);
       return Right(res);
     } on ServerException catch (e) {
       return Left(ServerFailure(e.errorMessageModel.message));

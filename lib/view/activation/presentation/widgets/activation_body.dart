@@ -1,17 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:switch_app/core/router/router.dart';
-import 'package:switch_app/core/utils/app_assets.dart';
-import 'package:switch_app/core/utils/app_colors.dart';
-import 'package:switch_app/core/utils/app_enums.dart';
-import 'package:switch_app/localization/language_constants.dart';
-import 'package:switch_app/view/activation/presentation/controller/activation_cubit.dart';
 import 'package:switch_app/view/activation/presentation/widgets/activation_product_item.dart';
-import 'package:switch_app/view/bottomNav/presentation/screens/bottom_nav_screen.dart';
-import 'package:switch_app/widgets/loading_indicator.dart';
-
 import '../../../../core/utils/app_sizes.dart';
+import '../../../store/presentation/controller/store_cubit.dart';
 
 class ActivationBody extends StatelessWidget {
   const ActivationBody({Key? key}) : super(key: key);
@@ -26,48 +17,15 @@ class ActivationBody extends StatelessWidget {
       ),
       child: Column(
         children: [
-          BlocBuilder<ActivationCubit, ActivationState>(
+          BlocBuilder<StoreCubit, StoreState>(
             builder: (context, state) {
-              final cubit = ActivationCubit.of(context);
-              return state.ordersState == RequestState.loading
-                  ? Expanded(
-                      child: LoadingIndicator(),
-                    )
-                  : Expanded(
-                      child: cubit.listOfOrders.isEmpty
-                          ? Align(
-                              alignment: Alignment.center,
-                              child: TextButton(
-                                child: Container(
-                                  padding: EdgeInsets.all(
-                                      AppSizes.getProportionateScreenWidth(10)),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    border: Border.all(
-                                      color: AppColors.primaryColor,
-                                    ),
-                                  ),
-                                  child: Text(
-                                    'قم بشراء منتج الأن',
-                                    style: TextStyle(
-                                      color: AppColors.primaryColor,
-                                    ),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  MagicRouter.navigateAndPopAll(
-                                    BottomNavScreen(
-                                      selectedIndex: 1,
-                                    ),
-                                  );
-                                },
-                              ),
-                            )
-                          : ListView.builder(
-                              itemCount: cubit.listOfOrders.length,
+              final cubit = StoreCubit.of(context);
+              return Expanded(
+                      child: ListView.builder(
+                              itemCount: cubit.listOfProductsData.length,
                               itemBuilder: (context, index) {
                                 return ActivationProductItem(
-                                  ordersData: cubit.listOfOrders[index],
+                                  productsData: cubit.listOfProductsData[index],
                                 );
                               },
                             ),

@@ -16,6 +16,10 @@ import '../../../../core/utils/app_strings.dart';
 abstract class BaseEditProfileRemoteDatasource {
   Future<ProfileModel> getProfileData();
 
+  Future<MsgModel> editImage(XFile image);
+
+  Future<MsgModel> editBackgroundImage(XFile backgroundImage);
+
   Future<MsgModel> editProfile(
     String name,
     String familyName,
@@ -23,8 +27,6 @@ abstract class BaseEditProfileRemoteDatasource {
     String phone,
     String jobTitle,
     String bio,
-    XFile image,
-    XFile backgroundImage,
   );
 }
 
@@ -50,17 +52,13 @@ class EditProfileRemoteDatasource extends BaseEditProfileRemoteDatasource {
 
   @override
   Future<MsgModel> editProfile(
-      String name,
-      String familyName,
-      String email,
-      String phone,
-      String jobTitle,
-      String bio,
-      XFile image,
-      XFile backgroundImage) async {
-    String nameImage = image.path.split('/').last;
-    String namebackgroundImage = backgroundImage.path.split('/').last;
-
+    String name,
+    String familyName,
+    String email,
+    String phone,
+    String jobTitle,
+    String bio,
+  ) async {
     final response = await DioHelper.post(
       AppStrings.endpoint_updateAccount,
       headers: {
@@ -76,14 +74,62 @@ class EditProfileRemoteDatasource extends BaseEditProfileRemoteDatasource {
         "phone": phone,
         "job_title": jobTitle,
         "bio": bio,
-        "image": await MultipartFile.fromFile(image.path, filename: nameImage),
+      },
+    );
+    if (response.statusCode == 200) {
+      print("Success editProfileRepo");
+      return MsgModel.fromJson(jsonDecode(response.toString()));
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromJson(response.data),
+      );
+    }
+  }
+
+  @override
+  Future<MsgModel> editBackgroundImage(backgroundImage) async {
+    String namebackgroundImage = backgroundImage.path.split('/').last;
+
+    final response = await DioHelper.post(
+      AppStrings.endpoint_updateAccount,
+      headers: {
+        'Accept-Language': 'application/json',
+        'lang': AppStorage.getLang,
+        'Authorization': 'Bearer ${AppStorage.getUserData.token}',
+        'user_id': AppStorage.getUserId,
+      },
+      body: {
         "background_image": await MultipartFile.fromFile(backgroundImage.path,
             filename: namebackgroundImage),
       },
     );
-    print(response);
     if (response.statusCode == 200) {
-      print("Success editProfileRepo");
+      print("Success editBackgroundImageRepo");
+      return MsgModel.fromJson(jsonDecode(response.toString()));
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromJson(response.data),
+      );
+    }
+  }
+
+  @override
+  Future<MsgModel> editImage(image) async {
+    String nameImage = image.path.split('/').last;
+    final response = await DioHelper.post(
+      AppStrings.endpoint_updateAccount,
+      headers: {
+        'Accept-Language': 'application/json',
+        'lang': AppStorage.getLang,
+        'Authorization': 'Bearer ${AppStorage.getUserData.token}',
+        'user_id': AppStorage.getUserId,
+      },
+      body: {
+        "image": await MultipartFile.fromFile(image.path, filename: nameImage),
+      },
+    );
+    if (response.statusCode == 200) {
+      print("Success editBackgroundImageRepo");
       return MsgModel.fromJson(jsonDecode(response.toString()));
     } else {
       throw ServerException(

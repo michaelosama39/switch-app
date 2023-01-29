@@ -77,6 +77,12 @@ class _MyAppState extends State<MyApp> {
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           locale: _locale,
+          theme: ThemeData(
+            scaffoldBackgroundColor: Color.fromRGBO(242, 240, 240, 1),
+            appBarTheme: AppBarTheme(
+              color: Color.fromRGBO(242, 240, 240, 1),
+            ),
+          ),
           builder: (context, child) {
             AppSizes().init(context);
             return Directionality(

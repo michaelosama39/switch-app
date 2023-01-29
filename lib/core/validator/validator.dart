@@ -67,6 +67,15 @@ class Validator {
       return null;
   }
 
+  static String? url(BuildContext context , String value) {
+    if (value.isEmpty)
+      return translation(context).emptyField;
+    else if (!value.contains('http'))
+      return translation(context).examplurl;
+    else
+      return null;
+  }
+
   static String? notes(BuildContext context , String value) {
     if (value.isEmpty)
       return translation(context).emptyField;

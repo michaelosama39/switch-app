@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 
 import '../../../../core/models/applications_model.dart';
 import '../../../viewProfile/data/model/app_details_model.dart';
+import '../../../viewProfile/presentation/controller/view_profile_cubit.dart';
 import '../widgets/show_dialogedit_link.dart';
 
 part 'profile_state.dart';
@@ -19,15 +20,9 @@ class ProfileCubit extends Cubit<ProfileState> {
   final accountNameController = TextEditingController();
   final accountUrlController = TextEditingController();
 
-  editLink(BuildContext context, ProfileCubit profileCubit,
-      AppDetailsData applicationsData) {
-    accountNameController.text = applicationsData.account!.name!;
+  editLink(AppDetailsData applicationsData) {
+    accountNameController.text = applicationsData.pageTitle!;
     accountUrlController.text = applicationsData.url!;
-    showDialogEditLink(
-      context,
-      profileCubit,
-      applicationsData,
-    );
   }
 
   changeSelectedDircect() {

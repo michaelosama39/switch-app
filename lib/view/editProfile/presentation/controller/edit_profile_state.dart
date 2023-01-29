@@ -8,4 +8,6 @@ class EditProfileInitial extends EditProfileState {}
 class GetProfileLoading extends EditProfileState {}
 class SelectImageState extends EditProfileState {}
 class EditProfileDataLoading extends EditProfileState {}
+class EditImageLoading extends EditProfileState {}
+class EditBackgroundImageLoading extends EditProfileState {}
 

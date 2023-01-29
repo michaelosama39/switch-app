@@ -47,7 +47,7 @@ void bottomSheetConnection(
                 ),
               ),
               onPressed: () {
-                cubit.favouriteStatus(getData.id!, 0);
+                cubit.deleteConnection(getData.id!);
               },
             ),
             Divider(),

@@ -17,7 +17,8 @@ class ScanScreen extends StatelessWidget {
           create: (context) => ActivationCubit(sl(), sl()),
         ),
         BlocProvider(
-          create: (context) => EditProfileCubit(sl(), sl())..getProfile(),
+          create: (context) =>
+              EditProfileCubit(sl(), sl(), sl(), sl())..getProfile(),
         ),
       ],
       child: Scaffold(

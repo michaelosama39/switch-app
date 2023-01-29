@@ -1,10 +1,6 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:switch_app/view/profile/presentation/widgets/app_profile_item.dart';
-import '../../../../core/models/applications_model.dart';
-import '../../../addLinks/presentation/controller/add_links_cubit.dart';
-import '../../../viewProfile/data/model/app_details_model.dart';
 import '../../../viewProfile/presentation/controller/view_profile_cubit.dart';
 import '../controller/profile_cubit.dart';
 
@@ -35,6 +31,7 @@ class ListOfAppsWidget extends StatelessWidget {
             applicationsData: cubit.listOfAppDetailsData[index],
             index: index,
             profileCubit: profileCubit,
+            viewProfileCubit: ViewProfileCubit.of(context),
           );
         },
       ),

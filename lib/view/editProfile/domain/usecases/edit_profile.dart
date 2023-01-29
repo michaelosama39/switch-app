@@ -9,16 +9,9 @@ class EditProfile {
 
   EditProfile(this.baseEditProfileRepository);
 
-  Future<Either<Failure, MsgModel>> execute(
-      String name,
-      String familyName,
-      String email,
-      String phone,
-      String jobTitle,
-      String bio,
-      XFile image,
-      XFile backgroundImage) async {
-    return await baseEditProfileRepository.editProfile(name, familyName, email,
-        phone, jobTitle, bio, image, backgroundImage);
+  Future<Either<Failure, MsgModel>> execute(String name, String familyName,
+      String email, String phone, String jobTitle, String bio) async {
+    return await baseEditProfileRepository.editProfile(
+        name, familyName, email, phone, jobTitle, bio);
   }
 }

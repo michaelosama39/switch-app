@@ -13,7 +13,7 @@ class FavouriteScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          MyConnectionsCubit(sl(), sl(), sl(), sl(), sl(), sl())
+          MyConnectionsCubit(sl(), sl(), sl(), sl(), sl(), sl(), sl())
             ..getFavouriteList(),
       child: Scaffold(
         appBar: FavouriteAppBar(),

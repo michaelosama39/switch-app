@@ -12,7 +12,7 @@ class AddConnectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          MyConnectionsCubit(sl(), sl(), sl(), sl(), sl(), sl()),
+          MyConnectionsCubit(sl(), sl(), sl(), sl(), sl(), sl() , sl()),
       child: Scaffold(
         appBar: AddConnectionAppBar(),
         body: AddConnectionBody(),

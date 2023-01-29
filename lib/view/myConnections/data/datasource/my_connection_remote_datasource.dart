@@ -20,6 +20,8 @@ abstract class BaseMyConnectionRemoteDatasource {
   Future<MsgModel> favouriteStatus(int connectionId, int status);
 
   Future<ConnectionModel> getFavouriteList();
+
+  Future<MsgModel> deleteUserConnection(int connectionId);
 }
 
 class MyConnectionRemoteDatasource extends BaseMyConnectionRemoteDatasource {
@@ -107,7 +109,7 @@ class MyConnectionRemoteDatasource extends BaseMyConnectionRemoteDatasource {
   }
 
   @override
-  Future<MsgModel> favouriteStatus( connectionId, status) async {
+  Future<MsgModel> favouriteStatus(connectionId, status) async {
     final response = await DioHelper.post(
       "${AppStrings.endpoint_favorite}/$connectionId",
       headers: {
@@ -130,7 +132,7 @@ class MyConnectionRemoteDatasource extends BaseMyConnectionRemoteDatasource {
   }
 
   @override
-  Future<ConnectionModel> getFavouriteList() async{
+  Future<ConnectionModel> getFavouriteList() async {
     final response = await DioHelper.get(
       AppStrings.endpoint_favoriteShow,
       headers: {
@@ -142,6 +144,26 @@ class MyConnectionRemoteDatasource extends BaseMyConnectionRemoteDatasource {
     if (response.statusCode == 200 && response.data['status'] == true) {
       print("Success getFavouriteListRepo");
       return ConnectionModel.fromJson(jsonDecode(response.toString()));
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromJson(response.data),
+      );
+    }
+  }
+
+  @override
+  Future<MsgModel> deleteUserConnection(int connectionId) async {
+    final response = await DioHelper.post(
+      "${AppStrings.endpoint_deleteUserConnection}/$connectionId",
+      headers: {
+        'Accept-Language': 'application/json',
+        'lang': AppStorage.getLang,
+      },
+      body: {},
+    );
+    if (response.statusCode == 200 && response.data['status'] == true) {
+      print("Success DeleteUserConnectionRepo");
+      return MsgModel.fromJson(jsonDecode(response.toString()));
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromJson(response.data),

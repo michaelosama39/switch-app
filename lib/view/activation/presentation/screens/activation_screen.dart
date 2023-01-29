@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:switch_app/view/store/presentation/controller/store_cubit.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../../../localization/language_constants.dart';
 import '../controller/activation_cubit.dart';
@@ -12,11 +13,10 @@ class ActivationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ActivationCubit(sl(), sl())..getOrders(),
+      create: (context) => StoreCubit(sl(), sl())..getAllProducts(),
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.white,
           centerTitle: false,
           title: Text(
             translation(context).chooseSwitchProductToActivate,

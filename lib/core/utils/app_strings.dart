@@ -23,4 +23,9 @@ class AppStrings {
   static const String endpoint_show = '$baseurl/show';
   static const String endpoint_changePassword = '$baseurl/changePassword';
   static const String endpoint_deleteAccount = '$baseurl/deleteAccount';
+  static const String endpoint_deleteUserConnection = '$baseurl/DeleteUserConnection';
+  static const String endpoint_updateAcc = '$baseurl/updateAcc';
+  static const String endpoint_media = '$baseurl/media';
+  static const String endpoint_faqs = '$baseurl/faqs';
+  static const String endpoint_changeStatus = '$baseurl/changeStatus';
 }

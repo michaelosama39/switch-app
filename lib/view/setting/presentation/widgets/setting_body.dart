@@ -16,6 +16,7 @@ import 'package:switch_app/widgets/space_height.dart';
 import 'package:switch_app/widgets/space_width.dart';
 import '../../../../core/appStorage/app_storage.dart';
 import '../../../../core/utils/app_assets.dart';
+import '../../../../core/utils/app_func.dart';
 import '../../../../localization/language.dart';
 import '../../../../main.dart';
 import '../../../changePassword/presentation/screens/change_password_screen.dart';
@@ -40,81 +41,81 @@ class SettingBody extends StatelessWidget {
                 return editProfileCubit.userData == null
                     ? const SizedBox()
                     : Card(
-                        elevation: 0,
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            vertical: AppSizes.getProportionateScreenHeight(10),
-                            horizontal:
-                                AppSizes.getProportionateScreenWidth(25),
+                  elevation: 0,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      vertical: AppSizes.getProportionateScreenHeight(10),
+                      horizontal:
+                      AppSizes.getProportionateScreenWidth(25),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            height:
+                            AppSizes.getProportionateScreenHeight(90),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                image: NetworkImage(editProfileCubit
+                                    .userData!.user!.image!),
+                              ),
+                            ),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                        ),
+                        SpaceW(inputWidth: 10),
+                        Expanded(
+                          flex: 2,
+                          child: Column(
                             children: [
-                              Expanded(
-                                flex: 1,
-                                child: Container(
-                                  height:
-                                      AppSizes.getProportionateScreenHeight(90),
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                      image: NetworkImage(editProfileCubit
-                                          .userData!.user!.image!),
-                                    ),
-                                  ),
+                              Text(
+                                editProfileCubit.userData!.user!.name ==
+                                    null
+                                    ? 'name'
+                                    : editProfileCubit
+                                    .userData!.user!.name!,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                  fontSize: 14.sp,
                                 ),
                               ),
-                              SpaceW(inputWidth: 10),
-                              Expanded(
-                                flex: 2,
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      editProfileCubit.userData!.user!.name ==
-                                              null
-                                          ? 'name'
-                                          : editProfileCubit
-                                              .userData!.user!.name!,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                        fontSize: 14.sp,
-                                      ),
-                                    ),
-                                    Text(
-                                      editProfileCubit.userData!.user!.email ==
-                                              null
-                                          ? 'email'
-                                          : editProfileCubit
-                                              .userData!.user!.email!,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 13.sp,
-                                      ),
-                                    ),
-                                    SpaceH(inputHeigth: 5),
-                                    TextButton(
-                                      child: Text(
-                                        translation(context).changePassword,
-                                        style: TextStyle(
-                                          color: Colors.blue,
-                                          fontSize: 12.sp,
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        MagicRouter.navigateTo(
-                                            ChangePasswordScreen());
-                                      },
-                                    ),
-                                  ],
+                              Text(
+                                editProfileCubit.userData!.user!.email ==
+                                    null
+                                    ? 'email'
+                                    : editProfileCubit
+                                    .userData!.user!.email!,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 13.sp,
                                 ),
+                              ),
+                              SpaceH(inputHeigth: 5),
+                              TextButton(
+                                child: Text(
+                                  translation(context).changePassword,
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                    fontSize: 12.sp,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  MagicRouter.navigateTo(
+                                      ChangePasswordScreen());
+                                },
                               ),
                             ],
                           ),
                         ),
-                      );
+                      ],
+                    ),
+                  ),
+                );
               },
             ),
             SpaceH(inputHeigth: 30),
@@ -162,11 +163,12 @@ class SettingBody extends StatelessWidget {
                     itemBuilder: (context) {
                       return Language.languageList()
                           .map<PopupMenuItem<Language>>(
-                            (e) => PopupMenuItem<Language>(
+                            (e) =>
+                            PopupMenuItem<Language>(
                               value: e,
                               child: Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
+                                MainAxisAlignment.spaceAround,
                                 children: <Widget>[
                                   Text(
                                     e.flag,
@@ -176,7 +178,7 @@ class SettingBody extends StatelessWidget {
                                 ],
                               ),
                             ),
-                          )
+                      )
                           .toList();
                     },
                   ),
@@ -199,42 +201,47 @@ class SettingBody extends StatelessWidget {
               },
             ),
             SpaceH(inputHeigth: 25),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SocialButton(
-                  img: AppAssets.facebook_icon,
-                  imgColor: Colors.white,
-                  buttonColor: Colors.blueAccent,
-                  onPress: () {
-                    // AppFunc.launchUrlFun(facebook_url!);
-                  },
-                ),
-                SocialButton(
-                  img: AppAssets.twitter_icon,
-                  imgColor: Colors.white,
-                  buttonColor: Colors.blue.withOpacity(0.8),
-                  onPress: () {
-                    // AppFunc.launchUrlFun(twitter_url!);
-                  },
-                ),
-                SocialButton(
-                  img: AppAssets.google_icon,
-                  imgColor: Colors.white,
-                  buttonColor: Colors.redAccent.withOpacity(0.9),
-                  onPress: () {
-                    // AppFunc.launchUrlFun(google_url!);
-                  },
-                ),
-                SocialButton(
-                  img: AppAssets.linkedin_icon,
-                  imgColor: Colors.white,
-                  buttonColor: Colors.blueAccent,
-                  onPress: () {
-                    // AppFunc.launchUrlFun(linkedin_url!);
-                  },
-                ),
-              ],
+            BlocBuilder<SettingCubit, SettingState>(
+              builder: (context, state) {
+                final cubit = SettingCubit.of(context);
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SocialButton(
+                      img: AppAssets.facebook_icon,
+                      imgColor: Colors.white,
+                      buttonColor: Colors.blueAccent,
+                      onPress: () {
+                        AppFunc.launchUrlFun(cubit.mediaData!.social!.facebook!);
+                      },
+                    ),
+                    SocialButton(
+                      img: AppAssets.twitter_icon,
+                      imgColor: Colors.white,
+                      buttonColor: Colors.blue.withOpacity(0.8),
+                      onPress: () {
+                        AppFunc.launchUrlFun(cubit.mediaData!.social!.twitter!);
+                      },
+                    ),
+                    SocialButton(
+                      img: AppAssets.google_icon,
+                      imgColor: Colors.white,
+                      buttonColor: Colors.redAccent.withOpacity(0.9),
+                      onPress: () {
+                        AppFunc.launchUrlFun(cubit.mediaData!.social!.gmail!);
+                      },
+                    ),
+                    SocialButton(
+                      img: AppAssets.linkedin_icon,
+                      imgColor: Colors.white,
+                      buttonColor: Colors.blueAccent,
+                      onPress: () {
+                        AppFunc.launchUrlFun(cubit.mediaData!.social!.linkedin!);
+                      },
+                    ),
+                  ],
+                );
+              },
             ),
             SpaceH(inputHeigth: 20),
             Image.asset(

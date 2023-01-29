@@ -120,21 +120,45 @@ class MyConnectionsBody extends StatelessWidget {
                         SpaceW(inputWidth: 15),
                         Expanded(
                           flex: 1,
-                          child: CustomButton(
-                            text: translation(context).exchange,
-                            buttonColor: Colors.white,
-                            fontColor: Colors.black,
-                            borderColor: myConnectionsCubit.myConnection ==
-                                    MyConnection.exchange
-                                ? AppColors.primaryColor
-                                : Colors.grey,
-                            radius: 20,
-                            paddingVertical: 10,
-                            paddingHorizontal: 5,
-                            onPress: () {
-                              myConnectionsCubit.changeTabButton('exchange');
-                              myConnectionsCubit.getExchangeList();
-                            },
+                          child: Stack(
+                            children: [
+                              CustomButton(
+                                text: translation(context).exchange,
+                                buttonColor: Colors.white,
+                                fontColor: Colors.black,
+                                borderColor: myConnectionsCubit.myConnection ==
+                                        MyConnection.exchange
+                                    ? AppColors.primaryColor
+                                    : Colors.grey,
+                                radius: 20,
+                                paddingVertical: 10,
+                                paddingHorizontal: 5,
+                                onPress: () {
+                                  myConnectionsCubit
+                                      .changeTabButton('exchange');
+                                  myConnectionsCubit.getExchangeList();
+                                },
+                              ),
+                              Positioned(
+                                top: 0,
+                                bottom: 0,
+                                right: 25,
+                                child: myConnectionsCubit
+                                        .listOfExchangeData.isEmpty
+                                    ? SizedBox()
+                                    : Container(
+                                  width: AppSizes
+                                      .getProportionateScreenWidth(8),
+                                  height: AppSizes
+                                      .getProportionateScreenHeight(
+                                      8),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: AppColors.primaryColor,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],

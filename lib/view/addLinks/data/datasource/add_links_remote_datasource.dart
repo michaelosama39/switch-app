@@ -28,7 +28,7 @@ class AddLinksRemoteDatasource extends BaseAddLinksRemoteDatasource {
       'lang': AppStorage.getLang,
       'Authorization': 'Bearer ${AppStorage.getUserData.token}'
     });
-    if (response.statusCode == 200 ) {
+    if (response.statusCode == 200) {
       print("Success getSocialAppsRepo");
       return ApplicationsModel.fromJson(jsonDecode(response.toString()));
     } else {
@@ -46,7 +46,7 @@ class AddLinksRemoteDatasource extends BaseAddLinksRemoteDatasource {
       'lang': AppStorage.getLang,
       'Authorization': 'Bearer ${AppStorage.getUserData.token}'
     });
-    if (response.statusCode == 200 ) {
+    if (response.statusCode == 200) {
       print("Success getBusinessAppsRepo");
       return ApplicationsModel.fromJson(jsonDecode(response.toString()));
     } else {
@@ -64,7 +64,7 @@ class AddLinksRemoteDatasource extends BaseAddLinksRemoteDatasource {
       'lang': AppStorage.getLang,
       'Authorization': 'Bearer ${AppStorage.getUserData.token}'
     });
-    if (response.statusCode == 200 ) {
+    if (response.statusCode == 200) {
       print("Success getCreativeAppsRepo");
       return ApplicationsModel.fromJson(jsonDecode(response.toString()));
     } else {
@@ -94,23 +94,19 @@ class AddLinksRemoteDatasource extends BaseAddLinksRemoteDatasource {
   @override
   Future<MsgModel> addLink(
       String pageTitle, String url, String categoryName, int typeId) async {
-    final response = await DioHelper.post(
-      AppStrings.endpoint_addAccount,
-      headers: {
-        'Accept-Language': 'application/json',
-        'lang': AppStorage.getLang,
-        'Authorization': 'Bearer ${AppStorage.getUserData.token}'
-      },
-      body: {
-        'page_title' : pageTitle,
-        'url' : url,
-        'user_id' : AppStorage.getUserId.toString(),
-        'category_name' : categoryName,
-        'type_id' : typeId,
-      }
-    );
-    print(response);
-    if (response.statusCode == 200) {
+    final response =
+        await DioHelper.post(AppStrings.endpoint_addAccount, headers: {
+      'Accept-Language': 'application/json',
+      'lang': AppStorage.getLang,
+      'Authorization': 'Bearer ${AppStorage.getUserData.token}'
+    }, body: {
+      'page_title': pageTitle,
+      'url': url,
+      'user_id': AppStorage.getUserId.toString(),
+      'category_name': categoryName,
+      'type_id': typeId,
+    });
+    if (response.statusCode == 200 && response.data['status'] == true) {
       print("Success addLinkRepo");
       return MsgModel.fromJson(jsonDecode(response.toString()));
     } else {

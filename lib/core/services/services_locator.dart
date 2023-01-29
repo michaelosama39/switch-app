@@ -12,10 +12,14 @@ import 'package:switch_app/view/addLinks/domain/usecases/get_music_apps.dart';
 import 'package:switch_app/view/addLinks/presentation/controller/add_links_cubit.dart';
 import 'package:switch_app/view/changePassword/domain/usecases/change_password.dart';
 import 'package:switch_app/view/editProfile/data/datasource/edit_profile_remote_datasource.dart';
+import 'package:switch_app/view/editProfile/domain/usecases/edit_background_image.dart';
+import 'package:switch_app/view/editProfile/domain/usecases/edit_image.dart';
 import 'package:switch_app/view/editProfile/domain/usecases/edit_profile.dart';
 import 'package:switch_app/view/editProfile/domain/usecases/get_profile.dart';
+import 'package:switch_app/view/help/domain/usecases/get_help.dart';
 import 'package:switch_app/view/login/presentation/controller/login_cubit.dart';
 import 'package:switch_app/view/myConnections/domain/usecases/add_new_connection.dart';
+import 'package:switch_app/view/myConnections/domain/usecases/delete_connection.dart';
 import 'package:switch_app/view/myConnections/domain/usecases/exchange_status.dart';
 import 'package:switch_app/view/myConnections/domain/usecases/favourite_status.dart';
 import 'package:switch_app/view/myConnections/domain/usecases/get_connection_list.dart';
@@ -24,6 +28,7 @@ import 'package:switch_app/view/myConnections/domain/usecases/get_favourite_list
 import 'package:switch_app/view/register/data/datasource/register_remote_datasource.dart';
 import 'package:switch_app/view/register/presentation/controller/register_cubit.dart';
 import 'package:switch_app/view/setting/domain/usecases/delete_account.dart';
+import 'package:switch_app/view/setting/domain/usecases/get_media.dart';
 import 'package:switch_app/view/setting/domain/usecases/logout.dart';
 import 'package:switch_app/view/setting/presentation/controller/setting_cubit.dart';
 import 'package:switch_app/view/store/data/datasource/store_remote_datasource.dart';
@@ -34,7 +39,10 @@ import 'package:switch_app/view/store/domain/usecases/make_order.dart';
 import 'package:switch_app/view/store/presentation/controller/store_cubit.dart';
 import 'package:switch_app/view/viewProfile/data/datasource/view_profile_remote_datasource.dart';
 import 'package:switch_app/view/viewProfile/domain/repository/base_view_profle_repository.dart';
+import 'package:switch_app/view/viewProfile/domain/usecases/change_status_app.dart';
+import 'package:switch_app/view/viewProfile/domain/usecases/edit_app_details.dart';
 import 'package:switch_app/view/viewProfile/domain/usecases/show_app_details.dart';
+import 'package:switch_app/view/viewProfile/presentation/controller/view_profile_cubit.dart';
 import '../../view/activation/data/datasource/activation_remote_datasource.dart';
 import '../../view/activation/data/repository/activation_repository.dart';
 import '../../view/activation/domain/repository/base_activation_repository.dart';
@@ -46,6 +54,10 @@ import '../../view/changePassword/presentation/controller/change_password_cubit.
 import '../../view/editProfile/data/repository/edit_profile_repository.dart';
 import '../../view/editProfile/domain/repository/base_edit_profile_repository.dart';
 import '../../view/editProfile/presentation/controller/edit_profile_cubit.dart';
+import '../../view/help/data/datasource/help_remote_datasource.dart';
+import '../../view/help/data/repository/help_repository.dart';
+import '../../view/help/domain/repository/base_help_repository.dart';
+import '../../view/help/presentation/controller/help_cubit.dart';
 import '../../view/login/data/datasource/login_remote_datasource.dart';
 import '../../view/login/data/repository/login_repository.dart';
 import '../../view/login/domain/repository/base_login_repository.dart';
@@ -66,15 +78,24 @@ final sl = GetIt.instance;
 
 class ServicesLocator {
   void init() {
+    // help
+    sl.registerLazySingleton(() => GetHelp(sl()));
+    sl.registerFactory(() => HelpCubit(sl()));
+
+    sl.registerLazySingleton<BaseHelpRepository>(() => HelpRepository(sl()));
+
+    sl.registerLazySingleton<BaseHelpRemoteDatasource>(
+        () => HelpRemoteDatasource());
+
     // changePassword
     sl.registerLazySingleton(() => ChangePassword(sl()));
     sl.registerFactory(() => ChangePasswordCubit(sl()));
 
     sl.registerLazySingleton<BaseChangePasswordRepository>(
-            () => ChangePasswordRepository(sl()));
+        () => ChangePasswordRepository(sl()));
 
     sl.registerLazySingleton<BaseChangePasswordRemoteDatasource>(
-            () => ChangePasswordRemoteDatasource());
+        () => ChangePasswordRemoteDatasource());
 
     // myConnection
     sl.registerLazySingleton(() => GetFavouriteList(sl()));
@@ -83,8 +104,9 @@ class ServicesLocator {
     sl.registerLazySingleton(() => FavouriteStatus(sl()));
     sl.registerLazySingleton(() => ExchangeStatus(sl()));
     sl.registerLazySingleton(() => AddNewConnection(sl()));
+    sl.registerLazySingleton(() => DeleteConnection(sl()));
     sl.registerFactory(
-        () => MyConnectionsCubit(sl(), sl(), sl(), sl(), sl(), sl()));
+        () => MyConnectionsCubit(sl(), sl(), sl(), sl(), sl(), sl(), sl()));
 
     sl.registerLazySingleton<BaseMyConnectionRepository>(
         () => MyConnectionRepository(sl()));
@@ -104,8 +126,10 @@ class ServicesLocator {
         () => ActivationRemoteDatasource());
 
     // viewProfile
+    sl.registerLazySingleton(() => ChangeStatusApp(sl()));
     sl.registerLazySingleton(() => ShowAppDetails(sl()));
-
+    sl.registerLazySingleton(() => EditAppDetails(sl()));
+    sl.registerFactory(() => ViewProfileCubit(sl(), sl(), sl()));
     sl.registerLazySingleton<BaseViewProfileRepository>(
         () => ViewProfileRepository(sl()));
 
@@ -113,9 +137,11 @@ class ServicesLocator {
         () => ViewProfileRemoteDatasource());
 
     // editProfile
+    sl.registerLazySingleton(() => EditBackgroundImage(sl()));
+    sl.registerLazySingleton(() => EditImage(sl()));
     sl.registerLazySingleton(() => EditProfile(sl()));
     sl.registerLazySingleton(() => GetProfile(sl()));
-    sl.registerFactory(() => EditProfileCubit(sl(), sl()));
+    sl.registerFactory(() => EditProfileCubit(sl(), sl(), sl(), sl()));
 
     sl.registerLazySingleton<BaseEditProfileRepository>(
         () => EditProfileRepository(sl()));
@@ -138,9 +164,10 @@ class ServicesLocator {
         () => AddLinksRemoteDatasource());
 
     // setting
+    sl.registerLazySingleton(() => GetMedia(sl()));
     sl.registerLazySingleton(() => DeleteAccount(sl()));
     sl.registerLazySingleton(() => Logout(sl()));
-    sl.registerFactory(() => SettingCubit(sl() , sl()));
+    sl.registerFactory(() => SettingCubit(sl(), sl(), sl()));
 
     sl.registerLazySingleton<BaseSettingRepository>(
         () => SettingRepository(sl()));

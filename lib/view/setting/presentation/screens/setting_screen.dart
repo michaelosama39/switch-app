@@ -17,15 +17,15 @@ class SettingScreen extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => SettingCubit(sl(), sl()),
+          create: (context) => SettingCubit(sl(), sl(), sl())..getMedia(),
         ),
         BlocProvider(
-          create: (context) => EditProfileCubit(sl(), sl())..getProfile(),
+          create: (context) =>
+              EditProfileCubit(sl(), sl(), sl(), sl())..getProfile(),
         ),
       ],
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
           elevation: 0,
           centerTitle: false,
           title: Text(

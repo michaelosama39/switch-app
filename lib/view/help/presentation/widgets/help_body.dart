@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:switch_app/view/help/presentation/controller/help_cubit.dart';
+import 'package:switch_app/widgets/loading_indicator.dart';
 import 'help_card.dart';
 
 class HelpBody extends StatelessWidget {
@@ -6,13 +9,20 @@ class HelpBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 8,
-      itemBuilder: (context, index) {
-        return HelpCard(
-          title: 'ماهي ساعات العمل',
-          desc: 'تعتمد ساعات العمل حسب ساعات عمل المتاجر التي نعمل معها يرجي الرجوع الي صفحة المتجر الرئيسية للحصول علي معلومات ساعات العمل \r\n  كما تعتمد أوقات التوصيل على الاوقات التي يتم تحديدها من قبل إدارات المتاجر',
-        );
+    return BlocBuilder<HelpCubit, HelpState>(
+      builder: (context, state) {
+        final cubit = HelpCubit.of(context);
+        return state is GetHelpLoading
+            ? LoadingIndicator()
+            : ListView.builder(
+                itemCount: cubit.listOfHelpData.length,
+                itemBuilder: (context, index) {
+                  return HelpCard(
+                    title: cubit.listOfHelpData[index].question!,
+                    desc: cubit.listOfHelpData[index].answer!,
+                  );
+                },
+              );
       },
     );
   }

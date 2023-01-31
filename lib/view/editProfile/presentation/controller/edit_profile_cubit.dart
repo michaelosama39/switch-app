@@ -34,7 +34,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   final bioController = TextEditingController();
   ProfileModel? userData;
   XFile? backgroundImage;
-  XFile? image;
+  XFile? profileImage;
 
   Future getProfile() async {
     emit(GetProfileLoading());
@@ -60,12 +60,13 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   Future editProfile() async {
     emit(EditProfileDataLoading());
     final res = await editProfileUseCase.execute(
-        nameController.text,
-        lastNameController.text,
-        emailController.text,
-        phoneController.text,
-        jobTitleController.text,
-        bioController.text,);
+      nameController.text,
+      lastNameController.text,
+      emailController.text,
+      phoneController.text,
+      jobTitleController.text,
+      bioController.text,
+    );
     res.fold(
       (err) {
         showSnackBar(err.message);
@@ -80,9 +81,8 @@ class EditProfileCubit extends Cubit<EditProfileState> {
 
   Future editImage() async {
     emit(EditImageLoading());
-    final res = await editImageUseCase.execute(
-      image!,
-    );
+    final res = await editImageUseCase.execute(profileImage!);
+    print(res);
     res.fold(
       (err) {
         showSnackBar(err.message);
@@ -111,8 +111,10 @@ class EditProfileCubit extends Cubit<EditProfileState> {
   }
 
   Future selectImage() async {
-    await ImagePicker().pickImage(source: ImageSource.gallery).then((value) => this.image = value);
-    await editImage();
+    await ImagePicker()
+        .pickImage(source: ImageSource.gallery)
+        .then((value) => profileImage = value);
+    editImage();
     emit(SelectImageState());
   }
 
@@ -120,7 +122,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     await ImagePicker()
         .pickImage(source: ImageSource.gallery)
         .then((value) => backgroundImage = value);
-    await editBackgroundImage();
+    editBackgroundImage();
     emit(SelectImageState());
   }
 }

@@ -11,22 +11,28 @@ class ListOfAppsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final profileCubit = ProfileCubit.of(context);
-    profileCubit.listOfAllApps.addAll(profileCubit.listOfAppDetailsData);
+    profileCubit.listOfAllApps.addAll(profileCubit.appDetailsModel!
+        .accounts!);
     return Expanded(
       child: ReorderableListView.builder(
-        itemCount: profileCubit.listOfAppDetailsData.length,
+        itemCount: profileCubit.appDetailsModel!
+            .accounts!.length,
         proxyDecorator: proxyDecorator,
         onReorder: (oldIndex, newIndex) {
           if (newIndex > oldIndex) newIndex--;
-          final item = profileCubit.listOfAppDetailsData.removeAt(oldIndex);
-          profileCubit.listOfAppDetailsData.insert(newIndex, item);
+          final item = profileCubit.appDetailsModel!
+              .accounts!.removeAt(oldIndex);
+          profileCubit.appDetailsModel!
+              .accounts!.insert(newIndex, item);
           profileCubit.listOfAllApps.clear();
-          profileCubit.listOfAllApps.addAll(profileCubit.listOfAppDetailsData);
+          profileCubit.listOfAllApps.addAll(profileCubit.appDetailsModel!
+              .accounts!);
         },
         itemBuilder: (context, index) {
           return AppProfileItem(
             key: Key("$index"),
-            applicationsData: profileCubit.listOfAppDetailsData[index],
+            applicationsData: profileCubit.appDetailsModel!
+                .accounts![index],
             index: index,
             profileCubit: profileCubit,
           );

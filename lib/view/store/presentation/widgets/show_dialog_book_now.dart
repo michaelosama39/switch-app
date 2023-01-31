@@ -7,7 +7,9 @@ import 'package:switch_app/view/store/presentation/controller/store_cubit.dart';
 import 'package:switch_app/widgets/custom_button.dart';
 import 'package:switch_app/widgets/space_height.dart';
 
-Future showDialogBookNow(context , StoreCubit cubit ,int productId) {
+import '../../data/model/products_model.dart';
+
+Future showDialogBookNow(context, StoreCubit cubit, ProductsData productsData) {
   return showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -23,11 +25,17 @@ Future showDialogBookNow(context , StoreCubit cubit ,int productId) {
                 AppAssets.logo_without_image,
                 height: AppSizes.getProportionateScreenHeight(60),
               ),
-              SpaceH(inputHeigth: 20),
+              SpaceH(inputHeigth: 25),
+              Expanded(
+                child: Image.network(
+                  productsData.image!,
+                ),
+              ),
+              SpaceH(inputHeigth: 25),
               CustomButton(
                 text: translation(context).bookNow,
                 onPress: () {
-                  cubit.makeOrder(productId);
+                  cubit.makeOrder(productsData.id!);
                   MagicRouter.pop();
                 },
               ),

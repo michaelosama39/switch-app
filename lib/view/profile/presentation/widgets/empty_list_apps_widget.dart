@@ -12,7 +12,9 @@ class EmptyListAppsWidget extends StatelessWidget {
     return Expanded(
       child: Column(
         children: [
-          Image.asset(AppAssets.lets_started),
+          Expanded(
+            child: Image.asset(AppAssets.lets_started),
+          ),
           CustomButton(
             text: 'add your links',
             onPress: () {

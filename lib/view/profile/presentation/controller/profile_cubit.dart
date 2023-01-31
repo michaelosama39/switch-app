@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:switch_app/view/profile/domain/usecases/delete_app.dart';
 import '../../../../core/router/router.dart';
 import '../../../../widgets/snackBar.dart';
 import '../../../bottomNav/presentation/screens/bottom_nav_screen.dart';
@@ -14,10 +15,12 @@ part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit(this.showAppDetailsUseCase, this.editAppDetailsUseCase,
-      this.changeStatusAppUseCase)
+      this.changeStatusAppUseCase, this.deleteAppUseCase)
       : super(ProfileInitial());
 
   static ProfileCubit of(context) => BlocProvider.of(context);
+
+  AppDetailsModel? appDetailsModel;
 
   bool isDircect = false;
   List<AppDetailsData> listOfAllApps = [];
@@ -27,7 +30,22 @@ class ProfileCubit extends Cubit<ProfileState> {
   final ShowAppDetails showAppDetailsUseCase;
   final EditAppDetails editAppDetailsUseCase;
   final ChangeStatusApp changeStatusAppUseCase;
-  List<AppDetailsData> listOfAppDetailsData = [];
+  final DeleteApp deleteAppUseCase;
+
+  Future deleteApp(int appId) async {
+    final res = await deleteAppUseCase.execute(appId);
+    res.fold(
+      (err) {
+        showSnackBar(err.message);
+        emit(ProfileInitial());
+      },
+      (res) async {
+        emit(DeleteAppStateLoaded());
+        MagicRouter.navigateAndPopAll(BottomNavScreen());
+        showSnackBar(res.message!);
+      },
+    );
+  }
 
   Future showAppDetails() async {
     emit(ShowAppDetailsLoading());
@@ -38,7 +56,7 @@ class ProfileCubit extends Cubit<ProfileState> {
         emit(ProfileInitial());
       },
       (res) async {
-        listOfAppDetailsData.addAll(res.accounts!);
+        appDetailsModel = res;
         emit(ShowAppDetailsLoaded());
       },
     );

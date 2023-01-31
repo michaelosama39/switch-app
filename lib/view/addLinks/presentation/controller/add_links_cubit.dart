@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:switch_app/core/models/applications_model.dart';
-import 'package:switch_app/core/models/msg_model.dart';
 import 'package:switch_app/core/router/router.dart';
 import 'package:switch_app/view/addLinks/domain/usecases/add_link.dart';
 import 'package:switch_app/view/addLinks/domain/usecases/get_business_apps.dart';
@@ -11,8 +10,6 @@ import 'package:switch_app/view/addLinks/domain/usecases/get_creative_apps.dart'
 import 'package:switch_app/view/addLinks/domain/usecases/get_music_apps.dart';
 import 'package:switch_app/view/addLinks/domain/usecases/get_social_apps.dart';
 import 'package:switch_app/view/bottomNav/presentation/screens/bottom_nav_screen.dart';
-
-import '../../../../core/utils/app_enums.dart';
 import '../../../../widgets/snackBar.dart';
 
 part 'add_links_state.dart';
@@ -45,6 +42,78 @@ class AddLinksCubit extends Cubit<AddLinksState> {
   String? categoryName;
   int? typeId;
   final formKey = GlobalKey<FormState>();
+
+  final searchController = TextEditingController();
+
+  List<ApplicationsData> searchResultSocialApps = [];
+  List<ApplicationsData> searchResultMusicApps = [];
+  List<ApplicationsData> searchResultBusinessApps = [];
+  List<ApplicationsData> searchResultCreativeApps = [];
+
+  searchTextChanged(String text) async {
+    searchResultSocialApps.clear();
+    searchResultMusicApps.clear();
+    searchResultBusinessApps.clear();
+    searchResultCreativeApps.clear();
+
+    // SocialApps
+    listOfSocialApps.forEach((userDetail) {
+      if (userDetail.name!.contains(text) ||
+          userDetail.name!.contains(text[0].toUpperCase()))
+        searchResultSocialApps.add(userDetail);
+    });
+    listOfSocialApps.clear();
+    if (text.isEmpty) {
+      getSocialApps();
+      listOfSocialApps.addAll(listOfSocialApps);
+    } else {
+      listOfSocialApps.addAll(searchResultSocialApps);
+    }
+
+    // MusicApps
+    listOfMusicApps.forEach((userDetail) {
+      if (userDetail.name!.contains(text) ||
+          userDetail.name!.contains(text[0].toUpperCase()))
+        searchResultMusicApps.add(userDetail);
+    });
+    listOfMusicApps.clear();
+    if (text.isEmpty) {
+      getMusicApps();
+      listOfMusicApps.addAll(listOfMusicApps);
+    } else {
+      listOfMusicApps.addAll(searchResultMusicApps);
+    }
+
+    // BusinessApps
+    listOfBusinessApps.forEach((userDetail) {
+      if (userDetail.name!.contains(text) ||
+          userDetail.name!.contains(text[0].toUpperCase()))
+        searchResultBusinessApps.add(userDetail);
+    });
+    listOfBusinessApps.clear();
+    if (text.isEmpty) {
+      getBusinessApps();
+      listOfBusinessApps.addAll(listOfBusinessApps);
+    } else {
+      listOfBusinessApps.addAll(searchResultBusinessApps);
+    }
+
+    // CreativeApps
+    listOfCreativeApps.forEach((userDetail) {
+      if (userDetail.name!.contains(text) ||
+          userDetail.name!.contains(text[0].toUpperCase()))
+        searchResultCreativeApps.add(userDetail);
+    });
+    listOfCreativeApps.clear();
+    if (text.isEmpty) {
+      getCreativeApps();
+      listOfCreativeApps.addAll(listOfCreativeApps);
+    } else {
+      listOfCreativeApps.addAll(searchResultCreativeApps);
+    }
+
+    emit(SearchStateLoaded());
+  }
 
   Future getSocialApps() async {
     emit(GetAppsStateLoading());
@@ -107,25 +176,23 @@ class AddLinksCubit extends Cubit<AddLinksState> {
   }
 
   Future addLink() async {
-    if (formKey.currentState!.validate() == true) {
-      emit(AddLinkLoading());
-      final res = await addLinkUseCase.execute(
-          pageTitleController.text, urlController.text, categoryName!, typeId!);
-      res.fold(
-        (err) {
-          showSnackBar(err.message);
-          pageTitleController.clear();
-          urlController.clear();
-          MagicRouter.pop();
-          emit(AddLinksInitial());
-        },
-        (res) async {
-          pageTitleController.clear();
-          urlController.clear();
-          MagicRouter.navigateAndPopAll(BottomNavScreen());
-          emit(AddLinksInitial());
-        },
-      );
-    }
+    emit(AddLinkLoading());
+    final res = await addLinkUseCase.execute(
+        pageTitleController.text, urlController.text, categoryName!, typeId!);
+    res.fold(
+      (err) {
+        showSnackBar(err.message);
+        pageTitleController.clear();
+        urlController.clear();
+        MagicRouter.pop();
+        emit(AddLinksInitial());
+      },
+      (res) async {
+        pageTitleController.clear();
+        urlController.clear();
+        MagicRouter.navigateAndPopAll(BottomNavScreen());
+        emit(AddLinksInitial());
+      },
+    );
   }
 }

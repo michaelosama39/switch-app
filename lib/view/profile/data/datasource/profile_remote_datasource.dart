@@ -13,6 +13,8 @@ abstract class BaseProfileRemoteDatasource {
   Future<MsgModel> editAppDetails(int appId, String title, String url);
 
   Future<MsgModel> changeStatusApp(int appId, bool status);
+
+  Future<MsgModel> deleteApp(int appId);
 }
 
 class ProfileRemoteDatasource extends BaseProfileRemoteDatasource {
@@ -72,6 +74,24 @@ class ProfileRemoteDatasource extends BaseProfileRemoteDatasource {
         });
     if (response.statusCode == 200 && response.data['status'] == true) {
       print("Success changeStatusAppRepo");
+      return MsgModel.fromJson(jsonDecode(response.toString()));
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromJson(response.data),
+      );
+    }
+  }
+
+  @override
+  Future<MsgModel> deleteApp(int appId) async {
+    final response =
+        await DioHelper.post("${AppStrings.endpoint_deleteAcc}/$appId", headers: {
+      'Accept-Language': 'application/json',
+      'lang': AppStorage.getLang,
+      'Authorization': 'Bearer ${AppStorage.getToken}'
+    }, body: {});
+    if (response.statusCode == 200) {
+      print("Success deleteAppRepo");
       return MsgModel.fromJson(jsonDecode(response.toString()));
     } else {
       throw ServerException(

@@ -7,4 +7,5 @@ abstract class BaseProfileRepository {
   Future<Either<Failure, AppDetailsModel>> showAppDetails();
   Future<Either<Failure, MsgModel>> editAppDetails(int appId, String title, String url);
   Future<Either<Failure, MsgModel>> changeStatusApp(int appId, bool status);
+  Future<Either<Failure, MsgModel>> deleteApp(int appId);
 }

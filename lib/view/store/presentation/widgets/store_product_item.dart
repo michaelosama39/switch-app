@@ -64,7 +64,7 @@ class StoreProductItem extends StatelessWidget {
                   fontSize: 12.sp,
                   paddingVertical: 3,
                   onPress: () {
-                    showDialogBookNow(context, cubit, productsData.id!);
+                    showDialogBookNow(context, cubit, productsData);
                   },
                 ),
               ],

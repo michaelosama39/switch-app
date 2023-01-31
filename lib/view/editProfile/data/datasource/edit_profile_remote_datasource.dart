@@ -126,6 +126,7 @@ class EditProfileRemoteDatasource extends BaseEditProfileRemoteDatasource {
         "image": await MultipartFile.fromFile(image.path, filename: nameImage),
       },
     );
+    print(response.statusCode);
     if (response.statusCode == 200) {
       print("Success editBackgroundImageRepo");
       return MsgModel.fromJson(jsonDecode(response.toString()));

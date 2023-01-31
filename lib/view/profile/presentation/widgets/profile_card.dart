@@ -38,6 +38,7 @@ class ProfileCard extends StatelessWidget {
                             image: NetworkImage(
                               cubit.userData!.user!.image!,
                             ),
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),

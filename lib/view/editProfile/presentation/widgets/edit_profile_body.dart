@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -40,18 +41,27 @@ class EditProfileBody extends StatelessWidget {
                         children: [
                           Padding(
                             padding: EdgeInsets.only(
-                                right: AppSizes.getProportionateScreenWidth(15),
-                                left: AppSizes.getProportionateScreenWidth(15),
                                 bottom:
                                     AppSizes.getProportionateScreenHeight(35)),
                             child: Stack(
                               children: [
-                                cubit.backgroundImage == null
-                                    ? Image.network(
-                                        cubit.userData!.user!.backgroundImage!)
-                                    : Image.file(
-                                        File(cubit.backgroundImage!.path),
-                                      ),
+                                Container(
+                                  width: AppSizes.screenWidth,
+                                  height: AppSizes.getProportionateScreenHeight(
+                                      220),
+                                  child: cubit.backgroundImage == null
+                                      ? Image.network(
+                                          cubit
+                                              .userData!.user!.backgroundImage!,
+                                          fit: BoxFit.cover,
+                                        )
+                                      : Image.file(
+                                          File(
+                                            cubit.backgroundImage!.path,
+                                          ),
+                                          fit: BoxFit.cover,
+                                        ),
+                                ),
                                 Positioned(
                                   right: 0,
                                   child: IconButton(
@@ -61,13 +71,6 @@ class EditProfileBody extends StatelessWidget {
                                     ),
                                     onPressed: () async {
                                       await cubit.selectBackgroundImage();
-                                      // final image = await ImagePicker()
-                                      //     .pickImage(
-                                      //         source: ImageSource.gallery)
-                                      //     .then((value) {
-                                      //   cubit.backgroundImage = value!;
-                                      //   cubit.selectBackgroundImage();
-                                      // });
                                     },
                                   ),
                                 ),
@@ -90,16 +93,18 @@ class EditProfileBody extends StatelessWidget {
                                             120),
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      image: cubit.image == null
+                                      image: cubit.profileImage == null
                                           ? DecorationImage(
                                               image: NetworkImage(
                                                 cubit.userData!.user!.image!,
                                               ),
+                                              fit: BoxFit.cover,
                                             )
                                           : DecorationImage(
                                               image: FileImage(
-                                                File(cubit.image!.path),
+                                                File(cubit.profileImage!.path),
                                               ),
+                                              fit: BoxFit.cover,
                                             ),
                                     ),
                                   ),

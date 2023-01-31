@@ -23,6 +23,7 @@ class AppDetailsModel {
 
 class AppDetailsData {
   int? id;
+  int? status_app;
   String? pageTitle;
   String? url;
   String? userName;
@@ -31,6 +32,7 @@ class AppDetailsData {
 
   AppDetailsData(
       {this.id,
+        this.status_app,
         this.pageTitle,
         this.url,
         this.userName,
@@ -39,6 +41,7 @@ class AppDetailsData {
 
   AppDetailsData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    status_app = json['status'];
     pageTitle = json['page_title'];
     url = json['url'];
     userName = json['User name'];
@@ -50,6 +53,7 @@ class AppDetailsData {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
+    data['status'] = this.status_app;
     data['page_title'] = this.pageTitle;
     data['url'] = this.url;
     data['User name'] = this.userName;

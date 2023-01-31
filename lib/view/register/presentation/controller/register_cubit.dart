@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:switch_app/core/utils/app_func.dart';
 import 'package:switch_app/view/register/domain/usecases/register.dart';
 
+import '../../../../core/appStorage/app_storage.dart';
 import '../../../../core/models/user_model.dart';
 import '../../../../core/router/router.dart';
 import '../../../../core/utils/app_enums.dart';
@@ -57,6 +58,9 @@ class RegisterCubit extends Cubit<RegisterState> {
             userModel: res,
             registerState: RequestState.loaded,
           ));
+          await AppStorage.cacheUserInfo(res);
+          await AppStorage.cachePasswordUserInfo(passwordController.text);
+          await AppStorage.cacheToken(res.token!);
           MagicRouter.navigateAndPopAll(BottomNavScreen());
         },
       );

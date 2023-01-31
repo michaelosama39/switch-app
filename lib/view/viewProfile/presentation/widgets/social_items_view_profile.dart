@@ -14,7 +14,7 @@ class SocialItemsViewProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = ProfileCubit.of(context);
+    final cubit = ViewProfileCubit.of(context);
 
     return Column(
       children: [
@@ -23,16 +23,16 @@ class SocialItemsViewProfile extends StatelessWidget {
           runSpacing: AppSizes.getProportionateScreenWidth(10),
           alignment: WrapAlignment.start,
           children: List.generate(
-            cubit.listOfAppDetailsData.length,
+            cubit.userData!.accounts!.length,
             (index) {
               return InkWell(
                 onTap: () {
-                  AppFunc.launchUrlFun(cubit.listOfAppDetailsData[index].url!);
+                  AppFunc.launchUrlFun(cubit.userData!.accounts![index].url!);
                 },
                 child: Container(
                   width: AppSizes.getProportionateScreenWidth(60),
                   child: Image.network(
-                      "https://switch.technomasrsystems.com/public/uploads/apps/${cubit.listOfAppDetailsData[index].categoryName}/${cubit.listOfAppDetailsData[index].account!.icon}"),
+                      "https://switch.technomasrsystems.com/public/uploads/apps/${cubit.userData!.accounts![index].categoryName}/${cubit.userData!.accounts![index].account!.icon}"),
                 ),
               );
             },

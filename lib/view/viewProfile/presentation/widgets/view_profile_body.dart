@@ -28,17 +28,17 @@ class ViewProfileBody extends StatelessWidget {
           children: [
             BlocBuilder<EditProfileCubit, EditProfileState>(
               builder: (context, state) {
-                return EditProfileCubit
-                    .of(context)
-                    .userData == null
+                return EditProfileCubit.of(context).userData == null
                     ? const LoadingIndicator()
                     : HeaderViewProfile();
               },
             ),
             SpaceH(inputHeigth: 10),
-            BlocBuilder<ProfileCubit, ProfileState>(
+            BlocBuilder<ViewProfileCubit, ViewProfileState>(
               builder: (context, state) {
-                return SocialItemsViewProfile();
+                return ViewProfileCubit.of(context).userData == null
+                    ? SizedBox()
+                    : SocialItemsViewProfile();
               },
             ),
           ],

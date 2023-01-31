@@ -44,4 +44,15 @@ class ProfileRepository extends BaseProfileRepository {
       return Left(ServerFailure(e.errorMessageModel.message));
     }
   }
+
+  @override
+  Future<Either<Failure, MsgModel>> deleteApp(int appId) async{
+    try {
+      final res =
+          await baseProfileRemoteDatasource.deleteApp(appId);
+      return Right(res);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.errorMessageModel.message));
+    }
+  }
 }

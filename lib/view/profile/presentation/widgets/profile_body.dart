@@ -113,12 +113,12 @@ class ProfileBody extends StatelessWidget {
               SpaceH(inputHeigth: 5),
               BlocBuilder<ProfileCubit, ProfileState>(
                 buildWhen: (previous, current) =>
-                    current is ShowAppDetailsLoaded,
+                    current is ShowAppDetailsLoaded ||
+                    current is DeleteAppStateLoaded,
                 builder: (context, state) {
                   if (state is ShowAppDetailsLoaded) {
-                    return ProfileCubit.of(context)
-                            .listOfAppDetailsData
-                            .isEmpty
+                    return ProfileCubit.of(context).appDetailsModel!.accounts ==
+                            null
                         ? EmptyListAppsWidget()
                         : ListOfAppsWidget();
                   } else if (state is ShowAppDetailsLoading) {

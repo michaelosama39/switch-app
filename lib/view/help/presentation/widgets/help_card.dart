@@ -34,23 +34,17 @@ class HelpCard extends StatelessWidget {
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
-              expanded: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  for (var _ in Iterable.generate(5))
-                    Padding(
-                        padding: EdgeInsets.only(bottom: 10),
-                        child: Text(
-                          desc,
-                          softWrap: true,
-                          overflow: TextOverflow.fade,
-                        )),
-                ],
-              ),
+              expanded: Padding(
+                  padding: EdgeInsets.only(bottom: 10),
+                  child: Text(
+                    desc,
+                    softWrap: true,
+                    overflow: TextOverflow.fade,
+                  )),
               builder: (_, collapsed, expanded) {
                 return Padding(
                   padding:
-                  const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                      const EdgeInsets.only(left: 10, right: 10, bottom: 10),
                   child: Expandable(
                     collapsed: collapsed,
                     expanded: expanded,

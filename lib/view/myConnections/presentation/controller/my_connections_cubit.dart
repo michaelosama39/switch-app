@@ -51,6 +51,51 @@ class MyConnectionsCubit extends Cubit<MyConnectionsState> {
 
   MyConnection myConnection = MyConnection.connections;
 
+  final searchController = TextEditingController();
+
+  List<ConnectionData> searchResult = [];
+
+  searchTextChanged(String text) async {
+    searchResult.clear();
+
+    if (myConnection == MyConnection.connections) {
+      listOfConnectionData.forEach((userDetail) {
+        if (userDetail.name!.contains(text) ||
+            userDetail.name!.contains(text[0].toUpperCase()))
+          searchResult.add(userDetail);
+      });
+
+      print("_searchResult.length: ${searchResult.length}");
+
+      listOfConnectionData.clear();
+      if (text.isEmpty) {
+        getConnectionList();
+        listOfConnectionData.addAll(listOfConnectionData);
+      } else {
+        listOfConnectionData.addAll(searchResult);
+      }
+
+      emit(SearchStateLoaded());
+    } else if (myConnection == MyConnection.exchange) {
+      listOfExchangeData.forEach((userDetail) {
+        if (userDetail.name!.contains(text) ||
+            userDetail.name!.contains(text[0].toUpperCase()))
+          searchResult.add(userDetail);
+      });
+
+      print("_searchResult.length: ${searchResult.length}");
+
+      listOfExchangeData.clear();
+      if (text.isEmpty) {
+        getExchangeList();
+        listOfExchangeData.addAll(listOfExchangeData);
+      } else {
+        listOfExchangeData.addAll(searchResult);
+      }
+      emit(SearchStateLoaded());
+    }
+  }
+
   changeTabButton(String type) {
     if (type == 'connection') {
       myConnection = MyConnection.connections;

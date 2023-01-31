@@ -17,3 +17,4 @@ class GetFavouriteListLoading extends MyConnectionsState {}
 class GetFavouriteListLoaded extends MyConnectionsState {}
 class AddNewConnectionLoading extends MyConnectionsState {}
 class DeleteConnectionLoaded extends MyConnectionsState {}
+class SearchStateLoaded extends MyConnectionsState {}

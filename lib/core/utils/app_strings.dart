@@ -28,4 +28,6 @@ class AppStrings {
   static const String endpoint_media = '$baseurl/media';
   static const String endpoint_faqs = '$baseurl/faqs';
   static const String endpoint_changeStatus = '$baseurl/changeStatus';
+  static const String endpoint_user = '$baseurl/user';
+  static const String endpoint_deleteAcc = '$baseurl/deleteAcc';
 }

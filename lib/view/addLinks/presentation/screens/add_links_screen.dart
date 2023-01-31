@@ -22,7 +22,7 @@ class AddLinksScreen extends StatelessWidget {
             ..getMusicApps(),
         ),
         BlocProvider(
-          create: (context) => ProfileCubit(sl() , sl(), sl()),
+          create: (context) => ProfileCubit(sl() , sl(), sl(), sl()),
         ),
       ],
       child: Scaffold(

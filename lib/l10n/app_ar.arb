@@ -98,5 +98,7 @@
   "detailsMustBeLongerThan":"التفاصيل يجب ان تكون اكبر من ١٠ احرف",
   "lastName":"الاسم الاخير",
    "jobTitle":"المسمى الوظيفي",
-   "noData":"لا يوجد بيانات"
+   "noData":"لا يوجد بيانات",
+   "creative":"ابداع",
+   "delete":"حذف"
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:switch_app/view/profile/presentation/widgets/show_dialogedit_link.dart';
@@ -25,7 +26,13 @@ class AppProfileItem extends StatefulWidget {
 }
 
 class _AppProfileItemState extends State<AppProfileItem> {
-  bool isCheck = false;
+  bool isChack = false;
+
+  @override
+  void initState() {
+    widget.applicationsData.status_app == 0 ? isChack = false : isChack = true;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +41,12 @@ class _AppProfileItemState extends State<AppProfileItem> {
       child: Container(
         decoration: widget.profileCubit.isDircect && widget.index == 0
             ? BoxDecoration(
-          border: Border.all(
-            color: AppColors.primaryColor,
-            width: 2,
-          ),
-          borderRadius: BorderRadius.circular(5),
-        )
+                border: Border.all(
+                  color: AppColors.primaryColor,
+                  width: 2,
+                ),
+                borderRadius: BorderRadius.circular(5),
+              )
             : null,
         padding: EdgeInsets.symmetric(
           horizontal: AppSizes.getProportionateScreenWidth(10),
@@ -50,7 +57,10 @@ class _AppProfileItemState extends State<AppProfileItem> {
             Row(
               children: [
                 IconButton(
-                  icon: Icon(Icons.more_vert),
+                  icon: Icon(
+                    Icons.menu,
+                    color: Colors.black.withOpacity(0.6),
+                  ),
                   onPressed: () {
                     widget.profileCubit.editLink(widget.applicationsData);
                     showDialogEditLink(
@@ -64,9 +74,7 @@ class _AppProfileItemState extends State<AppProfileItem> {
                 Container(
                   width: AppSizes.getProportionateScreenWidth(25),
                   child: Image.network(
-                      "https://switch.technomasrsystems.com/public/uploads/apps/${widget
-                          .applicationsData.categoryName}/${widget
-                          .applicationsData.account!.icon}"),
+                      "https://switch.technomasrsystems.com/public/uploads/apps/${widget.applicationsData.categoryName}/${widget.applicationsData.account!.icon}"),
                 ),
                 SpaceW(inputWidth: 10),
                 Text(
@@ -78,13 +86,15 @@ class _AppProfileItemState extends State<AppProfileItem> {
                 ),
               ],
             ),
-            Switch(
+            CupertinoSwitch(
               activeColor: AppColors.primaryColor,
-              value: isCheck,
+              value: isChack,
               onChanged: (value) {
                 setState(() {
-                  isCheck = value;
-                  widget.profileCubit.changeStatusApp(widget.applicationsData.id!, isCheck);
+                  isChack = value;
+                  print(value);
+                  widget.profileCubit
+                      .changeStatusApp(widget.applicationsData.id!, isChack!);
                 });
               },
             ),

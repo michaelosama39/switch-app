@@ -8,3 +8,4 @@ class AddLinksInitial extends AddLinksState {}
 class GetAppsStateLoading extends AddLinksState {}
 
 class AddLinkLoading extends AddLinksState {}
+class SearchStateLoaded extends AddLinksState {}

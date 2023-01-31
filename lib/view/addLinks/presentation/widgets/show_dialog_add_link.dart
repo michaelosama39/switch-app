@@ -12,13 +12,13 @@ import 'package:switch_app/widgets/space_height.dart';
 import '../../../../core/models/applications_model.dart';
 
 Future showDialogAddLink(context, AddLinksCubit cubit,
-    ApplicationsData applicationsData, String categoryName ) {
+    ApplicationsData applicationsData, String categoryName) {
   return showDialog(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
         content: Container(
-          height: AppSizes.getProportionateScreenHeight(430),
+          height: AppSizes.screenHeight * 0.43,
           width: AppSizes.screenWidth * 0.7,
           color: Colors.white,
           child: Stack(
@@ -27,11 +27,10 @@ Future showDialogAddLink(context, AddLinksCubit cubit,
                 key: cubit.formKey,
                 child: Column(
                   children: [
-                    SpaceH(inputHeigth: 15),
-                    Container(
-                      width: AppSizes.getProportionateScreenWidth(50),
+                    Expanded(
                       child: Image.network(applicationsData.icon!),
                     ),
+                    SpaceH(inputHeigth: 10),
                     Text(
                       applicationsData.name!,
                       style: TextStyle(
@@ -40,7 +39,7 @@ Future showDialogAddLink(context, AddLinksCubit cubit,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SpaceH(inputHeigth: 20),
+                    SpaceH(inputHeigth: 10),
                     InputFormField(
                       hint: translation(context).pageTitle,
                       validator: (value) => Validator.name(context, value),
@@ -49,7 +48,6 @@ Future showDialogAddLink(context, AddLinksCubit cubit,
                     InputFormField(
                       hint: translation(context).url,
                       controller: cubit.urlController,
-                      validator: (value) => Validator.url(context, value),
                     ),
                     SpaceH(inputHeigth: 30),
                     CustomButton(

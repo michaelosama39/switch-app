@@ -98,5 +98,7 @@
   "detailsMustBeLongerThan":"Details must be longer than 10 characters",
   "lastName":"Last Name",
   "jobTitle":"Job Title",
-  "noData":"No Data"
+  "noData":"No Data",
+  "creative":"Creative",
+  "delete":"delete"
 }

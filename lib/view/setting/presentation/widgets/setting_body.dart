@@ -41,81 +41,82 @@ class SettingBody extends StatelessWidget {
                 return editProfileCubit.userData == null
                     ? const SizedBox()
                     : Card(
-                  elevation: 0,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      vertical: AppSizes.getProportionateScreenHeight(10),
-                      horizontal:
-                      AppSizes.getProportionateScreenWidth(25),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Container(
-                            height:
-                            AppSizes.getProportionateScreenHeight(90),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                image: NetworkImage(editProfileCubit
-                                    .userData!.user!.image!),
-                              ),
-                            ),
+                        elevation: 0,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                            vertical: AppSizes.getProportionateScreenHeight(10),
+                            horizontal:
+                                AppSizes.getProportionateScreenWidth(25),
                           ),
-                        ),
-                        SpaceW(inputWidth: 10),
-                        Expanded(
-                          flex: 2,
-                          child: Column(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text(
-                                editProfileCubit.userData!.user!.name ==
-                                    null
-                                    ? 'name'
-                                    : editProfileCubit
-                                    .userData!.user!.name!,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                  fontSize: 14.sp,
-                                ),
-                              ),
-                              Text(
-                                editProfileCubit.userData!.user!.email ==
-                                    null
-                                    ? 'email'
-                                    : editProfileCubit
-                                    .userData!.user!.email!,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 13.sp,
-                                ),
-                              ),
-                              SpaceH(inputHeigth: 5),
-                              TextButton(
-                                child: Text(
-                                  translation(context).changePassword,
-                                  style: TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 12.sp,
+                              Expanded(
+                                flex: 1,
+                                child: Container(
+                                  height:
+                                      AppSizes.getProportionateScreenHeight(90),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      image: NetworkImage(editProfileCubit
+                                          .userData!.user!.image!),
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
-                                onPressed: () {
-                                  MagicRouter.navigateTo(
-                                      ChangePasswordScreen());
-                                },
+                              ),
+                              SpaceW(inputWidth: 10),
+                              Expanded(
+                                flex: 2,
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      editProfileCubit.userData!.user!.name ==
+                                              null
+                                          ? 'name'
+                                          : editProfileCubit
+                                              .userData!.user!.name!,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                        fontSize: 14.sp,
+                                      ),
+                                    ),
+                                    Text(
+                                      editProfileCubit.userData!.user!.email ==
+                                              null
+                                          ? 'email'
+                                          : editProfileCubit
+                                              .userData!.user!.email!,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 13.sp,
+                                      ),
+                                    ),
+                                    SpaceH(inputHeigth: 5),
+                                    TextButton(
+                                      child: Text(
+                                        translation(context).changePassword,
+                                        style: TextStyle(
+                                          color: Colors.blue,
+                                          fontSize: 12.sp,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        MagicRouter.navigateTo(
+                                            ChangePasswordScreen());
+                                      },
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                );
+                      );
               },
             ),
             SpaceH(inputHeigth: 30),
@@ -163,12 +164,11 @@ class SettingBody extends StatelessWidget {
                     itemBuilder: (context) {
                       return Language.languageList()
                           .map<PopupMenuItem<Language>>(
-                            (e) =>
-                            PopupMenuItem<Language>(
+                            (e) => PopupMenuItem<Language>(
                               value: e,
                               child: Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceAround,
+                                    MainAxisAlignment.spaceAround,
                                 children: <Widget>[
                                   Text(
                                     e.flag,
@@ -178,7 +178,7 @@ class SettingBody extends StatelessWidget {
                                 ],
                               ),
                             ),
-                      )
+                          )
                           .toList();
                     },
                   ),
@@ -212,7 +212,8 @@ class SettingBody extends StatelessWidget {
                       imgColor: Colors.white,
                       buttonColor: Colors.blueAccent,
                       onPress: () {
-                        AppFunc.launchUrlFun(cubit.mediaData!.social!.facebook!);
+                        AppFunc.launchUrlFun(
+                            cubit.mediaData!.social!.facebook!);
                       },
                     ),
                     SocialButton(
@@ -236,7 +237,8 @@ class SettingBody extends StatelessWidget {
                       imgColor: Colors.white,
                       buttonColor: Colors.blueAccent,
                       onPress: () {
-                        AppFunc.launchUrlFun(cubit.mediaData!.social!.linkedin!);
+                        AppFunc.launchUrlFun(
+                            cubit.mediaData!.social!.linkedin!);
                       },
                     ),
                   ],

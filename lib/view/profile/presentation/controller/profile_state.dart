@@ -11,3 +11,4 @@ class ShowAppDetailsLoaded extends ProfileState {}
 class ShowAppDetailsLoading extends ProfileState {}
 
 class EditAppDetailsLoading extends ProfileState {}
+class DeleteAppStateLoaded extends ProfileState {}

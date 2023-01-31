@@ -14,10 +14,7 @@ class ProfileScreen extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => ProfileCubit(sl(), sl(), sl())..showAppDetails(),
-        ),
-        BlocProvider(
-          create: (context) => ViewProfileCubit(),
+          create: (context) => ProfileCubit(sl(), sl(), sl(), sl())..showAppDetails(),
         ),
         BlocProvider(
           create: (context) =>

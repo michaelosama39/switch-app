@@ -9,18 +9,15 @@ import 'package:switch_app/core/utils/app_sizes.dart';
 import 'package:switch_app/core/validator/validator.dart';
 import 'package:switch_app/view/forgetPassword/presentation/screens/forget_password_screen.dart';
 import 'package:switch_app/view/login/presentation/controller/login_cubit.dart';
-import 'package:switch_app/view/login/presentation/widgets/social_item.dart';
 import 'package:switch_app/view/register/presentation/screens/register_screen.dart';
 import 'package:switch_app/widgets/custom_button.dart';
 import 'package:switch_app/widgets/loading_indicator.dart';
 import 'package:switch_app/widgets/space_height.dart';
-import 'package:switch_app/widgets/space_width.dart';
 import '../../../../core/router/router.dart';
 import '../../../../localization/language.dart';
 import '../../../../localization/language_constants.dart';
 import '../../../../main.dart';
 import '../../../../widgets/input_form_field.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginBody extends StatelessWidget {
   const LoginBody({Key? key}) : super(key: key);
@@ -120,30 +117,6 @@ class LoginBody extends StatelessWidget {
                           onPress: cubit.login,
                         );
                 },
-              ),
-              SpaceH(inputHeigth: 10),
-              Text(
-                translation(context).or,
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SpaceH(inputHeigth: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SocialItem(
-                    image: AppAssets.google,
-                    onTap: () {},
-                  ),
-                  SpaceW(inputWidth: 30),
-                  SocialItem(
-                    image: AppAssets.facebook,
-                    onTap: () {},
-                  ),
-                ],
               ),
               SpaceH(inputHeigth: 10),
               TextButton(

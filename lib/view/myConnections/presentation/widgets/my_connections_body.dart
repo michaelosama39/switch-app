@@ -39,7 +39,8 @@ class MyConnectionsBody extends StatelessWidget {
                   onTap: () {
                     AppFunc.shareText(
                         text:
-                            'https://switch-profile.technomasrsystems.com/${AppStorage.getUserId}');
+                        'https://switch-profile.technomasrsystems.com/${AppStorage
+                            .getUserId}');
                   },
                   child: Padding(
                     padding: EdgeInsets.symmetric(
@@ -81,11 +82,20 @@ class MyConnectionsBody extends StatelessWidget {
               ],
             ),
           ),
-          InputFormField(
-            hint: translation(context).search,
-            borderRadius: 10,
-            suffixIcon: Icon(Icons.search),
-            fillColor: Colors.white,
+          BlocBuilder<MyConnectionsCubit, MyConnectionsState>(
+            builder: (context, state) {
+              final myConnectionsCubit = MyConnectionsCubit.of(context);
+              return InputFormField(
+                hint: translation(context).search,
+                borderRadius: 10,
+                suffixIcon: Icon(Icons.search),
+                fillColor: Colors.white,
+                controller: myConnectionsCubit.searchController,
+                onChanged: (v) {
+                  myConnectionsCubit.searchTextChanged(v);
+                },
+              );
+            },
           ),
           SpaceH(inputHeigth: 10),
           BlocBuilder<MyConnectionsCubit, MyConnectionsState>(
@@ -105,7 +115,7 @@ class MyConnectionsBody extends StatelessWidget {
                             buttonColor: Colors.white,
                             fontColor: Colors.black,
                             borderColor: myConnectionsCubit.myConnection ==
-                                    MyConnection.connections
+                                MyConnection.connections
                                 ? AppColors.primaryColor
                                 : Colors.grey,
                             radius: 20,
@@ -127,7 +137,7 @@ class MyConnectionsBody extends StatelessWidget {
                                 buttonColor: Colors.white,
                                 fontColor: Colors.black,
                                 borderColor: myConnectionsCubit.myConnection ==
-                                        MyConnection.exchange
+                                    MyConnection.exchange
                                     ? AppColors.primaryColor
                                     : Colors.grey,
                                 radius: 20,
@@ -144,7 +154,7 @@ class MyConnectionsBody extends StatelessWidget {
                                 bottom: 0,
                                 right: 25,
                                 child: myConnectionsCubit
-                                        .listOfExchangeData.isEmpty
+                                    .listOfExchangeData.isEmpty
                                     ? SizedBox()
                                     : Container(
                                   width: AppSizes
@@ -171,8 +181,10 @@ class MyConnectionsBody extends StatelessWidget {
           SpaceH(inputHeigth: 10),
           BlocBuilder<MyConnectionsCubit, MyConnectionsState>(
             builder: (context, state) {
-              return MyConnectionsCubit.of(context).myConnection ==
-                      MyConnection.connections
+              return MyConnectionsCubit
+                  .of(context)
+                  .myConnection ==
+                  MyConnection.connections
                   ? ConnectionList()
                   : ExchangeList();
             },

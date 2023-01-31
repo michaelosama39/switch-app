@@ -48,8 +48,8 @@ class _AppProfileItemState extends State<AppProfileItem> {
                 borderRadius: BorderRadius.circular(5),
               )
             : null,
-        padding: EdgeInsets.symmetric(
-          horizontal: AppSizes.getProportionateScreenWidth(10),
+        padding: EdgeInsets.only(
+          right: AppSizes.getProportionateScreenWidth(10),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,7 +59,7 @@ class _AppProfileItemState extends State<AppProfileItem> {
                 IconButton(
                   icon: Icon(
                     Icons.menu,
-                    color: Colors.black.withOpacity(0.6),
+                    color: Colors.black.withOpacity(0.3),
                   ),
                   onPressed: () {
                     widget.profileCubit.editLink(widget.applicationsData);

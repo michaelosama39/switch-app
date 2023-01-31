@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:switch_app/core/router/router.dart';
+import 'package:switch_app/core/utils/app_colors.dart';
 import 'package:switch_app/localization/language_constants.dart';
 import 'package:switch_app/view/activation/data/model/orders_model.dart';
 import 'package:switch_app/view/activation/presentation/screens/scan_screen.dart';
@@ -53,9 +54,9 @@ class ActivationProductItem extends StatelessWidget {
                   SpaceH(inputHeigth: 10),
                   CustomButton(
                     text: translation(context).beginActivate,
-                    fontColor: Colors.red,
+                    fontColor: AppColors.primaryColor,
                     buttonColor: Colors.white,
-                    borderColor: Colors.red,
+                    borderColor: AppColors.primaryColor,
                     fontSize: 12.sp,
                     paddingVertical: 3,
                     onPress: () {

@@ -27,7 +27,7 @@ class MusicSection extends StatelessWidget {
                     width: AppSizes.screenWidth,
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      translation(context).music,
+                      translation(context).media,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16.sp,
@@ -40,12 +40,12 @@ class MusicSection extends StatelessWidget {
                         listOfMusicAppsLength == 0
                             ? 0
                             : listOfMusicAppsLength == 1
-                                ? AppSizes.getProportionateScreenHeight(80)
+                                ? AppSizes.getProportionateScreenHeight(70)
                                 : listOfMusicAppsLength == 2
-                                    ? AppSizes.getProportionateScreenHeight(185)
+                                    ? AppSizes.getProportionateScreenHeight(130)
                                     : listOfMusicAppsLength >= 3
                                         ? AppSizes.getProportionateScreenHeight(
-                                            240)
+                            200)
                                         : 0),
                     child: ListView.builder(
                       itemCount: cubit.listOfMusicApps.length >= 3

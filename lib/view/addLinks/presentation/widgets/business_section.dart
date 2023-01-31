@@ -39,12 +39,12 @@ class BusinessSection extends StatelessWidget {
                         listOfBusinessAppsLength == 0
                             ? 0
                             : listOfBusinessAppsLength == 1
-                                ? AppSizes.getProportionateScreenHeight(80)
+                                ? AppSizes.getProportionateScreenHeight(70)
                                 : listOfBusinessAppsLength == 2
-                                    ? AppSizes.getProportionateScreenHeight(185)
+                                    ? AppSizes.getProportionateScreenHeight(130)
                                     : listOfBusinessAppsLength >= 3
                                         ? AppSizes.getProportionateScreenHeight(
-                                            240)
+                            200)
                                         : 0),
                     child: ListView.builder(
                       itemCount: cubit.listOfBusinessApps.length >= 3

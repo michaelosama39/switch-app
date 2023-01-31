@@ -8,6 +8,7 @@ import 'package:switch_app/view/store/presentation/widgets/show_dialog_book_now.
 import 'package:switch_app/widgets/space_height.dart';
 
 import '../../../../core/utils/app_assets.dart';
+import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_sizes.dart';
 import '../../../../widgets/custom_button.dart';
 import '../controller/store_cubit.dart';
@@ -58,9 +59,9 @@ class StoreProductItem extends StatelessWidget {
                 SpaceH(inputHeigth: 10),
                 CustomButton(
                   text: translation(context).bookNow,
-                  fontColor: Colors.red,
+                  fontColor: AppColors.primaryColor,
                   buttonColor: Colors.white,
-                  borderColor: Colors.red,
+                  borderColor: AppColors.primaryColor,
                   fontSize: 12.sp,
                   paddingVertical: 3,
                   onPress: () {

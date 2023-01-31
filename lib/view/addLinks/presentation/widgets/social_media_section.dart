@@ -40,12 +40,12 @@ class SocialMediaSection extends StatelessWidget {
                         listOfSocialAppsLength == 0
                             ? 0
                             : listOfSocialAppsLength == 1
-                                ? AppSizes.getProportionateScreenHeight(80)
+                                ? AppSizes.getProportionateScreenHeight(70)
                                 : listOfSocialAppsLength == 2
-                                    ? AppSizes.getProportionateScreenHeight(185)
+                                    ? AppSizes.getProportionateScreenHeight(130)
                                     : listOfSocialAppsLength >= 3
                                         ? AppSizes.getProportionateScreenHeight(
-                                            240)
+                            200)
                                         : 0),
                     child: ListView.builder(
                       itemCount: cubit.listOfSocialApps.length >= 3

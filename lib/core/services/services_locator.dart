@@ -16,6 +16,8 @@ import 'package:switch_app/view/editProfile/domain/usecases/edit_background_imag
 import 'package:switch_app/view/editProfile/domain/usecases/edit_image.dart';
 import 'package:switch_app/view/editProfile/domain/usecases/edit_profile.dart';
 import 'package:switch_app/view/editProfile/domain/usecases/get_profile.dart';
+import 'package:switch_app/view/forgetPassword/domain/usecases/reset_password.dart';
+import 'package:switch_app/view/forgetPassword/domain/usecases/verfication_code.dart';
 import 'package:switch_app/view/help/domain/usecases/get_help.dart';
 import 'package:switch_app/view/login/presentation/controller/login_cubit.dart';
 import 'package:switch_app/view/myConnections/domain/usecases/add_new_connection.dart';
@@ -54,6 +56,11 @@ import '../../view/changePassword/presentation/controller/change_password_cubit.
 import '../../view/editProfile/data/repository/edit_profile_repository.dart';
 import '../../view/editProfile/domain/repository/base_edit_profile_repository.dart';
 import '../../view/editProfile/presentation/controller/edit_profile_cubit.dart';
+import '../../view/forgetPassword/data/datasource/forget_password_remote_datasource.dart';
+import '../../view/forgetPassword/data/repository/forget_password_repository.dart';
+import '../../view/forgetPassword/domain/repository/base_forget_password_repository.dart';
+import '../../view/forgetPassword/domain/usecases/forget_password.dart';
+import '../../view/forgetPassword/presentation/controller/forget_password_cubit.dart';
 import '../../view/help/data/datasource/help_remote_datasource.dart';
 import '../../view/help/data/repository/help_repository.dart';
 import '../../view/help/domain/repository/base_help_repository.dart';
@@ -84,6 +91,17 @@ final sl = GetIt.instance;
 
 class ServicesLocator {
   void init() {
+    // viewProfile
+    sl.registerLazySingleton(() => ResetPassword(sl()));
+    sl.registerLazySingleton(() => VerficationCode(sl()));
+    sl.registerLazySingleton(() => ForgetPassword(sl()));
+    sl.registerFactory(() => ForgetPasswordCubit(sl(), sl(), sl()));
+    sl.registerLazySingleton<BaseForgetPasswordRepository>(
+        () => ForgetPasswordRepository(sl()));
+
+    sl.registerLazySingleton<BaseForgetPasswordRemoteDatasource>(
+        () => ForgetPasswordRemoteDatasource());
+
     //profile
     sl.registerLazySingleton(() => DeleteApp(sl()));
     sl.registerLazySingleton(() => ChangeStatusApp(sl()));

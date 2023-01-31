@@ -39,13 +39,15 @@ class HeaderViewProfile extends StatelessWidget {
               left: 0,
               right: 0,
               child: Container(
-                width: AppSizes.getProportionateScreenWidth(120),
-                height: AppSizes.getProportionateScreenHeight(120),
+                width: AppSizes.getProportionateScreenWidth(110),
+                height: AppSizes.getProportionateScreenHeight(110),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
-                    image: NetworkImage(cubit.userData!.user!.image!),
-                    fit: BoxFit.cover,
+                    image: NetworkImage(
+                      cubit.userData!.user!.image!,
+                    ),
+                    fit: BoxFit.fill,
                   ),
                 ),
               ),

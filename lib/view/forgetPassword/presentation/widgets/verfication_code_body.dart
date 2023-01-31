@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:switch_app/localization/language_constants.dart';
-import 'package:switch_app/view/forgetPassword/presentation/screens/new_password_screen.dart';
+import 'package:switch_app/view/forgetPassword/presentation/screens/reset_password_screen.dart';
 import '../../../../core/router/router.dart';
 import '../../../../core/utils/app_assets.dart';
 import '../../../../core/utils/app_sizes.dart';
@@ -11,12 +11,14 @@ import '../../../../main.dart';
 import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/input_form_field.dart';
 import '../../../../widgets/space_height.dart';
+import '../controller/forget_password_cubit.dart';
 
 class VerficationCodeBody extends StatelessWidget {
   const VerficationCodeBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final cubit = ForgetPasswordCubit.of(context);
     return Container(
       padding: EdgeInsets.only(
         top: AppSizes.getProportionateScreenHeight(30),
@@ -88,7 +90,7 @@ class VerficationCodeBody extends StatelessWidget {
           CustomButton(
             text: translation(context).verify,
             onPress: () {
-              MagicRouter.navigateTo(NewPasswordScreen());
+              cubit.verficationCode();
             },
           ),
         ],

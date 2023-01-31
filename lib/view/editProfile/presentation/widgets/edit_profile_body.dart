@@ -98,13 +98,13 @@ class EditProfileBody extends StatelessWidget {
                                               image: NetworkImage(
                                                 cubit.userData!.user!.image!,
                                               ),
-                                              fit: BoxFit.cover,
+                                              fit: BoxFit.fill,
                                             )
                                           : DecorationImage(
                                               image: FileImage(
                                                 File(cubit.profileImage!.path),
                                               ),
-                                              fit: BoxFit.cover,
+                                              fit: BoxFit.fill,
                                             ),
                                     ),
                                   ),

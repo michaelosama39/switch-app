@@ -30,4 +30,7 @@ class AppStrings {
   static const String endpoint_changeStatus = '$baseurl/changeStatus';
   static const String endpoint_user = '$baseurl/user';
   static const String endpoint_deleteAcc = '$baseurl/deleteAcc';
+  static const String endpoint_forgetPassword = '$baseurl/forget/password/email';
+  static const String endpoint_checkCode = '$baseurl/checkcode';
+  static const String endpoint_resetPassword = '$baseurl/reset/password';
 }

@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:switch_app/view/bottomNav/presentation/screens/bottom_nav_screen.dart';
+import 'package:switch_app/view/forgetPassword/presentation/controller/forget_password_cubit.dart';
 import 'package:switch_app/view/splash/presentation/screens/splash_screen.dart';
 import 'core/appStorage/app_storage.dart';
 import 'core/router/router.dart';
@@ -64,36 +66,39 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(360, 690),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (BuildContext context, Widget? child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: const SplashScreen(),
-          onGenerateRoute: onGenerateRoute,
-          navigatorKey: navigatorKey,
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          locale: _locale,
-          theme: ThemeData(
-            scaffoldBackgroundColor: Color.fromRGBO(242, 240, 240, 1),
-            appBarTheme: AppBarTheme(
-              color: Color.fromRGBO(242, 240, 240, 1),
+    return BlocProvider(
+      create: (context) => ForgetPasswordCubit(sl(), sl(), sl()),
+      child: ScreenUtilInit(
+        designSize: const Size(360, 690),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (BuildContext context, Widget? child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: const SplashScreen(),
+            onGenerateRoute: onGenerateRoute,
+            navigatorKey: navigatorKey,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            locale: _locale,
+            theme: ThemeData(
+              scaffoldBackgroundColor: Color.fromRGBO(242, 240, 240, 1),
+              appBarTheme: AppBarTheme(
+                color: Color.fromRGBO(242, 240, 240, 1),
+              ),
             ),
-          ),
-          builder: (context, child) {
-            AppSizes().init(context);
-            return Directionality(
-              textDirection: _locale.languageCode == 'en'
-                  ? TextDirection.ltr
-                  : TextDirection.rtl,
-              child: child!,
-            );
-          },
-        );
-      },
+            builder: (context, child) {
+              AppSizes().init(context);
+              return Directionality(
+                textDirection: _locale.languageCode == 'en'
+                    ? TextDirection.ltr
+                    : TextDirection.rtl,
+                child: child!,
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }

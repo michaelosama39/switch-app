@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:switch_app/localization/language_constants.dart';
+import 'package:switch_app/view/forgetPassword/presentation/controller/forget_password_cubit.dart';
 import 'package:switch_app/view/forgetPassword/presentation/screens/verfication_code_screen.dart';
+import 'package:switch_app/widgets/loading_indicator.dart';
 
 import '../../../../core/router/router.dart';
 import '../../../../core/utils/app_assets.dart';
@@ -18,6 +21,7 @@ class ForgetPasswordBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = ForgetPasswordCubit.of(context);
     return Container(
       padding: EdgeInsets.only(
         top: AppSizes.getProportionateScreenHeight(30),
@@ -81,15 +85,22 @@ class ForgetPasswordBody extends StatelessWidget {
           ),
           InputFormField(
             hint: translation(context).yourEmail,
-            validator: (v)=> Validator.email(context , v),
+            validator: (v) => Validator.email(context, v),
             fillColor: Colors.white,
             icon: Icons.email_outlined,
+            controller: cubit.emailController,
           ),
           SpaceH(inputHeigth: 25),
-          CustomButton(
-            text: translation(context).send,
-            onPress: () {
-              MagicRouter.navigateTo(VerficationCodeScreen());
+          BlocBuilder<ForgetPasswordCubit, ForgetPasswordState>(
+            builder: (context, state) {
+              return state is ForgetPasswordLoading
+                  ? LoadingIndicator()
+                  : CustomButton(
+                      text: translation(context).send,
+                      onPress: () {
+                        cubit.forgetPassword();
+                      },
+                    );
             },
           ),
         ],

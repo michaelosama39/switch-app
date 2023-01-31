@@ -40,12 +40,12 @@ class CreativeSection extends StatelessWidget {
                         listOfCreativeAppsLength == 0
                             ? 0
                             : listOfCreativeAppsLength == 1
-                                ? AppSizes.getProportionateScreenHeight(80)
+                                ? AppSizes.getProportionateScreenHeight(70)
                                 : listOfCreativeAppsLength == 2
-                                    ? AppSizes.getProportionateScreenHeight(185)
+                                    ? AppSizes.getProportionateScreenHeight(130)
                                     : listOfCreativeAppsLength >= 3
                                         ? AppSizes.getProportionateScreenHeight(
-                                            240)
+                            200)
                                         : 0),
                     child: ListView.builder(
                       itemCount: cubit.listOfCreativeApps.length >= 3
@@ -53,11 +53,11 @@ class CreativeSection extends StatelessWidget {
                           : 1,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, indexCo) {
-                        lengthOfSubList =
-                            (((cubit.listOfCreativeApps.length / 3) -
-                                        (cubit.listOfCreativeApps.length ~/ 3)) *
-                                    10) /
-                                3;
+                        lengthOfSubList = (((cubit.listOfCreativeApps.length /
+                                        3) -
+                                    (cubit.listOfCreativeApps.length ~/ 3)) *
+                                10) /
+                            3;
                         return Row(
                           children: [
                             Column(
@@ -80,7 +80,8 @@ class CreativeSection extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            indexCo == (cubit.listOfCreativeApps.length ~/ 3) - 1
+                            indexCo ==
+                                    (cubit.listOfCreativeApps.length ~/ 3) - 1
                                 ? Column(
                                     children: List.generate(
                                       lengthOfSubList!.toInt(),

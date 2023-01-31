@@ -19,6 +19,7 @@ class AddLinkItem extends StatelessWidget {
       elevation: 0,
       child: Container(
         width: AppSizes.screenWidth * 0.7,
+        height: AppSizes.getProportionateScreenHeight(50),
         padding: EdgeInsets.symmetric(
           vertical: AppSizes.getProportionateScreenHeight(10),
           horizontal: AppSizes.getProportionateScreenWidth(15),

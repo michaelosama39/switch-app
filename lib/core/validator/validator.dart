@@ -32,7 +32,7 @@ class Validator {
   static String? pinCode(BuildContext context , String value) {
     if (value.isEmpty)
       return translation(context).emptyField;
-    else if (value.length != 4)
+    else if (value.length != 6)
       return translation(context).theCodeMustConsistOf;
     else
       return null;

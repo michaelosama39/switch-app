@@ -12,12 +12,14 @@ import '../../../../main.dart';
 import '../../../../widgets/custom_button.dart';
 import '../../../../widgets/input_form_field.dart';
 import '../../../../widgets/space_height.dart';
+import '../controller/forget_password_cubit.dart';
 
-class NewPasswordBody extends StatelessWidget {
-  const NewPasswordBody({Key? key}) : super(key: key);
+class ResetPasswordBody extends StatelessWidget {
+  const ResetPasswordBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final cubit = ForgetPasswordCubit.of(context);
     return Container(
       padding: EdgeInsets.only(
         top: AppSizes.getProportionateScreenHeight(30),
@@ -74,14 +76,15 @@ class NewPasswordBody extends StatelessWidget {
           ),
           InputFormField(
             hint: translation(context).password,
-            validator: (v)=> Validator.password(context , v),
+            validator: (v) => Validator.password(context, v),
             fillColor: Colors.white,
             icon: Icons.lock_outlined,
             secure: true,
           ),
           InputFormField(
             hint: translation(context).confirmPassword,
-            // validator: Validator.confirmPassword(context, value, password),
+            validator: (value) => Validator.confirmPassword(
+                context, value, cubit.passwordController.text),
             fillColor: Colors.white,
             icon: Icons.lock_outlined,
             secure: true,
@@ -90,7 +93,7 @@ class NewPasswordBody extends StatelessWidget {
           CustomButton(
             text: translation(context).confirm,
             onPress: () {
-              MagicRouter.navigateAndPopAll(LoginScreen());
+              cubit.resetPassword();
             },
           ),
         ],

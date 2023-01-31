@@ -90,7 +90,7 @@ class ActivationCubit extends Cubit<ActivationState> {
         }
 
         NdefMessage message = NdefMessage([
-          NdefRecord.createText('123456'),
+          NdefRecord.createText(''),
           NdefRecord.createUri(Uri.parse(
               'https://switch-profile.technomasrsystems.com/${AppStorage.getUserId}')),
           NdefRecord.createMime(

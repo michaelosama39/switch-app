@@ -1,5 +1,7 @@
 import 'dart:convert';
+
 import 'package:switch_app/core/models/msg_model.dart';
+
 import '../../../../core/appStorage/app_storage.dart';
 import '../../../../core/dioHelper/dio_helper.dart';
 import '../../../../core/error/exception.dart';
@@ -13,6 +15,8 @@ abstract class BaseProfileRemoteDatasource {
   Future<MsgModel> editAppDetails(int appId, String title, String url);
 
   Future<MsgModel> changeStatusApp(int appId, bool status);
+
+  Future<MsgModel> repositionApps(String acc1, String acc2);
 
   Future<MsgModel> deleteApp(int appId);
 }
@@ -84,14 +88,37 @@ class ProfileRemoteDatasource extends BaseProfileRemoteDatasource {
 
   @override
   Future<MsgModel> deleteApp(int appId) async {
+    final response = await DioHelper.post(
+        "${AppStrings.endpoint_deleteAcc}/$appId",
+        headers: {
+          'Accept-Language': 'application/json',
+          'lang': AppStorage.getLang,
+          'Authorization': 'Bearer ${AppStorage.getToken}'
+        },
+        body: {});
+    if (response.statusCode == 200) {
+      print("Success deleteAppRepo");
+      return MsgModel.fromJson(jsonDecode(response.toString()));
+    } else {
+      throw ServerException(
+        errorMessageModel: ErrorMessageModel.fromJson(response.data),
+      );
+    }
+  }
+
+  @override
+  Future<MsgModel> repositionApps(String acc1, String acc2) async {
     final response =
-        await DioHelper.post("${AppStrings.endpoint_deleteAcc}/$appId", headers: {
+        await DioHelper.post("${AppStrings.endpoint_reposition}", headers: {
       'Accept-Language': 'application/json',
       'lang': AppStorage.getLang,
       'Authorization': 'Bearer ${AppStorage.getToken}'
-    }, body: {});
+    }, body: {
+      "account1": acc1,
+      "account2": acc2
+    });
     if (response.statusCode == 200) {
-      print("Success deleteAppRepo");
+      print("Success repositionAppsRepo");
       return MsgModel.fromJson(jsonDecode(response.toString()));
     } else {
       throw ServerException(

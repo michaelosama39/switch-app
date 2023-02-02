@@ -27,7 +27,9 @@ import 'package:switch_app/view/myConnections/domain/usecases/favourite_status.d
 import 'package:switch_app/view/myConnections/domain/usecases/get_connection_list.dart';
 import 'package:switch_app/view/myConnections/domain/usecases/get_exchange_list.dart';
 import 'package:switch_app/view/myConnections/domain/usecases/get_favourite_list.dart';
+import 'package:switch_app/view/profile/domain/usecases/change_status_app.dart';
 import 'package:switch_app/view/profile/domain/usecases/delete_app.dart';
+import 'package:switch_app/view/profile/domain/usecases/reposition_apps.dart';
 import 'package:switch_app/view/register/data/datasource/register_remote_datasource.dart';
 import 'package:switch_app/view/register/presentation/controller/register_cubit.dart';
 import 'package:switch_app/view/setting/domain/usecases/delete_account.dart';
@@ -42,9 +44,9 @@ import 'package:switch_app/view/store/domain/usecases/make_order.dart';
 import 'package:switch_app/view/store/presentation/controller/store_cubit.dart';
 import 'package:switch_app/view/viewProfile/data/datasource/view_profile_remote_datasource.dart';
 import 'package:switch_app/view/viewProfile/domain/repository/base_view_profle_repository.dart';
-import 'package:switch_app/view/profile/domain/usecases/change_status_app.dart';
 import 'package:switch_app/view/viewProfile/domain/usecases/get_user_data.dart';
 import 'package:switch_app/view/viewProfile/presentation/controller/view_profile_cubit.dart';
+
 import '../../view/activation/data/datasource/activation_remote_datasource.dart';
 import '../../view/activation/data/repository/activation_repository.dart';
 import '../../view/activation/domain/repository/base_activation_repository.dart';
@@ -103,11 +105,12 @@ class ServicesLocator {
         () => ForgetPasswordRemoteDatasource());
 
     //profile
+    sl.registerLazySingleton(() => RepositionApps(sl()));
     sl.registerLazySingleton(() => DeleteApp(sl()));
     sl.registerLazySingleton(() => ChangeStatusApp(sl()));
     sl.registerLazySingleton(() => ShowAppDetails(sl()));
     sl.registerLazySingleton(() => EditAppDetails(sl()));
-    sl.registerFactory(() => ProfileCubit(sl(), sl(), sl(), sl()));
+    sl.registerFactory(() => ProfileCubit(sl(), sl(), sl(), sl(), sl()));
     sl.registerLazySingleton<BaseProfileRepository>(
         () => ProfileRepository(sl()));
 

@@ -23,14 +23,17 @@ class AppStrings {
   static const String endpoint_show = '$baseurl/show';
   static const String endpoint_changePassword = '$baseurl/changePassword';
   static const String endpoint_deleteAccount = '$baseurl/deleteAccount';
-  static const String endpoint_deleteUserConnection = '$baseurl/DeleteUserConnection';
+  static const String endpoint_deleteUserConnection =
+      '$baseurl/DeleteUserConnection';
   static const String endpoint_updateAcc = '$baseurl/updateAcc';
   static const String endpoint_media = '$baseurl/media';
   static const String endpoint_faqs = '$baseurl/faqs';
   static const String endpoint_changeStatus = '$baseurl/changeStatus';
   static const String endpoint_user = '$baseurl/user';
   static const String endpoint_deleteAcc = '$baseurl/deleteAcc';
-  static const String endpoint_forgetPassword = '$baseurl/forget/password/email';
+  static const String endpoint_forgetPassword =
+      '$baseurl/forget/password/email';
   static const String endpoint_checkCode = '$baseurl/checkcode';
   static const String endpoint_resetPassword = '$baseurl/reset/password';
+  static const String endpoint_reposition = '$baseurl/reposition';
 }

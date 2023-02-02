@@ -1,6 +1,8 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:switch_app/view/profile/presentation/widgets/app_profile_item.dart';
+
 import '../controller/profile_cubit.dart';
 
 class ListOfAppsWidget extends StatelessWidget {
@@ -11,28 +13,27 @@ class ListOfAppsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final profileCubit = ProfileCubit.of(context);
-    profileCubit.listOfAllApps.addAll(profileCubit.appDetailsModel!
-        .accounts!);
+    profileCubit.listOfAllApps.addAll(profileCubit.appDetailsModel!.accounts!);
     return Expanded(
       child: ReorderableListView.builder(
-        itemCount: profileCubit.appDetailsModel!
-            .accounts!.length,
+        itemCount: profileCubit.appDetailsModel!.accounts!.length,
         proxyDecorator: proxyDecorator,
         onReorder: (oldIndex, newIndex) {
           if (newIndex > oldIndex) newIndex--;
-          final item = profileCubit.appDetailsModel!
-              .accounts!.removeAt(oldIndex);
-          profileCubit.appDetailsModel!
-              .accounts!.insert(newIndex, item);
+          final item =
+              profileCubit.appDetailsModel!.accounts!.removeAt(oldIndex);
+          profileCubit.appDetailsModel!.accounts!.insert(newIndex, item);
           profileCubit.listOfAllApps.clear();
-          profileCubit.listOfAllApps.addAll(profileCubit.appDetailsModel!
-              .accounts!);
+          profileCubit.listOfAllApps
+              .addAll(profileCubit.appDetailsModel!.accounts!);
+          profileCubit.repositionApps(
+              profileCubit.listOfAllApps[oldIndex].id.toString(),
+              profileCubit.listOfAllApps[newIndex].id.toString());
         },
         itemBuilder: (context, index) {
           return AppProfileItem(
             key: Key("$index"),
-            applicationsData: profileCubit.appDetailsModel!
-                .accounts![index],
+            applicationsData: profileCubit.appDetailsModel!.accounts![index],
             index: index,
             profileCubit: profileCubit,
           );

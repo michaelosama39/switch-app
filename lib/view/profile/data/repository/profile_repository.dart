@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:switch_app/core/error/failure.dart';
 import 'package:switch_app/core/models/msg_model.dart';
+
 import '../../../../core/error/exception.dart';
 import '../../../Profile/data/model/app_details_model.dart';
 import '../../domain/repository/base_profle_repository.dart';
@@ -25,8 +26,8 @@ class ProfileRepository extends BaseProfileRepository {
   Future<Either<Failure, MsgModel>> editAppDetails(
       int appId, String title, String url) async {
     try {
-      final res = await baseProfileRemoteDatasource.editAppDetails(
-          appId, title, url);
+      final res =
+          await baseProfileRemoteDatasource.editAppDetails(appId, title, url);
       return Right(res);
     } on ServerException catch (e) {
       return Left(ServerFailure(e.errorMessageModel.message));
@@ -46,10 +47,20 @@ class ProfileRepository extends BaseProfileRepository {
   }
 
   @override
-  Future<Either<Failure, MsgModel>> deleteApp(int appId) async{
+  Future<Either<Failure, MsgModel>> deleteApp(int appId) async {
     try {
-      final res =
-          await baseProfileRemoteDatasource.deleteApp(appId);
+      final res = await baseProfileRemoteDatasource.deleteApp(appId);
+      return Right(res);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.errorMessageModel.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, MsgModel>> repositionApps(
+      String acc1, String acc2) async {
+    try {
+      final res = await baseProfileRemoteDatasource.repositionApps(acc1, acc2);
       return Right(res);
     } on ServerException catch (e) {
       return Left(ServerFailure(e.errorMessageModel.message));

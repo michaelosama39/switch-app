@@ -4,16 +4,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:switch_app/core/router/router.dart';
 import 'package:switch_app/core/utils/app_colors.dart';
 import 'package:switch_app/localization/language_constants.dart';
-import 'package:switch_app/view/addLinks/presentation/controller/add_links_cubit.dart';
 import 'package:switch_app/view/editProfile/presentation/controller/edit_profile_cubit.dart';
 import 'package:switch_app/view/profile/presentation/controller/profile_cubit.dart';
 import 'package:switch_app/view/profile/presentation/widgets/profile_appbar.dart';
 import 'package:switch_app/view/profile/presentation/widgets/profile_card.dart';
 import 'package:switch_app/widgets/loading_indicator.dart';
 import 'package:switch_app/widgets/space_height.dart';
+
 import '../../../../core/utils/app_sizes.dart';
 import '../../../addLinks/presentation/screens/add_links_screen.dart';
-import '../../../viewProfile/presentation/controller/view_profile_cubit.dart';
 import 'empty_list_apps_widget.dart';
 import 'list_of_apps_widget.dart';
 
@@ -114,17 +113,17 @@ class ProfileBody extends StatelessWidget {
               BlocBuilder<ProfileCubit, ProfileState>(
                 buildWhen: (previous, current) =>
                     current is ShowAppDetailsLoaded ||
-                    current is DeleteAppStateLoaded,
+                    current is DeleteAppStateLoaded ||
+                    current is RepositionAppsLoaded,
                 builder: (context, state) {
                   if (state is ShowAppDetailsLoaded) {
-                    return ProfileCubit.of(context).appDetailsModel!.accounts ==
-                            null
+                    return ProfileCubit.of(context).appDetailsModel == null
                         ? EmptyListAppsWidget()
                         : ListOfAppsWidget();
                   } else if (state is ShowAppDetailsLoading) {
                     return LoadingIndicator();
                   } else {
-                    return EmptyListAppsWidget();
+                    return SizedBox();
                   }
                 },
               ),
